@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>商品削除</title>
+		<link rel="stylesheet" href="css/back.css">
+
 	</head>
 	<body>
 		<?php
@@ -14,7 +16,7 @@
 
 			try
 			{
-				$pro_id=$_GET['id'];
+				$pro_ID=$_GET['id'];
 
 				$db = new PDO($dsn, $dbUser, $dbPass);
 				$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
@@ -22,7 +24,7 @@
 
 				$sql='SELECT * FROM keihindata WHERE ID = :ID';
 				$stmt=$db->prepare($sql);
-				$stmt->bindValue(':ID', $pro_id, PDO::PARAM_INT);
+				$stmt->bindValue(':ID', $pro_ID, PDO::PARAM_INT);
 				$stmt->execute();
 
 				$rec=$stmt->fetch(PDO::FETCH_ASSOC);
@@ -31,13 +33,13 @@
 
 				if($rec==false)
 				{
-					print '景品IDが正しくありません';
-					print '<br /><a href="back.php">戻る</a>';
-					print '<br />';
+					print '<center>景品IDが正しくありません<form method="get" action="back.php">';
+					print '<input type="submit" value="戻る" style="width:60px;height:35px">';
+					print '</form></center>';
 					exit();
 				}
 
-				$_SESSION['id'] = "$pro_id";
+				$_SESSION['ID'] = "$pro_ID";
 
 				//画像
 				if($rec['画像']=='')
@@ -46,7 +48,7 @@
 				}
 				else
 				{
-					$disp_gazou='<img src="./gazou/'.$rec['画像'].'">';
+					$disp_gazou='<img src="./keihin_gazou/'.$rec['画像'].'">';
 				}
 			}
 			catch(Exception $e)
@@ -56,32 +58,50 @@
 			}
 		?>
 
-		景品削除<br />
-		<br />
-		ID<br />
-		<?php print h($rec['ID']); ?><br />
-		景品名<br />
-		<?php print h($rec['景品名']); ?><br />
-		ジャンル<br />
-		<?php print h($rec['ジャンル']); ?><br />
-		作品名<br />
-		<?php print h($rec['作品名']); ?><br />
-		詳細<br />
-		<?php print h($rec['詳細']); ?><br />
-		店舗<br />
-		<?php print h($rec['店舗']); ?><br />
-		在庫<br />
-		<?php print h($rec['在庫']); ?><br />
-		画像<br />
-		<?php print $disp_gazou; ?><br />
-		<br />
-		この景品を削除してよろしいですか？<br />
-		<br />
+		<center><table border="1">
+				<tr><td><center>景品ID</center></td><td style="width:600px"><?php
+				print h($rec['ID']);?></td></tr>
 
-		<form method="post" action="sakujo_done.php">
-		<input type="button" onclick="history.back()" value="戻る">
-		<input type="submit" value="ＯＫ">
+				<tr><td><center>景品名</center></td><td style="width:600px"><?php
+				print h($rec['景品名']);?></td></tr>
+
+<tr><td><center>ジャンル</center></td><td style="width:600px"><?php
+					print h($rec['ジャンル']);?></td></tr>
+
+<tr><td><center>作品名</center></td><td style="width:600px"><?php
+					print h($rec['作品名']);?></td></tr>
+
+<tr><td><center>詳細</center></td><td style="width:600px"><?php
+					print h($rec['詳細']);?></td></tr>
+
+<tr><td><center>店舗</center></td><td style="width:600px"><?php
+					print h($rec['店舗']);?></td></tr>
+
+<tr><td><center>在庫</center></td><td style="width:600px"><?php
+					 print h($rec['在庫']);?></td></tr>
+
+<tr><td><center>イメージ画像</center></td><td style="width:600px"><center><?php
+					
+					print $disp_gazou;?></center></td></tr>
+					</table>
+
+
+		<form method="post" action="sakujo_done.php" onsubmit="return submitChk()">
+		<input type="button" onclick="history.back()" value="戻る"style="width:60px;height:35px">
+		<input type="submit" value="削除"style="width:60px;height:35px">
 		</form>
+		
+<script>
+    /**
+     * 確認ダイアログの返り値によりフォーム送信
+    */
+    function submitChk () {
+        /* 確認ダイアログ表示 */
+        var flag = confirm ( "削除してもよろしいですか？\n削除しない場合は[キャンセル]ボタンを押して下さい");
+        /* send_flg が TRUEなら送信、FALSEなら送信しない */
+        return flag;
+    }
+</script>
 
 	</body>
 </html>

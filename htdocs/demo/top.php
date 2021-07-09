@@ -13,7 +13,7 @@
 				?><center>
 				<kei1>ゲームセンター景品検索</kei1><br><br></center>
 <?php
-				print '<input type="submit" value="バックヤード" class="right"></form>';
+				print '<input type="submit" value="バックヤード"></form>';
 
 
 				print '<br />';
@@ -51,7 +51,8 @@
 				print '<form method="get" action="kensakukei.php">景品名で検索';
 				print '<input type="text" style="width: 192px;" name="keiname">';?></td><td><?php
 				print '<input type="submit" value="検索" style="width:60px;height:35px"></form>';
-				?></td></tr>
+				?></td></tr><tr><td colspan="2">
+				未入力検索ですべての景品を表示</td></tr>
 
 				</table><?php
 

@@ -25,7 +25,7 @@
 
 				$db=null;
 
-				print '<kei1>検索結果</kei1><br /><br />';
+				print '<kei1>検索結果</kei1>';
 
                 $kazu='';
 
@@ -37,9 +37,9 @@
 					$star='';
 			
 				}
-				print '<br/>';
+				print '<br/><br>';
 
-				print '【';
+				print '<font size="6%">【';
 					print $star.'】ジャンルで検索';
 					print '<br/>';
 				

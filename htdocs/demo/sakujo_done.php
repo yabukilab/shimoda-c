@@ -3,15 +3,18 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>商品削除</title>
+		<link rel="stylesheet" href="css/back.css">
+
 	</head>
 	<body>
+	<center>
 		<?php
 			require_once '_database_conf.php';
 			require_once '_h.php';
 
 			session_start();
-			if (isset($_SESSION['id'])) {
-				$pro_ID=$_SESSION['id'];
+			if (isset($_SESSION['ID'])) {
+				$pro_ID=$_SESSION['ID'];
 			}
 			else{
 				print'商品コードが受信できません。';
@@ -33,7 +36,7 @@
 
 				$db=null;
 
-				print '削除しました。<br />';
+				print '削除しました<br />';
 
 			}
 			catch(Exception$e)
@@ -42,6 +45,9 @@
 	 			exit();
 			}
 		?>
-		<a href="back.php">戻る</a>
+		<form method="get" action="back.php">
+		<br /><input type="submit" value="戻る" style="width:60px;height:35px">
+		</form>
+		</center>
 	</body>
 </html>

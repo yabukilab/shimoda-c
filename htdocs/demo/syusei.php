@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>景品修正</title>
+		<link rel="stylesheet" href="css/back.css">
+
 	</head>
 	<body>
 	<?php require_once '_database_conf.php';
@@ -30,9 +32,9 @@
 				$dbh=null;
 				if($rec==false)
 				{
-					print '景品IDが正しくありません';
-					print '<br /><a href="back.php">戻る</a>';
-					print '<br />';
+					print '<center>景品IDが正しくありません<form method="get" action="back.php">';
+					print '<input type="submit" value="戻る" style="width:60px;height:35px">';
+					print '</form></center>';
 					exit();
 				}
 				$pro_id = $rec['ID'];
@@ -42,6 +44,9 @@
 				$pro_syousai = $rec['詳細'];
 				$pro_tenpo = $rec['店舗'];
 				$pro_zaiko = $rec['在庫'];
+				$pro_jpg ='<img src="./keihin_gazou/'.$rec['画像'].'">';
+				$pro_png =$rec['画像'];
+
 				if($rec['画像']=='')
 				{
 					$disp_gazou='';
@@ -56,29 +61,36 @@
 				echo 'エラーが発生しました。内容: ' . h($e->getMessage());
 	 			exit();
 			}
-		?>
 
-		景品修正<br />
+		?>
+<center>
+		<kei1>景品修正</kei1><br /><br />
 		<form method="post" action="syusei_check.php"enctype="multipart/form-data">
 		ID<br />
-		<input type="text" name="id" style="width:100px" value="<?php print $pro_id; ?>"><br />
+		<input2><?php print '　';print $pro_id; print '　';?></input2><br />
 		景品名<br />
-		<input type="text" name="kei" style="width:450px" value="<?php print $pro_kei; ?>"><br />
-		ジャンル<br/>
-		<?php pulldown_star();?><br />
+		<input1><input type="text" name="kei" style="width:300px;height:20px" value="<?php print $pro_kei; ?>"></input1><br />
+		ジャンルを選択<br/>
+		登録済みのジャンル:<?php print h($pro_janru); ?><br>
+		<input1><?php pulldown_star();?></input1><br />
 		作品名<br/>
-		<input type="text" name="sakuhin" style="width:150px" value="<?php print $pro_sakuhin; ?>"><br />
+		<input1><input type="text" name="sakuhin" style="width:300px;height:20px" value="<?php print $pro_sakuhin; ?>"></input1><br />
 		詳細<br/>
-		<input type="text" name="syousai" style="width:400px" value="<?php print $pro_syousai; ?>"><br />
+		<input1><textarea type="text" name="syousai" cols="40" rows="5"><?php print $pro_syousai; ?></textarea></input1><br />
 		店舗<br/>
-		<input type="text" name="tenpo" style="width:150px" value="<?php print $pro_tenpo; ?>"><br />
+		<input1><input type="text" name="tenpo" style="width:300px;height:20px" value="<?php print $pro_tenpo; ?>"></input1><br />
         在庫<br/>
-		<input type="text" name="zaiko" style="width:100px" value="<?php print $pro_zaiko; ?>"><br />
+		<input1><input type="text" name="zaiko" style="width:300px;height:20px" value="<?php print $pro_zaiko; ?>"></input1><br />
 		画像<br/>
-		<input type="file" name="gazou" style="width:400px" value="<?php print $pro_gazou; ?>"><br />
+		<?php print $pro_jpg; ?><br>
+		<input name="png" value="<?php print $pro_png; ?>"><br>
+		画像を選択<br />
+		<input type="file" name="gazou" style="width:300px;height:30px" value="<?php print $pro_gazou; ?>"><br />
 		<br />
-		<input type="button" onclick="history.back()" value="戻る">
-		<input type="submit" value="ＯＫ">
+		<input type="button" onclick="history.back()" value="戻る"style="width:60px;height:35px">
+		<input type="submit" value="ＯＫ"style="width:60px;height:35px">
+		<?php		$_SESSION['id'] = "$pro_id"; ?>
+
 		</form>
 
 	</body>

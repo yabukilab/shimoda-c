@@ -1,0 +1,64 @@
+
+kei1{
+ background-color:#22D8AD;
+ width:100%;
+ font-size:200%;
+ color:#ffffff;
+ padding:15px;
+ 
+}
+
+body{
+background-color:#FFEBEB;}
+
+table td {
+  word-break : break-all;
+}
+
+
+
+
+kei2{
+background-color:#ff0700;}
+
+back1{
+background-color:#22D8AD;
+font-size:200%;
+}
+
+text1{
+background-color:#00B0F0;
+}
+
+input1 
+{outline-style:solid;
+outline-width:3px;
+outline-color:red;
+bgcolor:#ff0705;}
+
+input1{
+background-color:#ff0705;}
+
+check1{
+font-size:20px;
+border-bottom:solid;
+border-color:#FF0000;
+border-width:200%;
+}
+
+check2{
+font-size:30px;}
+
+
+check3{
+font-size:25px;
+border-bottom:solid;
+border-width:200%;
+border:double;
+}
+
+botan{
+style="width:150px;height:50px";
+font-size:25px;}
+
+

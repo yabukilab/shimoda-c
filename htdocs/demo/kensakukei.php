@@ -24,7 +24,7 @@
 
 				$db=null;
 
-				print '<kei1>検索結果</kei1><br /><br />';
+				print '<kei3>検索結果</kei3><br />';
 
 
 	
@@ -37,10 +37,12 @@
 				}
 				print '<br/>';
 
-				print '【';
+				print '<font size="6%">【';
 					print $keiname.'】を含む景品';
+					print '<br/>';			
 					print '<br/>';
-				
+					
+					
 					?>
 					<table border="1">
 					<tr align="center">

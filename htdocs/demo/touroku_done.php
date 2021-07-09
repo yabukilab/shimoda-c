@@ -7,6 +7,7 @@
 
 	</head>
 	<body>
+	<center>
 		<?php
 			require_once '_database_conf.php';
 			require_once '_h.php';
@@ -100,31 +101,8 @@
 
 				$db=null;
 
-				print 'ID：';
-                print h($pro_id);
-                print '<br />';
-                print '景品名：';
-				print h($pro_kei);
-                print '<br />';
-                print 'ジャンル：';
-				print h($pro_janru);
-                print '<br />';
-                print '作品名：';
-                print h($pro_sakuhin);
-                print '<br />';
-                print '詳細：';
-                print h($pro_syousai);
-                print '<br />';
-                print '店舗：';
-                print h($pro_tenpo);
-                print '<br />';
-                print '在庫：';
-                print h($pro_zaiko);
-                print '<br />';
-                print '画像：';
-				print h($pro_gazou);
-                print '<br />';
-				print 'を追加しました。<br />';
+			
+				print '追加しました';
 
 			}
 			catch(Exception$e)
@@ -133,6 +111,9 @@
 	 			exit();
 			}
 		?>
-		<a href="back.php">戻る</a>
+			<form method="get" action="back.php">
+			<input type="submit" value="戻る" style="width:60px;height:35px">
+			</form>
+</center>
 	</body>
 </html>

@@ -3,6 +3,8 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>景品詳細</title>
+		<link rel="stylesheet" href="css/back.css">
+
 	</head>
 	<body>
 
@@ -41,35 +43,34 @@
 				}
 
 
-				print '景品詳細<br /><br />';
 
 				
-					print '景品ID：';
-					print h($rec['ID']);
-					print '<br />';
-					print '景品名：';
-					print h($rec['景品名']);
-					print '<br />';
-					print 'ジャンル：';
-					print h($rec['ジャンル']);
-					print '<br />';
-					print '作品名：';
-					print h($rec['作品名']);
-					print '<br />';
-					print '詳細：';
-					print h($rec['詳細']);
-					print '<br />';
-					print '店舗：';
-					print h($rec['店舗']);
-					print '<br />';
-					print '在庫：';
-					print h($rec['在庫']);
-					print '<br />';
-					print '画像：';
-					print '<br />';
-					print $disp_gazou;
-					print '<br />';
-					print '<br />';
+				?><center><table border="1">
+				<tr><td><center>景品ID</center></td><td style="width:600px"><?php
+				print h($rec['ID']);?></td></tr>
+
+				<tr><td><center>景品名</center></td><td style="width:600px"><?php
+				print h($rec['景品名']);?></td></tr>
+
+<tr><td><center>ジャンル</center></td><td style="width:600px"><?php
+					print h($rec['ジャンル']);?></td></tr>
+
+<tr><td><center>作品名</center></td><td style="width:600px"><?php
+					print h($rec['作品名']);?></td></tr>
+
+<tr><td><center>詳細</center></td><td style="width:600px"><?php
+					print h($rec['詳細']);?></td></tr>
+
+<tr><td><center>店舗</center></td><td style="width:600px"><?php
+					print h($rec['店舗']);?></td></tr>
+
+<tr><td><center>在庫</center></td><td style="width:600px"><?php
+					 print h($rec['在庫']);?></td></tr>
+
+<tr><td><center>イメージ画像</center></td><td style="width:600px"><center><?php
+					
+					print $disp_gazou;?></center></td></tr>
+					</table><?php
 
 
 					print '<br />';

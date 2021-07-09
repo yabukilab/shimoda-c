@@ -17,27 +17,33 @@ kei3{
  
 }
 
-table{
-font-size:25px;
-background-color:#FFD1D1;}
 
+
+table td {
+  word-break : break-all;
+}
 
 kei4{
-background-color:#ff3f3f;
-width:100%;
-fonnt-size:120%;
-color:#ffffff;
-padding15px;
+ background-color:#FF3F3F;
+ width:100%;
+ font-size:150%;
+ color:#ffffff;
+ padding:15px;
+ 
 }
 
-right {
-    margin-left: auto;
+kei5{
+font-size:30px;
 }
+
+div#right{
+text-align: right;}
 
 body{
 background-color:#FFEBEB;}
 
-table{font-size:20px;}
+table{font-size:20px;
+background-color:#FFD1D1;}
 
 hyou1{
 font-size:15pt;

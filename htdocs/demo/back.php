@@ -46,11 +46,11 @@
 	
 <table border="1">
 <tr align="center">
-<td width="150">ID</td>
+<td width="120">ID</td>
 <td width="400">景品名</td>
 <td width="250">ジャンル</td>
 <td width="250">作品名</td>
-<td width="250">店舗</td>
+<td width="300">店舗</td>
 <td width="50">在庫</td>
 </tr>
 
@@ -64,12 +64,12 @@
 					}
 					?>
 					<tr>
-					<td width="150"><?php print h($rec['ID']);?></td>
+					<td width="120"><?php print h($rec['ID']);?></td>
 					<td width="400"><a href="keihin_all.php?keihin_ID=<?php print h($rec['ID']);?>"><?php print h($rec['景品名']);?></a></td>
 					<td width="250"><?php print h($rec['ジャンル']);?></td>
 					<td width="250"><?php print h($rec['作品名']);?></td>
 					<td width="250"><?php print h($rec['店舗']);?></td>
-					<td width="50"><?php print h($rec['在庫']);?></td>
+					<td width="50"><center><?php print h($rec['在庫']);?></center></td>
 					</tr>
 					<?php
 

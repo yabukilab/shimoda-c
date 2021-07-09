@@ -3,8 +3,10 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>DB登録</title>
+		<link rel="stylesheet" href="css/back.css">
 	</head>
 	<body>
+	<center>
 		<?php
 			require_once '_database_conf.php';
 			require_once '_h.php';
@@ -99,7 +101,7 @@
 
 				$db=null;
 
-				print '修正しました。<br />';
+				print '修正しました';
 
 			}
 			catch(Exception$e)
@@ -108,6 +110,9 @@
 	 			exit();
 			}
 		?>
-		<a href="back.php">戻る</a>
+		<form method="get" action="back.php">
+		<input type="submit" value="戻る" style="width:60px;height:35px">
+		</form>
+		</center>
 	</body>
 </html>

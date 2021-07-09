@@ -1,5 +1,11 @@
-/*ウィンドウ背景色の設定*/
-
+kei1{
+ background-color:#FF3F3F;
+ width:100%;
+ font-size:200%;
+ color:#ffffff;
+ padding:15px;
+ 
+}
 
 kei3{
 background-color:#FF3F3F;
@@ -8,10 +14,7 @@ color:#ffffff;
 }
 
 kei4{
-background-color:#FF3F3F;
-width:100%;
-font-size:120%;
-color:#ffffff;
+font-size:180%;
 }
 
 body{

@@ -28,8 +28,8 @@
 <center>
 		<?php
 
-				print '<kei1>シルクハット津田沼</kei1><br/>';
-				print '<kei4>千葉県習志野市津田沼1丁目2-1 十三ビル 地下1F</kei4><br/><br/>';
+				print '<kei1>シルクハット津田沼</kei1><br/><br/>';
+				print '千葉県習志野市津田沼1丁目2-1 十三ビル 地下1F<br/><br/>';
 
 				print '<font size="5pt">景品一覧<br/>';
 
