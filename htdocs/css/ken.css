@@ -1,0 +1,90 @@
+kei1{
+ background-color:#FF3F3F;
+ width:100%;
+ font-size:200%;
+ color:#ffffff;
+ padding:15px;
+ 
+}
+
+kei3{
+background-color:#FF3F3F;
+font-size:180%;
+color:#ffffff;
+}
+
+kei4{
+font-size:180%;
+}
+
+body{
+background-color:#FFEBEB;}
+
+table{
+font-size:25px;
+background-color:#FFD1D1;}
+
+hyou1{
+font-size:15pt;
+bgcolor:#22D8AD;}
+
+kei2{
+background-color:#ff0700;}
+
+back1{
+background-color:#22D8AD;
+font-size:200%;
+}
+
+text1{
+background-color:#00B0F0;
+}
+
+input1 
+{outline-style:solid;
+outline-width:3px;
+outline-color:red;
+background-color:#ff0705;}
+
+input1{
+background-color:#ff0705;}
+
+check1{
+font-size:20px;
+border-bottom:solid;
+border-color:#FF0000;
+border-width:200%;
+}
+
+check2{
+font-size:20px;}
+
+textarea{
+background-color:#bde9ba;
+}
+
+
+
+botan{
+style="width:100px;height:50px";}
+
+
+.button {
+  display:inline-block;
+  border-radius:20%;/* 角丸 */
+  font-size:32pt;/* 文字サイズ*/
+  text-align: center;/*文字位置*/
+  cursor:pointer;/*カーソル*/
+  padding: 21px 32px;/* 余白*/
+  background:#66ff66;/* 背景色     */
+  color:#e70000;/* 文字色     */
+  line-height:1em;/* 1行の高さ  */
+  transition:.3s;/* なめらか変化 */
+  box-shadow: 8px 8px 3px #666666;  /* 影の設定 */
+  border:2px solid #66ff66;    /* 枠の指定 */
+}
+.button:hover {
+  box-shadow    : none;        /* カーソル時の影消去 */
+  color         : #66ff66;     /* 背景色     */
+  background    : #e70000;     /* 文字色     */
+}
