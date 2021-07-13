@@ -28,18 +28,18 @@
 		?>
 		<center>
 <table border="0"><tr>
-			<td></td><td><form method="GET" action="touroku.php"><input type="submit" value="景品の登録"style="width:100px;height:40px"></form></td>
+			<td></td><td></td><td><form method="GET" action="touroku.php"><input type="submit" value="景品の登録"style="width:100px;height:40px"></form></td>
 </tr><tr>
-			<td><form method="GET" action="eturan.php"><input type="text" name="id" style="width:60px"></td>
+<td>ID:</td><td><form method="GET" action="eturan.php"><input type="text" name="id" style="width:60px"></td>
 			<td><input type="submit" value="景品の閲覧"style="width:100px;height:40px"></form></td>
 </tr><tr>
-			<td><form method="GET" action="syusei.php"><input type="text" name="id" style="width:60px"></td>
+<td>ID:</td><td><form method="GET" action="syusei.php"><input type="text" name="id" style="width:60px"></td>
 			<td><input type="submit" value="景品の修正"style="width:100px;height:40px"></form></td>
 </tr><tr>
-			<td><form method="GET" action="sakujo.php"><input type="text" name="id" style="width:60px"></td>
+<td>ID:</td><td><form method="GET" action="sakujo.php"><input type="text" name="id" style="width:60px"></td>
 			<td><input type="submit" value="景品の削除"style="width:100px;height:40px"></form></td>
 </tr><tr>
-			<td></td><td><form method="GET" action="top.php"><input type="submit" value="TOPへ"style="width:100px;height:40px"></form></td>
+<td></td><td></td><td><form method="GET" action="top.php"><input type="submit" value="TOPへ"style="width:100px;height:40px"></form></td>
 </tr></table>
 				
 		<br>

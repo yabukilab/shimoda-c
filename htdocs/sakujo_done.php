@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>商品削除</title>
+		<title>削除終了</title>
 		<link rel="stylesheet" href="css/back.css">
 
 	</head>
@@ -46,7 +46,7 @@
 			}
 		?>
 		<form method="get" action="back.php">
-		<br /><input type="submit" value="戻る" style="width:60px;height:35px">
+		<br /><input type="submit" value="完了" style="width:60px;height:35px">
 		</form>
 		</center>
 	</body>

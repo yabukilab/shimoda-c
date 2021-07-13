@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>DB登録</title>
+		<title>修正終了</title>
 		<link rel="stylesheet" href="css/back.css">
 	</head>
 	<body>
@@ -111,7 +111,7 @@
 			}
 		?>
 		<form method="get" action="back.php">
-		<input type="submit" value="戻る" style="width:60px;height:35px">
+		<input type="submit" value="完了" style="width:60px;height:35px">
 		</form>
 		</center>
 	</body>
