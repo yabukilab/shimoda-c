@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>入力内容チェック</title>
+		<title>登録確認</title>
 		<link rel="stylesheet" href="css/check.css">
 
 	</head>
@@ -59,6 +59,7 @@
 				
 				print '<check1>　IDが入力されていません　</check1><br />';
 			}
+			else{
 			while(true)
 			{
 			$rec=$prepare->fetch(PDO::FETCH_ASSOC);
@@ -73,7 +74,8 @@
 				print '<check1>　重複しているIDです　<br>　IDを変更してください　</check1><br>';
 				$pro_idc = '';
 			}
-		}
+
+		}}
 			
 			
 ?></center></td></tr><tr><td><center>　</cneter></td></tr><tr><td style="width:500px"><center><?php
@@ -176,10 +178,15 @@
 					print '<br />';
 				}
 			}
-			if($pro_kei==''||$pro_id==''||$pro_janru==''||$pro_tenpo==''||$pro_idc=='')
+			if($pro_idc=='')
+			{
+				print '<br><check3>　IDが重複しています　</check3><br><br>';
+				print '<input type="button" onclick="history.back()" value="戻る" style="width:60px;height:35px">';
+			}
+			elseif($pro_kei==''||$pro_id==''||$pro_janru==''||$pro_tenpo=='')
 				{
 					 
-					 print '<br /><check3>　IDが重複または,ID,景品名,ジャンル,店舗が未入力です　</check3><br /><br />';
+					 print '<br /><check3>　ID,景品名,ジャンル,店舗が未入力です　</check3><br /><br />';
 					 print '<input type="button" onclick="history.back()" value="戻る" style="width:60px;height:35px">';
 
 					}

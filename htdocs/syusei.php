@@ -45,7 +45,6 @@
 				$pro_tenpo = $rec['店舗'];
 				$pro_zaiko = $rec['在庫'];
 				$pro_jpg ='<img src="./keihin_gazou/'.$rec['画像'].'">';
-				$pro_png =$rec['画像'];
 
 				if($rec['画像']=='')
 				{
@@ -83,8 +82,7 @@
 		<input1><input type="text" name="zaiko" style="width:300px;height:20px" value="<?php print $pro_zaiko; ?>"></input1><br />
 		画像<br/>
 		<?php print $pro_jpg; ?><br>
-		<input name="png" value="<?php print $pro_png; ?>"><br>
-		画像を選択<br />
+		<input2>　画像を再選択してください　</input2><br><br>
 		<input type="file" name="gazou" style="width:300px;height:30px" value="<?php print $pro_gazou; ?>"><br />
 		<br />
 		<input type="button" onclick="history.back()" value="戻る"style="width:60px;height:35px">

@@ -2,7 +2,7 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>入力内容チェック</title>
+		<title>修正確認</title>
 		<link rel="stylesheet" href="css/check.css">
 	</head>
 	<body>
@@ -23,7 +23,6 @@
 			$pro_tenpo=$_POST['tenpo'];
 			$pro_zaiko=$_POST['zaiko'];
 			$pro_gazou=$_FILES['gazou'];
-			$pro_png=$_POST['png'];
 			
 			//最大画像サイズ
 			$max_size=4*1024*1024;//4MB
@@ -162,9 +161,8 @@
 			}
 			else
 			{
-				print '上記の内容に修正します。<br />';
+				print '<br><check3>上記の内容に修正します</check3><br />';
 				print '<br />';
-				echo $pro_png;
 				
 
 
