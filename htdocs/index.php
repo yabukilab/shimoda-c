@@ -2,70 +2,71 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>商品一覧</title>
+		<title>トップ</title>
+		<link rel="stylesheet" href="css/home.css">
 	</head>
 	<body>
+
 		<?php
-			require_once '_database_conf.php';
-			require_once '_h.php';
-			try
-			{
-				$db = new PDO($dsn, $dbUser, $dbPass);
-				$db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-				$db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-				$sql='SELECT * FROM mst_product';
-//				$sql='SELECT code,name,price FROM mst_product WHERE price > 100';
-//				$sql='SELECT code,name,price FROM mst_product ORDER BY price DESC';
-				$prepare=$db->prepare($sql);
-				$prepare->execute();
-
-				$db=null;
-
-				print '商品一覧<br /><br />';
-
-				while(true)
-				{
-					$rec=$prepare->fetch(PDO::FETCH_ASSOC);
-					if($rec==false)
-					{
-						break;
-					}
-					print h($rec['code']).' ';
-					print h($rec['name']).' ';
-					print h($rec['price']);
-					print '<br />';
-				}
-
-				print '<br />';
-				print '<a href="add.php">商品入力</a><br />';
-
-				print '<br />';
-				print '<form method="get" action="disp.php">';
-				print '商品表示：番号';
-				print '<input type="text" name="procode" style="width:20px">';
-				print '<input type="submit" value="決定">';
+	
+				print '<form method="get" action="login.php">';
+				print '<input type="submit" value="バックヤード"><br>';
+				?><center>
+				<kei1>ゲームセンター景品検索</kei1><br><br></center>
+<?php
 				print '</form>';
 
-				print '<br />';
-				print '<form method="get" action="edit.php">';
-				print '商品修正：番号';
-				print '<input type="text" name="procode" style="width:20px">';
-				print '<input type="submit" value="決定">';
-				print '</form>';
 
 				print '<br />';
-				print '<form method="get" action="delete.php">';
-				print '商品削除：番号';
-				print '<input type="text" name="procode" style="width:20px">';
-				print '<input type="submit" value="決定">';
-				print '</form>';
-			}
-			catch (Exception $e)
-			{
-				echo 'エラーが発生しました。内容: ' . h($e->getMessage());
-	 			exit();
-			}
-		?>
+
+				print '<br /><center>';
+
+
+				require_once '_database_conf.php';
+				require_once '_h.php';
+				//プルダウンメニュー
+				require_once '_common.php';
+				
+				
+				print '<br/>景品のジャンル・作品名から探す';
+				
+				?><table>
+				<tr>
+				<td><?php
+
+				print '<form method="get" action="kensakuja.php">ジャンルで検索';
+				pulldown_star();
+				?></td><td><?php
+				print '<input type="submit" value="検索" style="width:60px;height:35px"></form>';
+				?></td></tr><tr><td><?php
+				
+				
+				
+				
+				print '<form method="get" action="kensakusaku.php">作品名で検索';
+				print '<input type="text" style="width: 192px;" name="sakuname">';?></td><td><?php
+				print '<input type="submit" value="検索" style="width:60px;height:35px"></form>';
+				?></td></tr><tr><td><?php
+
+
+				print '<form method="get" action="kensakukei.php">景品名で検索';
+				print '<input type="text" style="width: 192px;" name="keiname">';?></td><td><?php
+				print '<input type="submit" value="検索" style="width:60px;height:35px"></form>';
+				?></td></tr><tr><td colspan="2">
+				未入力検索ですべての景品を表示</td></tr>
+
+				</table><?php
+
+
+
+                print '<br /><br />';
+				?>
+				
+                最寄駅から探す<br>
+
+
+				<a href="tenpo.php" class="btn-square-slant">津田沼</a>
+
+</center>
 	</body>
 </html>
