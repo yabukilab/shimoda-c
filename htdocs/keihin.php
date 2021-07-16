@@ -3,7 +3,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>景品詳細</title>
-		<link rel="stylesheet" href="css/home.css">
+		<link rel="stylesheet" href="css/keihin.css">
 	</head>
 	<body>
 
@@ -42,44 +42,36 @@
 				}
 
 
-				print '景品詳細<br /><br />';
-?>
-<table border="0"><tr>				
-<td><?php 	
-		print '景品名：';
-?></td><td><?php
-		print h($rec['景品名']);
 
-?></td></tr><tr><td><?php
-		print 'ジャンル：';
-?></td><td><?php	
-		print h($rec['ジャンル']);
+				
+?><center><table border="1">
+<tr><td><center>景品名</center></td><td style="width:600px"><center><check2><?php
+					print h($rec['景品名']);?></check2></center></td></tr>
 
-?></td></tr><tr><td><?php
-		print '作品名：';
-?></td><td><?php
-		print h($rec['作品名']);
-?></td></tr><tr><td><?php
-		print '詳細：';
-?></td><td><?php
-		print h($rec['詳細']);
-?></td></tr><tr><td><?php
-		print '店舗：';
-?></td><td><?php
-		print h($rec['店舗']);
-?></td></tr><tr><td><?php
-		print '在庫：';
-?></td><td><?php
-		print h($rec['在庫']);
-?></td></tr><tr><td><?php
-		print '画像：';
-?></td><td><?php
-		print $disp_gazou;
-?></td></tr></table>
+<tr><td><center>ジャンル</center></td><td style="width:600px"><?php
+					print h($rec['ジャンル']);?></td></tr>
 
+<tr><td><center>作品名</center></td><td style="width:600px"><?php
+					print h($rec['作品名']);?></td></tr>
+
+<tr><td><center>詳細</center></td><td style="width:600px"><?php
+					print h($rec['詳細']);?></td></tr>
+
+<tr><td><center>店舗</center></td><td style="width:600px"><?php
+					print h($rec['店舗']);?></td></tr>
+
+<tr><td><center>在庫</center></td><td style="width:600px"><?php
+					 if($rec['在庫']>=10){print '在庫は複数残っています';
+					}if($rec['在庫']<10&&$rec['在庫']>0){print '在庫は残りわずかです';
+					}if($rec['在庫']<=0){ print '在庫は現在ありません';}?></td></tr>
+
+<tr><td><center>イメージ画像</center></td><td style="width:600px"><center><?php
+					
+					print $disp_gazou;?></center></td></tr>
+					</table>
+					
+					
 <?php
-
-
 			}
 			catch (Exception $e)
 			{
@@ -87,9 +79,13 @@
 	 			exit();
 			}
 		?>
+		<table border="0"><tr><td>
 		<form>
 		<input type="button" onclick="history.back()" value="戻る" style="width:60px;height:35px">
-		</form>
+		</form></td><td>
+		<form method="get" action="index.php">
+		<input type="submit" value="TOPへ" style="width:60px;height:35px">
+		</form></td></tr></table>
 	</body>
 </html>
 

@@ -54,6 +54,10 @@
 				print  h($pro_id);
 				print '</check2>';
 				print '<br />';
+				if($pro_id<10000000&&$pro_id>999999)
+				{
+
+				
 			if($pro_id=='')
 			{
 				
@@ -75,8 +79,10 @@
 				$pro_idc = '';
 			}
 
-		}}
-			
+		}}}
+			else{
+print'<check1>　IDの桁数が違います　</check1><br>';
+			}
 			
 ?></center></td></tr><tr><td><center>　</cneter></td></tr><tr><td style="width:500px"><center><?php
 
@@ -178,6 +184,8 @@
 					print '<br />';
 				}
 			}
+			if($pro_id<10000000&&$pro_id>999999)
+			{
 			if($pro_idc=='')
 			{
 				print '<br><check3>　IDが重複しています　</check3><br><br>';
@@ -193,7 +201,7 @@
 				else
 				{
 
-				print '<br/><check3>上記の内容を追加します</check3><br />';
+				print '<br/><check3>　上記の内容を追加します　</check3><br />';
 				print '<br />';
 
 				$_SESSION['id'] = "$pro_id";
@@ -212,6 +220,11 @@
 				}
 			
 			}
+			else{
+				print'<br><check3>　IDは7桁で登録してください　</check3><br><br>';
+				print '<input type="button" onclick="history.back()" value="戻る" style="width:60px;height:35px">';
+			}}
+
 			catch(Exception $e)
 			{
 				echo 'エラーが発生しました。内容: ' . h($e->getMessage());

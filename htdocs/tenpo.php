@@ -45,7 +45,7 @@
 			
 
 
-				print '<br/><form method="get" action="top.php">';
+				print '<br/><form method="get" action="index.php">';
 				print '<input type="submit" value="戻る" style="width:60px;height:35px">';
 				print '</form>';
 
