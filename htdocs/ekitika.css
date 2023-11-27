@@ -1,27 +1,119 @@
+@media only screen and (max-width: 800px) {
+  /* 小さな画面用にフォントサイズを調整 */
+  body {
+      font-size: 14px;
+  }
+
+nav {
+flex-direction: column;
+align-items: center;
+}
+
+nav a {
+margin: 1.0em;
+}
+}
+/*
+ヘッダーの編集
+*/
+.header {
+    width: 100%;
+    height: 50px;
+    position: fixed;
+  }
+  .navigation {
+    width: 100%;
+    height: 50px;
+    padding-top: 15px;
+    box-sizing: border-box;;
+    background-color:rgb(88, 135, 243);
+  }
+  .navigation ul {
+    display: flex;
+    list-style: none;
+    margin: 0;
+  }
+  .navigation li {
+    margin-right: auto;
+  }
+  .navigation a {
+    color:white;
+    text-decoration: none;
+    white-space:nowrap;
+  }
+  .kousai ul{
+    list-style: none;
+  }
+  
 /*
 タイトルのサイズ、カラー、中央揃え、上の余白をなくす
 */
-
-
-h1{
+  h1{
     font-size: 60px;
-    color: red;
+    color: white;
     text-align: center;
     margin: 0 auto;
 }
+/*
+店の見出しのところのカラー、サイズ、背景
+*/
 h2{
     background-color: rgb(239, 232, 232);
     color: green;
-    font-size: 25px;
+    font-size: 30px;
 }
+/*
+おすすめ度のカラー、サイズ
+*/
 h3{
-    background-color: rgb(239, 232, 232);
-    color: green;
+    color: blue;
     font-size: 25px;
 }
-h4{
-    background-color: rgb(239, 232, 232);
-    color: green;
-    font-size: 25px;
-}
+/*
+ここから表のそれぞれのセルの罫線の指定と色付け(行-列で表す)
+*/
+.example1 { 
+    border-collapse: collapse; 
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-top: none;
+} 
+.td-1-1{
+    border-top: none;
+    border-left: none;
+    border-right: none;
+    border-color:grey;
+    text-align: center;
 
+}
+.td-1-2{
+    border-left: none;
+    border-right: none;
+    border-top: none;
+    border-color: grey;
+}
+.td-2-1{
+    border-bottom: none;
+    border-left: none;
+    border-right: none;  
+    text-align: center;
+}
+.td-2-2{
+    border-bottom: none;
+    border-left: none;
+    border-right: none;   
+}
+.td-3-1,.td-4-1{
+    border-left: none;
+    border-right: none;
+    border-bottom: none;  
+    border-color: grey; 
+    text-align: center;
+}
+.td-3-2,.td-4-2{
+    border-bottom: none;
+    border-left: none;
+    border-right: none;
+    border-color: grey;   
+}
