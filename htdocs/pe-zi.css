@@ -79,48 +79,17 @@ h3{
 /*
 ここから表のそれぞれのセルの罫線の指定と色付け(行-列で表す)
 */
-.example1 { 
-    border-collapse: collapse; 
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-} 
-.td-1-1{
-    border-top: none;
-    border-left: none;
-    border-right: none;
-    border-color:grey;
-    text-align: center;
+.mawarikomi{
+  float: left;
+}
 
+.example1{
+  border-collapse: collapse; 
 }
-.td-1-2{
-    border-left: none;
-    border-right: none;
-    border-top: none;
-    border-color: grey;
+.td-1-1,.td-1-2,.td-2-1,.td-2-2,.td-3-1,.td-3-2{
+border-bottom: solid 1px ;
 }
-.td-2-1{
-    border-bottom: none;
-    border-left: none;
-    border-right: none;  
-    text-align: center;
-}
-.td-2-2{
-    border-bottom: none;
-    border-left: none;
-    border-right: none;   
-}
-.td-3-1,.td-4-1{
-    border-left: none;
-    border-right: none;
-    border-bottom: none;  
-    border-color: grey; 
-    text-align: center;
-}
-.td-3-2,.td-4-2{
-    border-bottom: none;
-    border-left: none;
-    border-right: none;
-    border-color: grey;   
+.td-1-1,.td-2-1,.td-3-1,.td-4-1{
+text-align: center;
+white-space: nowrap;
 }
