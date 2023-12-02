@@ -85,7 +85,7 @@ h3{
 
 .example1{
   border-collapse: separate;
-  border-spacing: 0px 10px ;
+  border-spacing: 0px 7px ;
 }
 .td-1-1,.td-1-2,.td-2-1,.td-2-2,.td-3-1,.td-3-2{
 border-bottom: solid 1px ;
@@ -94,4 +94,3 @@ border-bottom: solid 1px ;
 text-align: center;
 white-space: nowrap;
 }
-border-collapse: collapse;
