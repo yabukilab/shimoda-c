@@ -16,6 +16,10 @@
 /*
 カテゴリの色付けてます
 */
+p{
+  font-size: 30px;
+  text-align: left;
+}
 h1{
     font-size: 60px;
     color: white;
