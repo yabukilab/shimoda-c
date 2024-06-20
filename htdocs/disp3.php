@@ -8,6 +8,8 @@
 		<?php
 
         require_once '_database_conf.php';
+
+        print '<br>在庫確認<br><br><br><br>';
         
         try
         {
@@ -25,10 +27,10 @@
             for ($i = 0; $i < $count; $i++)
             {
                 $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-                print $rec['number'] . ' ';
+
+                //numberとpriceは表示しない
                 print $rec['name1'] . ' ';
                 print $rec['name2'] . ' ';
-                print $rec['price'] . ' ';
                 print $rec['stock'];
                 print '<br />';
             }
