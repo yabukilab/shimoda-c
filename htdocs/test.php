@@ -3,31 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>在庫確認</title>
-    <style>
-        table {
-            width: 50%;
-            border-collapse: collapse;
-            margin: 20px 0;
-        }
-        th, td {
-            border: 1px solid #ddd;
-            padding: 8px;
-            text-align: left;
-        }
-        th {
-            background-color: #f2f2f2;
-        }
-    </style>
 </head>
 <body>
 
-<h2>在庫確認</h2>
+<br><h2>在庫確認</h2>
 
 <table>
     <thead>
         <tr>
-            <th>名前1</th>
-            <th>名前2</th>
+            <th>教科書名</th>
+            <th>出版社名</th>
             <th>在庫数</th>
         </tr>
     </thead>
