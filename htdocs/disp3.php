@@ -6,6 +6,9 @@
 	</head>
 	<body>
 		<?php
+
+        require_once '_database_conf.php';
+        
         try
         {
             $db = new PDO($dsn, $dbUser, $dbPass);
