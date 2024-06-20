@@ -34,6 +34,7 @@
 				echo 'エラーが発生しました。内容: ' . ($e->getMessage());
 	 			exit();
 			}
+        }
         ?>
 	</body>
 </html>
