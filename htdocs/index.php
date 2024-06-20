@@ -24,7 +24,7 @@
 
 			print '<br><br><br>';
 			print '<form method="get" action="disp2.php" style="display:inline;">';
-			print '<input type="submit" value="受付情報">';
+			print '<input type="submit" value="受付確認">';
 			print '</form>';
 
 			print '<form method="get" action="disp3.php" style="display:inline;">';
