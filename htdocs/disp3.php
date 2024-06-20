@@ -2,17 +2,17 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>商品一覧</title>
+		<title>在庫確認</title>
 	</head>
 	<body>
 		<?php
            
-           $sql='SELECT * FROM mst_product';
+           $sql='SELECT * FROM list';
             $stmt=$db->prepare($sql);
             $stmt->execute();
 
             $db=null;
-            
+
             $count = $stmt->rowCount();
             for ($i = 0; $i < $count; $i++)
             {
