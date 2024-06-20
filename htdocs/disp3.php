@@ -6,7 +6,10 @@
 	</head>
 	<body>
 		<?php
-           
+           $db = new PDO($dsn, $dbUser, $dbPass);
+           $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
            $sql='SELECT * FROM list';
             $stmt=$db->prepare($sql);
             $stmt->execute();
