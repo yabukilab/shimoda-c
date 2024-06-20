@@ -6,6 +6,13 @@
 	</head>
 	<body>
 		<?php
+           
+           $sql='SELECT * FROM mst_product';
+            $stmt=$db->prepare($sql);
+            $stmt->execute();
+
+            $db=null;
+            
             $count = $stmt->rowCount();
             for ($i = 0; $i < $count; $i++)
             {
