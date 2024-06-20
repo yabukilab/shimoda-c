@@ -30,20 +30,17 @@
             $stmt = $db->prepare($sql);
             $stmt->execute();
 
-            $count = $stmt->rowCount();
-            for ($i = 0; $i < $count; $i++)
-            {
-                $rec = $stmt->fetch(PDO::FETCH_ASSOC);
-
-                //numberとpriceは表示しない
-                print $rec['name1'] . ' ';
-                print $rec['name2'] . ' ';
-                print $rec['stock'];
-                print '<br />';
+            // データを取得してテーブルに表示
+            while ($rec = $stmt->fetch(PDO::FETCH_ASSOC)) {
+                print '<tr>';
+                print '<td>' . htmlspecialchars($rec['name1'], ENT_QUOTES, 'UTF-8') . '</td>';
+                print '<td>' . htmlspecialchars($rec['name2'], ENT_QUOTES, 'UTF-8') . '</td>';
+                print '<td>' . htmlspecialchars($rec['stock'], ENT_QUOTES, 'UTF-8') . '</td>';
+                print '</tr>';
             }
 
-            }   $db = null; // データベース接続を閉じる
-            catch (Exception $e) {
+            $db = null; // データベース接続を閉じる
+        } catch (Exception $e) {
             echo 'エラーが発生しました。内容: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
             exit();
         }
@@ -53,3 +50,4 @@
 
 </body>
 </html>
+
