@@ -6,6 +6,8 @@
 	</head>
 	<body>
 		<?php
+        try
+        {
            $db = new PDO($dsn, $dbUser, $dbPass);
            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
@@ -27,6 +29,11 @@
                 print $rec['stock'];
                 print '<br />';
             }
+            catch (Exception $e)
+			{
+				echo 'エラーが発生しました。内容: ' . ($e->getMessage());
+	 			exit();
+			}
         ?>
 	</body>
 </html>
