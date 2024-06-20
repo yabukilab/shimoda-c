@@ -19,7 +19,7 @@
 			print '</form>';
 
 			print '<form method="get" action="disp.php" style="display:inline;">';
-			print '<input type="submit" value="予約情報">';
+			print '<input type="submit" value="予約確認">';
 			print '</form>';
 
 			print '<br><br><br>';
