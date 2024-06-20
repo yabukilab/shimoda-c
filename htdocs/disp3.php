@@ -8,11 +8,11 @@
 		<?php
         try
         {
-           $db = new PDO($dsn, $dbUser, $dbPass);
-           $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-           $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $db = new PDO($dsn, $dbUser, $dbPass);
+            $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-           $sql='SELECT * FROM list';
+            $sql='SELECT * FROM list';
             $stmt=$db->prepare($sql);
             $stmt->execute();
 
@@ -29,12 +29,12 @@
                 print $rec['stock'];
                 print '<br />';
             }
-            catch (Exception $e)
-			{
-				echo 'エラーが発生しました。内容: ' . ($e->getMessage());
-	 			exit();
-			}
         }
+         catch (Exception $e)
+		{
+			echo 'エラーが発生しました。内容: ' . ($e->getMessage());
+	 		exit();
+		}
         ?>
 	</body>
 </html>
