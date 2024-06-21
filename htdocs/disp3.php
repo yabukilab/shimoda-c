@@ -48,10 +48,10 @@
     </tbody>
 </table>
 
-                print '<br><br>';
-			    print '<form method="get" action="index.php">';
-			    print '<input type="submit" value="TOPへ戻る">';
-			    print '</form>';
+                <br><br>
+			    <form method="get" action="index.php">
+			    <input type="submit" value="TOPへ戻る">
+			    </form>
 
 </body>
 </html>
