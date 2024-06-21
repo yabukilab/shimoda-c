@@ -6,14 +6,15 @@
 </head>
 <body>
 
-<br><h2>在庫確認</h2>
+<br><h2>受付確認</h2>
 
 <table>
     <thead>
         <tr>
-            <th>教科書名</th>
+            <th>受取完了</th>
             <th>出版社名</th>
             <th>学籍番号</th>
+            <th>教科書名
         </tr>
     </thead>
     <tbody>
