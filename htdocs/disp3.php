@@ -38,11 +38,6 @@
                 print '<td>' . htmlspecialchars($rec['stock'], ENT_QUOTES, 'UTF-8') . '</td>';
                 print '</tr>';
             }
-                print '<br><br>';
-			    print '<form method="get" action="index.php">';
-			    print '<input type="submit" value="TOPへ戻る">';
-			    print '</form>';
-
 
             $db = null; // データベース接続を閉じる
         } catch (Exception $e) {
@@ -52,6 +47,11 @@
         ?>
     </tbody>
 </table>
+
+                print '<br><br>';
+			    print '<form method="get" action="index.php">';
+			    print '<input type="submit" value="TOPへ戻る">';
+			    print '</form>';
 
 </body>
 </html>
