@@ -37,6 +37,7 @@
                 print '<td>' . htmlspecialchars($rec['day'], ENT_QUOTES, 'UTF-8') . '</td>';
                 print '<td>' . htmlspecialchars($rec['code'], ENT_QUOTES, 'UTF-8') . '</td>';
                 print '</tr>';
+            }
 
                 $db = null; // データベース接続を閉じる
         } catch (Exception $e) {
