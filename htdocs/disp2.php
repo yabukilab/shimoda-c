@@ -50,11 +50,8 @@
 </table>
 
                 <br><br>
-			    <form method="get">
+			    <form method="get" action="index.php">
 			    <input type="submit" value="選択を保存">
-			    </form>
-                <form method="get" action="index.php">
-			    <input type="submit" value="TOPへ戻る">
 			    </form>
 </body>
 </html>
