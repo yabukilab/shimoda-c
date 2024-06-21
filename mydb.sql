@@ -1,6 +1,6 @@
-CREATE DATABASE IF NOT EXISTS yoyakudb;
+CREATE DATABASE IF NOT EXISTS shimodac;
 
-USE yoyakudb;
+USE shimodac;
 
 -- `list`テーブルの作成
 CREATE TABLE `list` (
