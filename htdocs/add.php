@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>学生予約</title>
+    <title>教科書予約</title>
 </head>
 <body>
     <h2>教科書一覧</h2>
