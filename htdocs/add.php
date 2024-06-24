@@ -5,7 +5,7 @@
     <title>教科書予約</title>
 </head>
 <body>
-    <h2>教科書一覧</h2>
+    <h2>教科書選択</h2>
     <form method="post" action="add_done.php">
         <table border="1">
             <tr>
@@ -46,8 +46,8 @@
             ?>
         </table>
 
-        <h2>学生予約</h2>
-        学籍番号を入力してください。<br />
+        <h2>学籍番号</h2>
+        学籍番号を入力してください。</br>
         <input type="text" name="student_number" style="width:100px" pattern="\d{7}" title="7桁の学籍番号を入力してください" required><br /><br />
         <input type="button" onclick="history.back()" value="戻る">
         <input type="submit" value="追加">
