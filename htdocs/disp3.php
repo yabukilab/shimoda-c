@@ -18,7 +18,8 @@
     </thead>
     <tbody>
         <?php
-        require_once '_database_conf.php'; // データベースの設定ファイルを読み込む
+        require_once '_database_conf.php';
+        require_once '_h.php';
 
         try {
             // データベースに接続
