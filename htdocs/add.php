@@ -10,8 +10,8 @@
         <table border="1">
             <tr>
                 <th>番号</th>
-                <th>教科書名1</th>
-                <th>教科書名2</th>
+                <th>教科書名</th>
+                <th>出版社名</th>
                 <th>価格</th>
                 <th>在庫数</th>
                 <th>選択</th>
