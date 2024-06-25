@@ -21,7 +21,8 @@
         .section-title {
             font-size: 1.5em;
             margin: 20px 0 10px 0; /* 上下にマージンを追加 */
-            align-self: center; /* 中央揃え */
+            align-self: flex-start; /* 左揃え */
+            padding-left: 20px; /* 左に余白を追加 */
         }
         .form-row {
             display: flex;
