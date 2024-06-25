@@ -11,7 +11,7 @@
             justify-content: center;
             min-height: 100vh;
             margin: 0;
-            font-size: 1.5em; 
+            font-size: 15em; 
         }
         .form-container {
             display: flex;
