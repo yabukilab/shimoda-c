@@ -21,8 +21,7 @@
         .section-title {
             font-size: 1.5em;
             margin: 20px 0 10px 0; /* 上下にマージンを追加 */
-            align-self: flex-start; /* 左揃え */
-            padding-left: 20px; /* 左に余白を追加 */
+            align-self: center; /* 中央揃え */
         }
         .form-row {
             display: flex;
@@ -37,7 +36,7 @@
             margin: 0 15px; /* 左右にマージンを追加 */
             width: 18%; /* フォームの幅を調整 */
         }
-        .form-column form {
+        form {
             width: 100%; /* フォームの幅を100%に設定 */
             margin-bottom: 10px; /* 下部のマージンを追加 */
         }
@@ -56,16 +55,10 @@
             <form method="get" action="add.php">
                 <input type="submit" value="予約">
             </form>
-            <form method="get" action="disp2.php">
-                <input type="submit" value="受付確認">
-            </form>
         </div>
         <div class="form-column">
             <form method="get" action="delete.php">
                 <input type="submit" value="キャンセル">
-            </form>
-            <form method="get" action="disp3.php">
-                <input type="submit" value="在庫確認">
             </form>
         </div>
         <div class="form-column">
@@ -75,5 +68,17 @@
         </div>
     </div>
     <div class="section-title">購買</div>
+    <div class="form-row">
+        <div class="form-column">
+            <form method="get" action="disp2.php">
+                <input type="submit" value="受付確認">
+            </form>
+        </div>
+        <div class="form-column">
+            <form method="get" action="disp3.php">
+                <input type="submit" value="在庫確認">
+            </form>
+        </div>
+    </div>
 </body>
 </html>
