@@ -16,7 +16,7 @@
         .form-container {
             display: flex;
             justify-content: space-between;
-            width: 80%; 
+            width: 250%; 
             margin-bottom: 3em; 
         }
         form {
