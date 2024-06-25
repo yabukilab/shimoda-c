@@ -36,7 +36,7 @@
             margin: 0 10px; /* 左右にマージンを追加 */
             width: 30%; /* フォームの幅を調整 */
         }
-        .form-column form {
+        form {
             width: 100%; /* フォームの幅を100%に設定 */
             margin-bottom: 10px; /* 下部のマージンを追加 */
         }
