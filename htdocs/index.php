@@ -21,7 +21,7 @@
         .section-title {
             font-size: 1.5em;
             margin: 20px 0 10px 0; /* 上下にマージンを追加 */
-            align-self: flex-start; /* 左揃え */
+            align-self: center; /* 中央揃え */
         }
         .form-row {
             display: flex;
@@ -33,8 +33,8 @@
             display: flex;
             flex-direction: column;
             align-items: center; /* フォームを中央に揃える */
-            margin: 0 10px; /* 左右にマージンを追加 */
-            width: 20%; /* フォームの幅を調整 */
+            margin: 0 15px; /* 左右にマージンを追加 */
+            width: 18%; /* フォームの幅を調整 */
         }
         .form-column form {
             width: 100%; /* フォームの幅を100%に設定 */
