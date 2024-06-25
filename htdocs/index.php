@@ -21,7 +21,6 @@
         .section-title {
             font-size: 1.5em;
             margin: 20px 0 10px 0; /* 上下にマージンを追加 */
-            align-self: center; /* 中央揃え */
         }
         .form-row {
             display: flex;
