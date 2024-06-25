@@ -20,7 +20,6 @@
     <tbody>
         <?php
         require_once '_database_conf.php';
-        require_once '_h.php';
 
         try {
             // データベースに接続

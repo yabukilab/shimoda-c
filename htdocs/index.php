@@ -8,7 +8,6 @@
 		<?php
 
 			require_once '_database_conf.php';
-			require_once '_h.php';
 
 			print '<br>';
 			print '<form method="get" action="add.php" style="display:inline;">';
