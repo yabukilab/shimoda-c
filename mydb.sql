@@ -21,5 +21,11 @@ INSERT INTO `list` (`number`,`name1`, `name2`, `price`, `stock`) VALUES
 -- `yoyaku`テーブルの作成
 CREATE TABLE `yoyaku` (
   `day` date NOT NULL,
-  `code` int(11) NOT NULL
+  `code` int(7) NOT NULL,
+  `number1` int(7) NOT NULL,
+  `number2` int(7) NOT NULL,
+  `number3` int(7) NOT NULL,
+  `number4` int(7) NOT NULL,
+  `number5` int(7) NOT NULL,
+  PRIMARY KEY (`code`)
 );
