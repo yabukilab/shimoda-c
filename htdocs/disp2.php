@@ -11,10 +11,9 @@
 <table>
     <thead>
         <tr>
-            <th>受取完了</th>
             <th>出版社名</th>
             <th>学籍番号</th>
-            <th>教科書名
+            <th>教科書名</th>
         </tr>
     </thead>
     <tbody>
