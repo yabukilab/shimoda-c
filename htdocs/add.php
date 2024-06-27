@@ -4,6 +4,26 @@
     <meta charset="UTF-8">
     <title>教科書予約</title>
 </head>
+<style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .student-number-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 <body>
     <h2>教科書選択</h2>
     <form method="post" action="add_done.php">
