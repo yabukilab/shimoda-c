@@ -52,11 +52,17 @@
             $stmt->execute();
 
             while ($rec = $stmt->fetch(PDO::FETCH_ASSOC)) {
-                print '<tr>';
-                print '<td><input type="checkbox" name="selected_books[]" value="' . h($rec['code']) . '"></td>';
-                print '<td>' . h($rec['code']) . '</td>';
-                print '<td>' . h($rec['day']) . '</td>';
-                print '</tr>';
+                // 受け取り期限の計算とフォーマット
+                $pickupDeadline = new DateTime($rec['day']);
+                $pickupDeadline->add(new DateInterval('P7D'));
+                $pickupDeadlineFormatted = $pickupDeadline->format('Y-m-d');
+        
+                // 表示
+                echo '<tr>';
+                echo '<td><input type="checkbox" name="selected_books[]" value="' . h($rec['code']) . '"></td>';
+                echo '<td>' . h($rec['code'], ENT_QUOTES, 'UTF-8') . '</td>';
+                echo '<td>' . h($pickupDeadlineFormatted) . '</td>';
+                echo '</tr>';
             }
         } catch (Exception $e) {
             echo 'エラーが発生しました。内容: ' . h($e->getMessage(), ENT_QUOTES, 'UTF-8');
@@ -65,9 +71,10 @@
         ?>
     </tbody>
 </table>
-                <br><br>
-			    <form method="get" action="index.php">
-			    <input type="submit" value="選択を保存">
-			    </form>
+<br><br>
+<form method="get" action="index.php">
+    <input type="submit" value="選択を保存">
+</form>
+
 </body>
 </html>

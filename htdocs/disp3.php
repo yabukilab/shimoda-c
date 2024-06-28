@@ -4,11 +4,31 @@
     <meta charset="UTF-8">
     <title>在庫確認</title>
 </head>
+<style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .student-number-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+</style>
 <body>
 
 <br><h2>在庫確認</h2>
 
-<table>
+<table border="1">
     <thead>
         <tr>
             <th>教科書名</th>

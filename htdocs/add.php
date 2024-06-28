@@ -23,7 +23,7 @@
             text-align: center;
             margin-top: 20px;
         }
-    </style>
+</style>
 <body>
     <h2>教科書選択</h2>
     <form method="post" action="add_done.php">
