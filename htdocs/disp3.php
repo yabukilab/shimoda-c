@@ -19,6 +19,7 @@
     <tbody>
         <?php
         require_once '_database_conf.php';
+        require_once '_h.php';
 
         try {
             // データベースに接続
@@ -33,15 +34,15 @@
             // データを取得してテーブルに表示
             while ($rec = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 print '<tr>';
-                print '<td>' . htmlspecialchars($rec['name1'], ENT_QUOTES, 'UTF-8') . '</td>';
-                print '<td>' . htmlspecialchars($rec['name2'], ENT_QUOTES, 'UTF-8') . '</td>';
-                print '<td>' . htmlspecialchars($rec['stock'], ENT_QUOTES, 'UTF-8') . '</td>';
+                print '<td>' . h($rec['name1'], ENT_QUOTES, 'UTF-8') . '</td>';
+                print '<td>' . h($rec['name2'], ENT_QUOTES, 'UTF-8') . '</td>';
+                print '<td>' . h($rec['stock'], ENT_QUOTES, 'UTF-8') . '</td>';
                 print '</tr>';
             }
 
             $db = null; // データベース接続を閉じる
         } catch (Exception $e) {
-            echo 'エラーが発生しました。内容: ' . htmlspecialchars($e->getMessage(), ENT_QUOTES, 'UTF-8');
+            echo 'エラーが発生しました。内容: ' . h($e->getMessage(), ENT_QUOTES, 'UTF-8');
             exit();
         }
         ?>
