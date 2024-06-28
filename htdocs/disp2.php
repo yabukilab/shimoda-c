@@ -47,20 +47,17 @@
             $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
             $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
-            $sql = 'SELECT name1, name2, stock FROM list';
+            $sql = 'SELECT * FROM yoyaku';
             $stmt = $db->prepare($sql);
             $stmt->execute();
 
-            // データを取得してテーブルに表示
             while ($rec = $stmt->fetch(PDO::FETCH_ASSOC)) {
                 print '<tr>';
-                print '<td>' . h($rec['name1'], ENT_QUOTES, 'UTF-8') . '</td>';
-                print '<td>' . h($rec['day'], ENT_QUOTES, 'UTF-8') . '</td>';
-                print '<td>' . h($rec['code'], ENT_QUOTES, 'UTF-8') . '</td>';
+                print '<td><input type="checkbox" name="selected_books[]" value="' . h($rec['code']) . '"></td>';
+                print '<td>' . h($rec['code']) . '</td>';
+                print '<td>' . h($rec['day']) . '</td>';
                 print '</tr>';
             }
-
-                $db = null; // データベース接続を閉じる
         } catch (Exception $e) {
             echo 'エラーが発生しました。内容: ' . h($e->getMessage(), ENT_QUOTES, 'UTF-8');
             exit();
@@ -68,7 +65,6 @@
         ?>
     </tbody>
 </table>
-
                 <br><br>
 			    <form method="get" action="index.php">
 			    <input type="submit" value="選択を保存">
