@@ -3,6 +3,30 @@
 <head>
     <meta charset="UTF-8">
     <title>DB登録</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        table {
+            margin: 20px auto;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid black;
+        }
+        .message-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .back-link {
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <?php
@@ -57,7 +81,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             $updateStockStmt->bindValue(':number', $book, PDO::PARAM_STR);
                             $updateStockStmt->execute();
                         } else {
-                            echo '教科書 ' . h($book) . ' は在庫がありません。';
+                            echo '<p class="message-container">教科書 ' . h($book) . ' は在庫がありません。</p>';
                         }
                     }
                 }
@@ -70,24 +94,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $currentDate->add(new DateInterval('P7D'));
             $pickupDeadline = $currentDate->format('Y-m-d');
 
+            // 予約完了のメッセージを表示
+            echo '<div class="message-container">';
+            echo '<p>予約が正常に完了しました。</p>';
+
             // 受け取り期限と合計金額を表で表示
-            echo '<table border="1">';
+            echo '<table>';
             echo '<tr><th>受け取り期限</th><th>合計金額</th></tr>';
             echo '<tr><td>' . h($pickupDeadline) . '</td><td>' . h($totalPrice) . '円</td></tr>';
             echo '</table>';
+            echo '</div>';
 
         } catch (Exception $e) {
-            echo 'エラーが発生しました。内容: ' . h($e->getMessage());
+            echo '<p class="message-container">エラーが発生しました。内容: ' . h($e->getMessage()) . '</p>';
             exit();
         }
     } else {
-        echo '学籍番号と教科書を選択してください。';
+        echo '<p class="message-container">学籍番号と教科書を選択してください。</p>';
     }
 } else {
-    echo '不正なアクセスです。';
+    echo '<p class="message-container">不正なアクセスです。</p>';
     exit();
 }
 ?>
-<a href="index.php">戻る</a>
+<div class="back-link">
+    <a href="index.php">戻る</a>
+</div>
 </body>
 </html>
