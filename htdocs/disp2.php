@@ -3,17 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <title>在庫確認</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            margin-bottom: 20px;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 10px;
+            text-align: center;
+        }
+        .student-number-container {
+            text-align: center;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 
 <br><h2>受付確認</h2>
 
-<table>
+<table border="1">
     <thead>
         <tr>
-            <th>出版社名</th>
+            <th>受取完了</th>
             <th>学籍番号</th>
-            <th>教科書名</th>
+            <th>受取期限</th>
         </tr>
     </thead>
     <tbody>
