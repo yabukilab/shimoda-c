@@ -12,7 +12,7 @@ function h($var)  // HTMLでのエスケープ処理をする関数
 $student_id = isset($_POST['student-id']) ? h($_POST['student-id']) : '';
 
 $dbServer = '127.0.0.1';
-$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'root';
+$dbUser = isset($_SERVER['MYSQL_USER']) ? $_SERVER['MYSQL_USER'] : 'root';
 $dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : '';
 $dbName = 'shimodac'; // データベース名を設定
 
@@ -37,7 +37,11 @@ if ($student_id) {
         $reservation = $stmt->fetch(PDO::FETCH_ASSOC);
 
         if ($reservation) {
-            $deadline = $reservation['day'];
+            // 受け取り期限の計算とフォーマット
+            $pickupDeadline = new DateTime($reservation['day']);
+            $pickupDeadline->add(new DateInterval('P7D'));
+            $deadline = $pickupDeadline->format('Y-m-d');
+
             $book_numbers = array_filter([
                 $reservation['number1'],
                 $reservation['number2'],

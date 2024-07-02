@@ -49,16 +49,16 @@
 
                     foreach ($rec as $book) {
                         if (!empty($book)) {
-                            $updateStockStmt->bindValue(':number', $book, PDO::PARAM_STR);
+                            $updateStockStmt->bindValue(':number', $book, PDO::PARAM_INT); // INT型に修正
                             $updateStockStmt->execute();
                         }
                     }
 
                     // 予約を削除
-                    $sql = 'DELETE FROM yoyaku WHERE code = :code';
-                    $stmt = $db->prepare($sql);
-                    $stmt->bindValue(':code', $student_number, PDO::PARAM_STR);
-                    $stmt->execute();
+                    $deleteSql = 'DELETE FROM yoyaku WHERE code = :code';
+                    $deleteStmt = $db->prepare($deleteSql);
+                    $deleteStmt->bindValue(':code', $student_number, PDO::PARAM_STR);
+                    $deleteStmt->execute();
 
                     echo '予約を削除しました。<br />';
                 } else {

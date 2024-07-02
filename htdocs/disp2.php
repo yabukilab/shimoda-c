@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>在庫確認</title>
+    <title>受付確認</title>
     <style>
         body {
             display: flex;
@@ -73,7 +73,7 @@
 </table>
 <br><br>
 <form method="get" action="index.php">
-    <input type="submit" value="選択を保存">
+    <input type="submit" value="TOPへ戻る">
 </form>
 
 </body>
