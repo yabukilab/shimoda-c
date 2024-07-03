@@ -81,6 +81,7 @@
             exit();
         }
         ?>
-        <a href="index.php">戻る</a>
+        <form method="get" action="index.php"></br>
+            <input type="submit" value="TOPへ戻る">
     </body>
-    </html>
+</html>

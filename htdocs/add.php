@@ -23,7 +23,7 @@
             text-align: center;
             margin-top: 20px;
         }
-</style>
+    </style>
 <body>
     <h2>教科書選択</h2>
     <form method="post" action="add_done.php">
@@ -68,7 +68,7 @@
 
         <h2>学籍番号</h2>
         学籍番号を入力してください。</br>
-        <input type="text" name="student_number" style="width:100px" pattern="\d{7}" title="7桁の学籍番号を入力してください" required><br /><br />
+        <input type="text" name="student_number" style="width:100px" pattern="\d{7}" title="7桁の学籍番号を入力してください" required><br /><br /><br />
         <input type="button" onclick="history.back()" value="戻る">
         <input type="submit" value="追加">
     </form>

@@ -15,11 +15,7 @@
             padding: 5px;
             margin: 10px 0;
         }
-        button {
-            padding: 10px 20px;
-            margin: 10px;
-            font-size: 16px;
-        }
+
     </style>
 </head>
 <body>
@@ -28,7 +24,7 @@
     <form action="disp_done.php" method="POST">
         <label for="student-id">学籍番号</label>
         <input type="text" id="student-id" name="student-id" maxlength="7" pattern="\d{7}" required>
-        <br>
+        <br><br>
         <button type="button" onclick="location.href='index.php'">戻る</button>
         <button type="submit">確認</button>
     </form>
