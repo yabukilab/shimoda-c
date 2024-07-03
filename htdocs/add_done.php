@@ -23,9 +23,6 @@
             text-align: center;
             margin-top: 20px;
         }
-        .back-link {
-            margin-top: 20px;
-        }
     </style>
 </head>
 <body>
@@ -117,8 +114,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     exit();
 }
 ?>
-<div class="back-link">
-    <a href="index.php">戻る</a>
+<form method="get" action="index.php">
+    <input type="submit" value="TOPへ戻る">
 </div>
 </body>
 </html>
