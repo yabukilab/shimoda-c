@@ -7,15 +7,13 @@
         body {
             display: flex;
             flex-direction: column;
-            justify-content: flex-start; /* 上部に揃える */
             min-height: 100vh;
-            margin: 0;
-            padding: 20px; /* ページの余白を追加 */
-            font-size: 1.5em; /* 文字サイズを1.5倍に設定 */
+            padding-left:  370px; /* ページの余白を追加 */
+            font-size: 1.7em; /* 文字サイズを1.5倍に設定 */
         }
         h1 {
             margin: 20px 0; /* 上下にマージンを追加 */
-            align-items: center; 
+            padding-left:  220px; /* ページの余白を追加 */
             font-size: 2em; /* 見出しのサイズを大きく */
         }
         .section-title {
@@ -24,7 +22,6 @@
         }
         .form-row {
             display: flex;
-            justify-content: center; /* 中央に揃える */
             width: 100%; /* フォームの幅を100%に設定 */
             margin-bottom: 1em; /* 下部のマージンを追加 */
         }
