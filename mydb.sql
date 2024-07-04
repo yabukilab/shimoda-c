@@ -27,5 +27,6 @@ CREATE TABLE `yoyaku` (
   `number3` int(7) NOT NULL,
   `number4` int(7) NOT NULL,
   `number5` int(7) NOT NULL,
+  `hidden` int(1) NOT NULL,
   PRIMARY KEY (`code`)
 );

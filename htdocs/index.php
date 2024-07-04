@@ -7,7 +7,6 @@
         body {
             display: flex;
             flex-direction: column;
-            align-items: center; /* 中央揃え */
             justify-content: flex-start; /* 上部に揃える */
             min-height: 100vh;
             margin: 0;
@@ -16,6 +15,7 @@
         }
         h1 {
             margin: 20px 0; /* 上下にマージンを追加 */
+            align-items: center; 
             font-size: 2em; /* 見出しのサイズを大きく */
         }
         .section-title {
