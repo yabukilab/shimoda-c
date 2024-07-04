@@ -48,57 +48,6 @@
 </head>
 <body>
 
-<?php
-require_once '_database_conf.php';
-
-try {
-    // データベースに接続
-    $db = new PDO($dsn, $dbUser, $dbPass);
-    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    // 一週間を過ぎた予約を削除する日時を計算
-    $deadlineDate = new DateTime();
-    $deadlineDate->sub(new DateInterval('P7D'));
-    $deadlineDateString = $deadlineDate->format('Y-m-d');
-
-    // hiddenが1で一週間を過ぎた予約を削除
-    $sql = 'DELETE FROM yoyaku WHERE hidden = 1 AND day <= :deadlineDate';
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':deadlineDate', $deadlineDateString, PDO::PARAM_STR);
-    $stmt->execute();
-
-    // hiddenが0で一週間を過ぎた予約の在庫を戻してから削除
-    $sql = 'SELECT * FROM yoyaku WHERE hidden = 0 AND day <= :deadlineDate';
-    $stmt = $db->prepare($sql);
-    $stmt->bindValue(':deadlineDate', $deadlineDateString, PDO::PARAM_STR);
-    $stmt->execute();
-
-    while ($rec = $stmt->fetch(PDO::FETCH_ASSOC)) {
-        // 在庫を戻す処理
-        $updateStockSql = 'UPDATE list SET stock = stock + 1 WHERE number IN (:number1, :number2, :number3, :number4, :number5)';
-        $updateStockStmt = $db->prepare($updateStockSql);
-        $updateStockStmt->bindValue(':number1', $rec['number1'], PDO::PARAM_INT);
-        $updateStockStmt->bindValue(':number2', $rec['number2'], PDO::PARAM_INT);
-        $updateStockStmt->bindValue(':number3', $rec['number3'], PDO::PARAM_INT);
-        $updateStockStmt->bindValue(':number4', $rec['number4'], PDO::PARAM_INT);
-        $updateStockStmt->bindValue(':number5', $rec['number5'], PDO::PARAM_INT);
-        $updateStockStmt->execute();
-
-        // 予約を削除
-        $deleteReservationSql = 'DELETE FROM yoyaku WHERE code = :code';
-        $deleteReservationStmt = $db->prepare($deleteReservationSql);
-        $deleteReservationStmt->bindValue(':code', $rec['code'], PDO::PARAM_STR);
-        $deleteReservationStmt->execute();
-    }
-} catch (Exception $e) {
-    echo 'エラーが発生しました。内容: ' . $e->getMessage();
-    exit();
-}
-
-$db = null;
-?>
-
     <h1>教科書予約</h1> <!-- 見出しを追加 -->
     <div class="section-title">学生</div>
     <div class="form-row">
