@@ -97,7 +97,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
             // 受け取り期限と合計金額を表で表示
             echo '<table>';
-            echo '<tr><th>受け取り期限</th><th>合計金額</th></tr>';
+            echo '<tr><th>受取期限</th><th>合計金額</th></tr>';
             echo '<tr><td>' . h($pickupDeadline) . '</td><td>' . h($totalPrice) . '円</td></tr>';
             echo '</table>';
             echo '</div>';
