@@ -8,7 +8,7 @@
             display: flex;
             flex-direction: column;
             min-height: 100vh;
-            padding-left:  370px; /* ページの余白を追加 */
+            padding-left:  350px; /* ページの余白を追加 */
             font-size: 1.7em; /* 文字サイズを1.5倍に設定 */
         }
         h1 {
