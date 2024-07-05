@@ -1,11 +1,14 @@
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
 SET time_zone = "+00:00";
 
--- データベース: `shimodac`
---
-CREATE DATABASE IF NOT EXISTS `shimodac`;
-USE `shimodac`;
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
 
--- テーブルの構造 `list`
+CREATE DATABASE IF NOT EXISTS `shimodac` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+USE `shimodac`;
 
 CREATE TABLE `list` (
   `number` int(11) NOT NULL,
@@ -15,15 +18,11 @@ CREATE TABLE `list` (
   `stock` int(11) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- テーブルのデータのダンプ `list`
-
 INSERT INTO `list` (`number`, `name1`, `name2`, `price`, `stock`) VALUES
-(1, '教科書1', 'A社', '1000', 120),
-(2, '教科書2', 'B社', '1500', 75),
-(3, '教科書3', 'B社', '2400', 100),
-(4, '教科書4', 'C社', '600', 140),
-(5, '教科書5', 'C社', '10000', 160),
-(6, '教科書6', 'D社', '3000', 130);
+(1, '教科書1', 'A社', '1000', 122),
+(2, '教科書2', 'B社', '1500', 77),
+(3, '教科書3', 'B社', '2400', 94),
+(4, '教科書4', 'C社', '6000', 139);
 
 CREATE TABLE `yoyaku` (
   `day` date NOT NULL,
@@ -36,18 +35,23 @@ CREATE TABLE `yoyaku` (
   `hidden` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
--- テーブルのインデックス `list`
+INSERT INTO `yoyaku` (`day`, `code`, `number1`, `number2`, `number3`, `number4`, `number5`, `hidden`) VALUES
+('2024-07-04', 1000000, 1, 2, 3, 4, 0, 0),
+('2024-07-03', 1111111, 2, 3, 4, 0, 0, 1),
+('2024-07-02', 9999999, 1, 2, 3, 4, 0, 1);
+
 
 ALTER TABLE `list`
   ADD PRIMARY KEY (`number`);
 
--- テーブルのインデックス `yoyaku`
-
 ALTER TABLE `yoyaku`
   ADD PRIMARY KEY (`code`);
 
--- テーブルの AUTO_INCREMENT `list`
 
 ALTER TABLE `list`
   MODIFY `number` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
