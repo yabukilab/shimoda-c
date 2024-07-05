@@ -51,11 +51,11 @@ DROP TABLE IF EXISTS `yoyaku`;
 CREATE TABLE IF NOT EXISTS `yoyaku` (
   `day` date NOT NULL,
   `code` int(7) NOT NULL,
-  `number1` int(7) NOT NULL DEFAULT 0,
-  `number2` int(7) NOT NULL DEFAULT 0,
-  `number3` int(7) NOT NULL DEFAULT 0,
-  `number4` int(7) NOT NULL DEFAULT 0,
-  `number5` int(7) NOT NULL DEFAULT 0,
+  `number1` varchar(7) NOT NULL,
+  `number2` varchar(7) NOT NULL,
+  `number3` varchar(7) NOT NULL,
+  `number4` varchar(7) NOT NULL,
+  `number5` varchar(7) NOT NULL,
   `hidden` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`code`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
