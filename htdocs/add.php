@@ -70,7 +70,7 @@
         学籍番号を入力してください。</br>
         <input type="text" name="student_number" style="width:100px" pattern="\d{7}" title="7桁の学籍番号を入力してください" required><br /><br /><br />
         <input type="button" onclick="history.back()" value="戻る">
-        <input type="submit" value="追加">
+        <input type="submit" value="注文">
     </form>
 </body>
 </html>
