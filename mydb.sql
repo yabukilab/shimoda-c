@@ -1,10 +1,9 @@
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 -- データベース: `shimodac`
 --
-CREATE DATABASE IF NOT EXISTS `shimodac` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
+CREATE DATABASE IF NOT EXISTS `shimodac`;
 USE `shimodac`;
 
 -- テーブルの構造 `list`
@@ -40,10 +39,6 @@ CREATE TABLE `yoyaku` (
   `number5` int(7) NOT NULL,
   `hidden` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- テーブルのデータのダンプ `yoyaku`
-
-INSERT INTO `yoyaku` (`day`, `code`, `number1`, `number2`, `number3`, `number4`, `number5`, `hidden`) VALUES
 
 -- テーブルのインデックス `list`
 
