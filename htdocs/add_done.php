@@ -107,7 +107,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             exit();
         }
     } else {
-        echo '<p class="message-container">学籍番号と教科書を選択してください。</p>';
+        echo '<p class="message-container">教科書を選択してください。</p>';
     }
 } else {
     echo '<p class="message-container">不正なアクセスです。</p>';
