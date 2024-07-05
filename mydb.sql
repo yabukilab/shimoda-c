@@ -8,7 +8,6 @@ USE `shimodac`;
 
 -- テーブルの構造 `list`
 
-DROP TABLE IF EXISTS `list`;
 CREATE TABLE `list` (
   `number` int(11) NOT NULL,
   `name1` varchar(50) NOT NULL,
@@ -26,9 +25,7 @@ INSERT INTO `list` (`number`, `name1`, `name2`, `price`, `stock`) VALUES
 (4, '教科書4', 'C社', '600', 140),
 (5, '教科書5', 'C社', '10000', 160),
 (6, '教科書6', 'D社', '3000', 130);
--- テーブルの構造 `yoyaku`
 
-DROP TABLE IF EXISTS `yoyaku`;
 CREATE TABLE `yoyaku` (
   `day` date NOT NULL,
   `code` int(7) NOT NULL,
