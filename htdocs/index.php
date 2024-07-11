@@ -2,7 +2,7 @@
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>商品一覧</title>
+    <title>TOPページ</title>
     <style>
         body {
             display: flex;
