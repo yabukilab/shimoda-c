@@ -8,11 +8,10 @@ font-size:20px;
 }
 
 h1{
-    margin-bottom:70px;
     color:greenyellow;
     text-shadow:1px;
-    font: size 35px;
+    font: size 120px;
     display: block;
-    transform: translate(0, 105%);
-    transition: transform cubic-bezier(0.215, 0.61, 0.355, 1) 0.5s;
+    margin-top:20px;
+    margin-bottom:30px;
 }
