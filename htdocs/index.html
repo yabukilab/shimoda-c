@@ -1,17 +1,52 @@
 <!DOCTYPE html>
 <html lang="ja">
-
 <head>
-  <meta charset='utf-8' />
-  <title>（実験・演習用）</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>津田沼に一人暮らし予定の女学生</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center; /* ページ全体を中央揃え */
+            margin: 0; /* マージンをリセット */
+            height: 100vh; /* ビューポートの高さを100%に設定 */
+            display: flex; /* フレックスボックスを使用 */
+            flex-direction: column; /* 縦方向に配置 */
+            justify-content: center; /* 縦方向の中央揃え */
+        }
+        h1, p {
+            text-align: center; /* h1とpも中央揃え */
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr); /* 2列のグリッドを作成 */
+            gap: 10px; /* セル間の隙間を10pxに */
+        }
+        a {
+            display: flex; /* フレックスボックスを使用 */
+            align-items: center; /* 縦方向の中央揃え */
+            justify-content: center; /* 横方向の中央揃え */
+            padding: 20px; /* 縦のパディングを大きく */
+            background: #4CAF50;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            height: 100px; /* 高さを固定 */
+            font-size: 24px; /* リンク内のフォントサイズを大きく */
+        }
+        a:hover {
+            background: #45a049;
+        }
+    </style>
 </head>
-
 <body>
-<<<<<<< HEAD
-aaahhh
-=======
-abc
->>>>>>> 6950710f7d7665fda42304df4c48f9b57a81fba9
+    <h1>津田沼に一人暮らし予定の女学生</h1>
+    <p>以下のリンクから各ページにアクセスできます：</p>
+    <div class="grid">
+        <a href="大学関係.html">大学関係</a>
+        <a href="haerumise.html">映えるお店</a>
+        <a href="sumiyasusa.html">住みやすさ</a>
+        <a href="">交通</a>
+    </div>
 </body>
-
 </html>
