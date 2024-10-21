@@ -54,6 +54,25 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
     </style>
+      <style>
+        #back-to-home {
+            position: fixed;
+            bottom: 20px; 
+            right: 20px;  
+            padding: 10px 15px;
+            background-color: #007bff; 
+            color: white; 
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000; 
+        }
+
+        #back-to-home:hover {
+            background-color: #0056b3; 
+        }
+    </style>
 </head>
 <body>
     <h1>映えるお店</h1>
@@ -103,5 +122,23 @@
     <footer>
         <a href="https://tabelog.com/matome/20832/">お店の情報はこちら</a>
     </footer>
+
+    <section>
+        <h2>他のページへ</h2>
+        <ul>
+            <li><a href="大学関係.html" target="_blank">大学関係</a></li>
+            <li><a href="sumiyasusa.html" target="_blank">住みやすさ</a></li>
+            <li><a href="koutuu.html" target="_blank">交通</a></li>
+        </ul>
+    </section>
+
+    <button id="back-to-home">ホームに戻る</button>
+
+    <script>
+        document.getElementById("back-to-home").onclick = function() {
+            window.location.href = "index.html"; 
+        };
+    </script>
+
 </body>
 </html>

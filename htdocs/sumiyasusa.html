@@ -5,6 +5,25 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>住みやすさ</title>
+    <style>
+        #back-to-home {
+            position: fixed;
+            bottom: 20px; 
+            right: 20px;  
+            padding: 10px 15px;
+            background-color: #007bff; 
+            color: white; 
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000; 
+        }
+
+        #back-to-home:hover {
+            background-color: #0056b3; 
+        }
+    </style>
 </head>
 <body>
     <div id="headline"></div>
@@ -99,6 +118,23 @@
     <p>ここは津田沼公園とは違い、総敷地面積2.2ヘクタールの大きな公園です</p>
     <p>遊具や思いっきり遊べるようなスペースがあり、週末は子連れの親子で賑わいます</p>
     <p><iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d810.128667615831!2d140.01254772562575!3d35.68895051902781!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60187f8c40070d27%3A0x4e69ab7ae752bcfd!2z6LC35rSl5aWP44Gu5p2c5YWs5ZyS!5e0!3m2!1sja!2sjp!4v1728627257446!5m2!1sja!2sjp" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe></p>
+
+    <section>
+        <h2>他のページへ</h2>
+        <ul>
+            <li><a href="大学関係.html" target="_blank">大学関係</a></li>
+            <li><a href="haerumise.html" target="_blank">映えるお店</a></li>
+            <li><a href="koutuu.html" target="_blank">交通</a></li>
+        </ul>
+    </section>
+
+    <button id="back-to-home">ホームに戻る</button>
+
+    <script>
+        document.getElementById("back-to-home").onclick = function() {
+            window.location.href = "index.html"; 
+        };
+    </script>
 
 
 </body>

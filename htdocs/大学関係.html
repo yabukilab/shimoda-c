@@ -4,6 +4,25 @@
 <link rel="stylesheet" href="css.css">
 <meta charset="utf-8">
 <title>大学の観点から</title>
+<style>
+    #back-to-home {
+        position: fixed;
+        bottom: 20px; 
+        right: 20px;  
+        padding: 10px 15px;
+        background-color: #007bff; 
+        color: white; 
+        border: none;
+        border-radius: 5px; 
+        cursor: pointer;
+        font-size: 16px;
+        z-index: 1000; 
+    }
+
+    #back-to-home:hover {
+        background-color: #0056b3; 
+    }
+</style>
 </head>
 <body>
 <h1 style="text-align:center;">
@@ -37,6 +56,23 @@
 <p style="text-align:center;" >新習志野キャンパス内に学生寮があります。1人1部屋でエアコン、寝具、Wi-Fi完備で1日2食付きの過ごしやすい寮です。</p>
     <div style="text-align:center;"><a href="https://www.it-chiba.ac.jp/support/support/dormitory/">学寮について</a></div><br>
    <div style="text-align:center;" > <img src="ryou.jpg"></div>
+
+   <section>
+    <h2>他のページへ</h2>
+    <ul>
+        <li><a href="haerumise.html" target="_blank">映えるお店</a></li>
+        <li><a href="sumiyasusa.html" target="_blank">住みやすさ</a></li>
+        <li><a href="koutuu.html" target="_blank">交通</a></li>
+    </ul>
+</section>
+
+<button id="back-to-home">ホームに戻る</button>
+
+<script>
+    document.getElementById("back-to-home").onclick = function() {
+        window.location.href = "index.html"; 
+    };
+</script>
 
 </body>
 </html>

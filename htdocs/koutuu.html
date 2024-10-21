@@ -38,6 +38,25 @@
             margin: 10px 0;
         }
     </style>
+      <style>
+        #back-to-home {
+            position: fixed;
+            bottom: 20px; 
+            right: 20px;  
+            padding: 10px 15px;
+            background-color: #007bff; 
+            color: white; 
+            border: none;
+            border-radius: 5px; 
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 1000; 
+        }
+
+        #back-to-home:hover {
+            background-color: #0056b3; 
+        }
+    </style>
 </head>
 <body>
     <h1>交通について</h1>
@@ -96,5 +115,21 @@
         夜行バスでは、USJ、東京駅、奈良、横浜、河口湖、富士急にも行けます。
     </p>
     <img src="shibazono_bus_map.gif" alt="バスターミナルの位置">
+    <section>
+        <h2>他のページへ</h2>
+        <ul>
+            <li><a href="大学関係.html" target="_blank">大学関係</a></li>
+            <li><a href="haerumise.html" target="_blank">映えるお店</a></li>
+            <li><a href="sumiyasusa.html" target="_blank">住みやすさ</a></li>
+        </ul>
+    </section>
+
+    <button id="back-to-home">ホームに戻る</button>
+
+    <script>
+        document.getElementById("back-to-home").onclick = function() {
+            window.location.href = "index.html"; 
+        };
+    </script>
 </body>
 </html>

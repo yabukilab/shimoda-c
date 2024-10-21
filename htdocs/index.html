@@ -7,35 +7,45 @@
     <style>
         body {
             font-family: Arial, sans-serif;
-            text-align: center; /* ページ全体を中央揃え */
-            margin: 0; /* マージンをリセット */
-            height: 100vh; /* ビューポートの高さを100%に設定 */
-            display: flex; /* フレックスボックスを使用 */
-            flex-direction: column; /* 縦方向に配置 */
-            justify-content: center; /* 縦方向の中央揃え */
+            text-align: center; 
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            justify-content: center; 
+            margin: 0;
         }
         h1, p {
-            text-align: center; /* h1とpも中央揃え */
+            text-align: center;
         }
         .grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr); /* 2列のグリッドを作成 */
-            gap: 10px; /* セル間の隙間を10pxに */
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 10px; 
+            margin: 20px 0;
         }
         a {
-            display: flex; /* フレックスボックスを使用 */
-            align-items: center; /* 縦方向の中央揃え */
-            justify-content: center; /* 横方向の中央揃え */
-            padding: 20px; /* 縦のパディングを大きく */
+            display: flex;
+            align-items: center; 
+            justify-content: center;
+            padding: 20px; 
             background: #4CAF50;
             color: #fff;
             text-decoration: none;
             border-radius: 5px;
-            height: 100px; /* 高さを固定 */
-            font-size: 24px; /* リンク内のフォントサイズを大きく */
+            height: 100px; 
+            font-size: 24px; 
         }
         a:hover {
             background: #45a049;
+        }
+        .red-text {
+            color: red; 
+        }
+        footer {
+            margin-top: auto;
+            padding: 10px 0;
+            font-size: 12px;
+            color: #555;
         }
     </style>
 </head>
@@ -47,8 +57,9 @@
         <a href="haerumise.html">映えるお店</a>
         <a href="sumiyasusa.html">住みやすさ</a>
         <a href="koutuu.html">交通</a>
-
-        <P>このサイトはPM実験用のサイトです</P>
     </div>
+    <footer>
+        <p class="red-text">このサイトはPM実験用のサイトです</p>
+    </footer>
 </body>
 </html>
