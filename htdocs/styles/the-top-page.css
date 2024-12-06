@@ -47,12 +47,12 @@ header {
 }
 
 .header-bar {
-  font-size: 2em; /* 一回り大きく */
+  font-size: 3em; /* 一回り大きく */
 }
 
 header h1 {
   margin: 10px 0;
-  font-size: 3em;
+  font-size: 2em;
 }
 
 header h1 {
