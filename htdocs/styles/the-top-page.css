@@ -31,6 +31,19 @@ img {
   display: block;
 }
 
+/* 画面幅が768px以下の場合に適用する */
+@media screen and (max-width: 768px) {
+  body {
+      font-size: 14px; /* フォントを小さく調整 */
+      line-height: 1.6; /* 行間を調整 */
+      margin: 10px; /* スマホ画面で適切な余白を設定 */
+  }
+  #toc {
+      padding: 10px; /* 目次の内側の余白を調整 */
+      max-width: 100%; /* 画面幅に収まるよう設定 */
+  }
+}
+
 /* ヘッダー */
 header {
   text-align: center;
