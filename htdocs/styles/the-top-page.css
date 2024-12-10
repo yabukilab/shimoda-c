@@ -31,11 +31,6 @@ img {
   display: block;
 }
 
-.campus {
-  display: flex;  /* 1行で並べる */
-  gap: 5px;  /* 各部分の間隔を少し空ける */
-}
-
 .part {
   white-space: nowrap;  /* 初期状態では折り返しを禁止 */
 }
