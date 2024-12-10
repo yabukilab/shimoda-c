@@ -31,9 +31,24 @@ img {
   display: block;
 }
 
-h1, h2, td {
-  word-wrap: break-word; /* 長い単語を折り返す */
-  overflow-wrap: break-word; /* 標準プロパティ */
+.campus {
+  display: flex;  /* 1行で並べる */
+  gap: 5px;  /* 各部分の間隔を少し空ける */
+}
+
+.part {
+  white-space: nowrap;  /* 初期状態では折り返しを禁止 */
+}
+
+/* 画面幅が狭くなった場合に折り返し */
+@media (max-width: 600px) {
+  .campus {
+      flex-wrap: wrap;  /* 要素を折り返し */
+  }
+  .part {
+      flex-basis: 100%;  /* 各部分を1行に */
+      text-align: center;  /* 各行を中央寄せ */
+  }
 }
 
 /* ウィンドウ幅が768px以下の場合（タブレット＆スマホ向け） */
