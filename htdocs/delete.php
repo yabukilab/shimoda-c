@@ -13,7 +13,7 @@ if (empty($_SESSION['list_msg'])) {
     <head>
         <meta charset="UTF-8">
         <title>メニュー削除</title>
-        <link rel="stylesheet" href="style.css">
+        <link rel="stylesheet" href="system.css">
     </head>
 
     <body>
