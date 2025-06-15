@@ -45,7 +45,7 @@ if (empty($_SESSION['list_msg'])) {
             // 楽曲が1件以上ある場合の処理
             ?>
             <table border='1'>
-            <tr bgcolor="#e3f0fb"><td>選択</td><td>メニュー名</td><td>カロリー数値</td></tr>
+            <tr bgcolor="#e3f0fb"><td>選択</td><td>メニュー名</td><td>カロリー数値</td><td>メニューの系統</td></tr>
       
             <?php // 取得した楽曲を繰り返し処理で表へ展開（ ↑ 表見出し　↓ 配列の中身）
             foreach($rows as $row){
@@ -54,6 +54,7 @@ if (empty($_SESSION['list_msg'])) {
                 <td align="center"><input type="checkbox" name="dish_id" value=<?php echo $row['dish_id']; ?></input></td>
                 <td><?php echo htmlspecialchars($row['dish_name'],ENT_QUOTES,'UTF-8'); ?></td> 
                 <td><?php echo htmlspecialchars($row['calories'],ENT_QUOTES,'UTF-8'); ?></td> 
+                <td><?php echo htmlspecialchars($row['dish_category'],ENT_QUOTES,'UTF-8'); ?></td> 
             </tr> 
             <?php 
             } 
@@ -92,7 +93,7 @@ if (isset($_POST['delete'])) {
             $dbh = new PDO($dsn, 'db_admin', 'admin');
 
             // 楽曲追加処理の実行
-            $sql = 'DELETE FROM menu WHERE dish_id = :dish_id'; // SQL文を構成
+            $sql = 'DELETE FROM dishes WHERE dish_id = :dish_id'; // SQL文を構成
             $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
             $sth->bindParam(':dish_id', $_POST['dish_id']); // ユーザIDを実行変数に挿入
             $sth->execute(); // SQLの実行
