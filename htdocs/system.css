@@ -1,9 +1,9 @@
 body {
  font-family: Arial, sans-serif;
-margin: 20px;
+ margin: 20px;
  background-color: #f4f4f4;
  }
-.container {
+ .container {
  background-color: #fff;
  padding: 20px;
  border-radius: 8px;
@@ -11,9 +11,9 @@ margin: 20px;
  max-width: 800px;
  margin: auto;
 }
-        h2 {
-            color: #333;
-        }
+ h2 {
+     color: #333;
+    }
         form div {
             margin-bottom: 15px;
         }
@@ -101,3 +101,74 @@ margin: 20px;
             padding-top: 10px;
             border-top: 1px solid #eee;
         }
+        button{
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+
+/* 以下がdelete.phpの表のスクロールとデザイン調整のための追加スタイルです */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px; /* ★既存の値から変更なし */
+    margin-bottom: 0; /* ★変更：スクロールコンテナ内に収めるため0に */
+}
+
+table, th, td {
+    border: 1px solid #ddd; /* ★既存の値から変更なし */
+}
+
+th, td {
+    padding: 12px; /* ★既存の値から変更なし */
+    text-align: left; /* ★既存の値から変更なし */
+}
+
+th {
+    background-color: #f2f2f2; /* ★既存の値から変更なし */
+    color: #333; /* ★既存の値から変更なし */
+}
+
+tr:nth-child(even) {
+    background-color: #f9f9f9; /* ★既存の値から変更なし */
+}
+
+tr:hover {
+    background-color: #f1f1f1; /* ★既存の値から変更なし */
+}
+
+p {
+    margin-top: 10px; /* ★既存の値から変更なし */
+    margin-bottom: 10px; /* ★既存の値から変更なし */
+    line-height: 1.5; /* ★既存の値から変更なし */
+}
+
+input[type="checkbox"] {
+    transform: scale(1.2); /* ★既存の値から変更なし */
+    margin-right: 5px; /* ★既存の値から変更なし */
+}
+
+/* ★追加：テーブルを囲むコンテナを追加し、スクロール可能にするスタイル */
+.table-scroll-container {
+    max-height: 400px; /* 表示したい高さに調整してください */
+    overflow-y: auto; /* 縦方向のスクロールを有効にする */
+    margin-bottom: 20px; /* テーブルの下に余白を追加 */
+    border: 1px solid #ddd; /* スクロール範囲を示すためのボーダー */
+    border-radius: 4px; /* 角を丸くする */
+    background-color: #fff; /* コンテナの背景色 */
+}
+
+/* ★追加：テーブルヘッダーがスクロールしても固定されるようにする */
+.table-scroll-container thead th {
+    position: sticky; /* スクロールしてもヘッダーを固定 */
+    top: 0; /* 上部に固定 */
+    background-color: #e3f0fb; /* ヘッダーの背景色（delete.phpのtr bgcolorと同じ色） */
+    z-index: 1; /* 他のコンテンツの上に表示 */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1); /* ヘッダーの影を追加 */
+}

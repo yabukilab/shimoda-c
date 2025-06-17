@@ -17,6 +17,8 @@ if (empty($_SESSION['list_msg'])) {
     </head>
 
     <body>
+    <div class="container">
+        <h2>メニュー削除</h2>
     <form method="POST">
         <?php
         // HTML内に楽曲一覧表を表示する処理
@@ -44,35 +46,46 @@ if (empty($_SESSION['list_msg'])) {
         if ($row_count != 0) {
             // 楽曲が1件以上ある場合の処理
             ?>
-            <table border='1'>
-            <tr bgcolor="#e3f0fb"><td>選択</td><td>メニュー名</td><td>カロリー数値</td><td>メニューの系統</td></tr>
-      
-            <?php // 取得した楽曲を繰り返し処理で表へ展開（ ↑ 表見出し　↓ 配列の中身）
-            foreach($rows as $row){
-            ?> 
-            <tr> 
-                <td align="center"><input type="checkbox" name="dish_id" value=<?php echo $row['dish_id']; ?></input></td>
-                <td><?php echo htmlspecialchars($row['dish_name'],ENT_QUOTES,'UTF-8'); ?></td> 
-                <td><?php echo htmlspecialchars($row['calories'],ENT_QUOTES,'UTF-8'); ?></td> 
-                <td><?php echo htmlspecialchars($row['dish_category'],ENT_QUOTES,'UTF-8'); ?></td> 
-            </tr> 
-            <?php 
-            } 
-            ?>        
-            </table><br>
-            <button type="submit" name="delete">選択した項目を削除</button><br>
-            <p><font color="red"><?php echo $_SESSION['list_err_msg']; ?></font></p>
-            <p><font color="blue"><?php echo $_SESSION['list_msg']; ?></font></p>
+            <div class="table-scroll-container">
+                <table border='1'>
+                <thead>
+                    <tr bgcolor="#e3f0fb"><td>選択</td><td>メニュー名</td><td>カロリー数値</td><td>メニューの系統</td></tr>
+                </thead>
+                <tbody>
+                <?php // 取得した楽曲を繰り返し処理で表へ展開（ ↑ 表見出し　↓ 配列の中身）
+                foreach($rows as $row){
+                ?> 
+                <tr> 
+                    <td align="center"><input type="checkbox" name="dish_id" value=<?php echo $row['dish_id']; ?>></td>
+                    <td><?php echo htmlspecialchars($row['dish_name'],ENT_QUOTES,'UTF-8'); ?></td> 
+                    <td><?php echo htmlspecialchars($row['calories'],ENT_QUOTES,'UTF-8'); ?></td> 
+                    <td><?php echo htmlspecialchars($row['dish_category'],ENT_QUOTES,'UTF-8'); ?></td> 
+                </tr> 
+                <?php 
+                } 
+                ?>        
+                </tbody>
+                </table>
+            </div>
+            <br>
+            <input type="submit" name="delete" value="選択した項目を削除"><br>
+            <?php if (!empty($_SESSION['list_err_msg'])): ?>
+                <div class="error"><?php echo $_SESSION['list_err_msg']; ?></div>
+            <?php endif; ?>
+            <?php if (!empty($_SESSION['list_msg'])): ?>
+                <div class="success"><?php echo $_SESSION['list_msg']; ?></div>
+            <?php endif; ?>
         <?php
         // 楽曲が1件以上ない場合の処理
         }else{
-            echo "メニューが1件も登録されていません";
+            echo "<p>メニューが1件も登録されていません</p>";
         }
         ?>
         
-        <button type="submit" name="recorder">TOP画面に戻る</button><br><br><br>
-        <button type="submit" name="logout">ログアウト</button><br>
+        <input type="submit" name="recorder" value="TOP画面に戻る"><br><br><br>
+        <input type="submit" name="logout" value="ログアウト"><br>
         </form>
+    </div>
     </body>
 </html>
 
@@ -82,10 +95,11 @@ if (empty($_SESSION['list_msg'])) {
 // 削除ボタンが押された時の処理
 if (isset($_POST['delete'])) {
     // 項目が選択されていることをチェック
-    if($_POST['dish_id'] == "") {
+    if(empty($_POST['dish_id'])) {
         $_SESSION['list_err_msg'] = "削除したい項目を選択して下さい";
         $_SESSION['list_msg'] = "";
         header("Location: ".$_SERVER['HTTP_REFERER']);  
+        exit;
     }else{
         try {
             // データベースへの接続
@@ -100,6 +114,7 @@ if (isset($_POST['delete'])) {
             $_SESSION['list_msg'] = "メニューの削除が正常に完了しました"; // 登録成功のメッセージを入力
             $_SESSION['list_err_msg'] = ""; // 失敗メッセージを削除
             header("Location: ".$_SERVER['HTTP_REFERER']); // 元の画面を表示
+            exit;
         } catch (PDOException $e) {
                 // データベースへの接続に失敗した場合
                 print('データベースへの接続に失敗しました:' . $e->getMessage());
@@ -113,6 +128,7 @@ if (isset($_POST['recorder'])) {
     $_SESSION['list_msg'] = ""; // 登録成功のメッセージの削除
     $_SESSION['list_err_msg'] = ""; // エラーメッセージの削除
     header("Location:recorder.php"); // 楽曲登録画面へ遷移
+    exit;
 }
 
 // ログアウトボタンが押された時の処理
@@ -123,7 +139,6 @@ if (isset($_POST['logout'])) {
     }
     session_destroy(); // セッションの登録データを削除
     header("Location:index.php"); // ログイン画面へ遷移
+    exit;
 }
 ?>
-
-
