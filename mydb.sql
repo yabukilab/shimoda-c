@@ -1,6 +1,10 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
+<<<<<<< HEAD
+-- Host: localhost    Database: study5
+=======
 -- Host: localhost    Database: mydb
+>>>>>>> 1bf74a1c1f10cf9f08ccb8126a487370a9f68d2a
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
 
@@ -14,6 +18,8 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+<<<<<<< HEAD
+=======
 
 --
 -- Table structure for table `mytable`
@@ -92,6 +98,7 @@ LOCK TABLES `table1` WRITE;
 INSERT INTO `table1` VALUES (1,'A',1280,1),(2,'B',2980,0),(3,'C',198,3),(4,'D',3980,5),(5,'E',990,121),(6,'F',1500,100),(7,'G',1980,52),(8,'H',256,22),(9,'I',512,27),(10,'J',3333,4);
 /*!40000 ALTER TABLE `table1` ENABLE KEYS */;
 UNLOCK TABLES;
+>>>>>>> 1bf74a1c1f10cf9f08ccb8126a487370a9f68d2a
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -102,4 +109,8 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
+<<<<<<< HEAD
+-- Dump completed on 2025-06-13 14:31:56
+=======
 -- Dump completed on 2025-06-13 16:31:44
+>>>>>>> 1bf74a1c1f10cf9f08ccb8126a487370a9f68d2a
