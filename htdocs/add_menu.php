@@ -1,7 +1,7 @@
 <?php
 // データベース接続設定
 $host = 'localhost';
-$db   = 'study5'; // あなたのデータベース名
+$db   = 'study5'; // 使用するDB名
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
@@ -22,7 +22,7 @@ try {
         $menu_name = trim($_POST["menu_name"]);
         $calorie = (int)$_POST["calorie"];
         $category = $_POST["category"];
-        $ingredient_ids = $_POST["ingredients"]; // 複数の食材ID
+        $ingredient_ids = $_POST["ingredients"] ?? []; // null対策
         $url = trim($_POST["url"]);
 
         // 入力チェック
@@ -35,8 +35,8 @@ try {
         if (empty($category)) {
             $errors[] = "メニューの系統が選択されていません。";
         }
-        if (empty($ingredient_ids) || !is_array($ingredient_ids)) {
-            $errors[] = "食材が選択されていません。";
+        if (count($ingredient_ids) === 0 || count($ingredient_ids) > 3) {
+            $errors[] = "使用食材は1〜3つ選択してください。";
         }
         if (empty($url)) {
             $errors[] = "レシピのURLが入力されていません。";
@@ -62,7 +62,7 @@ try {
         }
     }
 
-    // 食材一覧の取得（常に必要）
+    // 食材一覧の取得（表示用）
     $ingredient_list = $pdo->query("SELECT ingredient_id, ingredient_name FROM ingredients")->fetchAll();
 
 } catch (Exception $e) {
@@ -78,6 +78,10 @@ try {
     <style>
         body { font-family: sans-serif; max-width: 600px; margin: 0 auto; }
         label { display: block; margin-top: 15px; }
+        select[multiple] {
+            width: 200px;
+            height: auto;
+        }
     </style>
 </head>
 <body>
@@ -85,7 +89,9 @@ try {
 
     <?php if (!empty($errors)): ?>
         <ul style="color:red;">
-            <?php foreach ($errors as $e) echo "<li>" . htmlspecialchars($e) . "</li>"; ?>
+            <?php foreach ($errors as $e): ?>
+                <li><?= htmlspecialchars($e) ?></li>
+            <?php endforeach; ?>
         </ul>
     <?php endif; ?>
 
@@ -108,14 +114,15 @@ try {
             </select>
         </label>
 
-        <label>使用食材（複数選択可）:
-            <select name="ingredients[]" multiple size="5" required>
+        <label>使用食材（最大3つまで選択可）:
+            <select id="ingredientSelect" name="ingredients[]" multiple required size="10">
                 <?php foreach ($ingredient_list as $ingredient): ?>
                     <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>">
                         <?= htmlspecialchars($ingredient['ingredient_name']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
+            <br><small>※ Ctrl（Windows）/⌘（Mac）キーを押しながら選択してください</small>
         </label>
 
         <label>レシピのURL:
@@ -125,5 +132,16 @@ try {
         <br><br>
         <input type="submit" value="メニュー追加">
     </form>
+
+    <script>
+        const select = document.getElementById('ingredientSelect');
+        select.addEventListener('change', function () {
+            const selected = Array.from(this.selectedOptions);
+            if (selected.length > 3) {
+                alert("最大3つまでしか選択できません。");
+                selected[selected.length - 1].selected = false;
+            }
+        });
+    </script>
 </body>
 </html>
