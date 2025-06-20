@@ -49,7 +49,7 @@ try {
             $pdo->beginTransaction();
 
             $stmt = $pdo->prepare("
-                INSERT INTO dishes (menu_name, calorie, category, url, shounin_umu)
+                INSERT INTO dishes (dish_name, calorie, category, url, shounin_umu)
                 VALUES (?, ?, ?, ?, 2)
             ");
             $stmt->execute([$menu_name, $calorie, $category, $url]);
