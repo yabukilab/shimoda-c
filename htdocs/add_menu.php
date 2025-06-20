@@ -1,7 +1,6 @@
 <?php
-// データベース接続設定
 $host = 'localhost';
-$db   = 'study5'; // 使用するDB名
+$db   = 'study5(3)';
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
@@ -17,12 +16,15 @@ $errors = [];
 try {
     $pdo = new PDO($dsn, $user, $pass, $options);
 
+    // 食材一覧を取得
+    $ingredient_list = $pdo->query("SELECT ingredient_id, ingredient_name FROM ingredients")->fetchAll();
+
     // フォーム送信処理
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $menu_name = trim($_POST["menu_name"]);
         $calorie = (int)$_POST["calorie"];
         $category = $_POST["category"];
-        $ingredient_ids = $_POST["ingredients"] ?? []; // null対策
+        $ingredient_ids = $_POST["ingredients"] ?? [];
         $url = trim($_POST["url"]);
 
         // 入力チェック
@@ -35,25 +37,31 @@ try {
         if (empty($category)) {
             $errors[] = "メニューの系統が選択されていません。";
         }
-        if (count($ingredient_ids) === 0 || count($ingredient_ids) > 3) {
-            $errors[] = "使用食材は1〜3つ選択してください。";
+        if (count($ingredient_ids) === 0) {
+            $errors[] = "食材が選択されていません。";
         }
         if (empty($url)) {
             $errors[] = "レシピのURLが入力されていません。";
         }
 
         if (empty($errors)) {
-            // メニュー追加処理
+            // dishes テーブルに挿入（shounin_umu = 2）
             $pdo->beginTransaction();
 
-            $stmt = $pdo->prepare("INSERT INTO menus (menu_name, calorie, category, url, status) VALUES (?, ?, ?, ?, '申請中')");
+            $stmt = $pdo->prepare("
+                INSERT INTO dishes (menu_name, calorie, category, url, shounin_umu)
+                VALUES (?, ?, ?, ?, 2)
+            ");
             $stmt->execute([$menu_name, $calorie, $category, $url]);
+            $dish_id = $pdo->lastInsertId();
 
-            $menu_id = $pdo->lastInsertId();
-
-            $stmt_ing = $pdo->prepare("INSERT INTO menu_ingredients (menu_id, ingredient_id) VALUES (?, ?)");
+            // 中間テーブルに食材登録
+            $stmt_ing = $pdo->prepare("
+                INSERT INTO dish_ingredients (dish_id, ingredient_id)
+                VALUES (?, ?)
+            ");
             foreach ($ingredient_ids as $ingredient_id) {
-                $stmt_ing->execute([$menu_id, $ingredient_id]);
+                $stmt_ing->execute([$dish_id, $ingredient_id]);
             }
 
             $pdo->commit();
@@ -61,10 +69,6 @@ try {
             exit;
         }
     }
-
-    // 食材一覧の取得（表示用）
-    $ingredient_list = $pdo->query("SELECT ingredient_id, ingredient_name FROM ingredients")->fetchAll();
-
 } catch (Exception $e) {
     $errors[] = "データベースエラー: " . $e->getMessage();
 }
@@ -79,8 +83,7 @@ try {
         body { font-family: sans-serif; max-width: 600px; margin: 0 auto; }
         label { display: block; margin-top: 15px; }
         select[multiple] {
-            width: 200px;
-            height: auto;
+            width: 250px;
         }
     </style>
 </head>
@@ -114,15 +117,15 @@ try {
             </select>
         </label>
 
-        <label>使用食材（最大3つまで選択可）:
-            <select id="ingredientSelect" name="ingredients[]" multiple required size="10">
+        <label>使用食材（複数選択可）:
+            <select name="ingredients[]" multiple size="8" required>
                 <?php foreach ($ingredient_list as $ingredient): ?>
                     <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>">
                         <?= htmlspecialchars($ingredient['ingredient_name']) ?>
                     </option>
                 <?php endforeach; ?>
             </select>
-            <br><small>※ Ctrl（Windows）/⌘（Mac）キーを押しながら選択してください</small>
+            <br><small>※ Ctrl（または ⌘）キーを押しながら複数選択してください</small>
         </label>
 
         <label>レシピのURL:
@@ -132,16 +135,5 @@ try {
         <br><br>
         <input type="submit" value="メニュー追加">
     </form>
-
-    <script>
-        const select = document.getElementById('ingredientSelect');
-        select.addEventListener('change', function () {
-            const selected = Array.from(this.selectedOptions);
-            if (selected.length > 3) {
-                alert("最大3つまでしか選択できません。");
-                selected[selected.length - 1].selected = false;
-            }
-        });
-    </script>
 </body>
 </html>
