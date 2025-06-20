@@ -10,7 +10,7 @@ if (empty($_SESSION['register_msg'])) {
 $dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
 $dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'root';
 $dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : '';
-$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'study5(3)'; // Changed 'login' to 'study5'
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'study5'; // Changed 'login' to 'study5'
 
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 
