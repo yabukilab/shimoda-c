@@ -1,10 +1,6 @@
 <?php
 $host = 'localhost';
-<<<<<<< HEAD
 $db   = 'study5(3)'; // 使用するDB名
-=======
-$db   = 'study5(3)';
->>>>>>> 4579926cd79724c7af7d2ce300461a000cf75c35
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
