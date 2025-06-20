@@ -2,7 +2,7 @@
 session_start(); // エラーメッセージに $_SESSION を使用するためにセッションを開始
 
 // データベース接続
-$dsn = 'mysql:host=localhost;dbname=study5;charset=utf8';
+$dsn = 'mysql:host=localhost;dbname=study5(3);charset=utf8';
 $user = 'root';
 $password = '';
 $pdo = null; // $pdo を null で初期化
