@@ -37,7 +37,7 @@ if (empty($_SESSION['index_err_msg'])) {
 $dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
 $dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser';
 $dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
-$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'login';
 
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 
@@ -58,8 +58,8 @@ if (isset($_POST['login'])) {
            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // 入力されたIDのパスワード取得
-            $sql = 'SELECT user_pass FROM user WHERE user_id = :user_id'; // SQL文を構成
-            $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
+            $sql = 'SELECT user_pass FROM infomation WHERE user_id = :user_id'; // SQL文を構成
+            $sth = $db->prepare($sql); // SQL文を実行変数へ投入
             $sth->bindParam(':user_id', $_POST['user_id']); // ユーザIDを実行変数に挿入
             $sth->execute(); // SQLの実行
             $user_pass = $sth->fetch(); // 処理結果の取得
