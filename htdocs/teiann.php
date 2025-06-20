@@ -49,62 +49,64 @@ try {
 <head>
     <meta charset="UTF-8">
     <title>メニュー提案</title>
-</head>
+    <link rel="stylesheet" href="system.css"> </head>
 <body>
-    <h2>メニュー提案システム</h2>
+    <div class="container"> <h2>メニュー提案システム</h2>
 
-    <?php
-    if (isset($_SESSION['teiann_err_msg'])) {
-        echo '<p style="color: red;">' . htmlspecialchars($_SESSION['teiann_err_msg']) . '</p>';
-        unset($_SESSION['teiann_err_msg']); // 表示後、エラーメッセージをクリア
-    }
-    ?>
+        <?php
+        if (isset($_SESSION['teiann_err_msg'])) {
+            echo '<p class="error message">' . htmlspecialchars($_SESSION['teiann_err_msg']) . '</p>'; // エラーメッセージに.errorと.messageクラスを適用
+            unset($_SESSION['teiann_err_msg']); // 表示後、エラーメッセージをクリア
+        }
+        ?>
 
-    <form action="process.php" method="post">
-        <label for="dish_category">系統を選択してください:</label>
-        <select name="dish_category" id="dish_category">
-            <option value="">選択してください</option>
-            <?php foreach ($dishCategories as $category): ?>
-                <option value="<?= htmlspecialchars($category['dish_category']) ?>"><?= htmlspecialchars($category['dish_category']) ?></option>
-            <?php endforeach; ?>
-        </select>
-        <br><br>
+        <form action="process.php" method="post">
+            <div class="section"> <label for="dish_category">系統を選択してください:</label>
+                <select name="dish_category" id="dish_category">
+                    <option value="">選択してください</option>
+                    <?php foreach ($dishCategories as $category): ?>
+                        <option value="<?= htmlspecialchars($category['dish_category']) ?>"><?= htmlspecialchars($category['dish_category']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="max_calories">上限カロリーを選択してください:</label>
-        <select name="max_calories" id="max_calories">
-            <option value="">選択してください</option>
-            <?php foreach ($calorieOptions as $calorie): ?>
-                <option value="<?= htmlspecialchars($calorie['calories']) ?>"><?= htmlspecialchars($calorie['calories']) ?> kcal</option>
-            <?php endforeach; ?>
-        </select>
-        <br><br>
+            <div class="section">
+                <label for="max_calories">上限カロリーを選択してください:</label>
+                <select name="max_calories" id="max_calories">
+                    <option value="">選択してください</option>
+                    <?php foreach ($calorieOptions as $calorie): ?>
+                        <option value="<?= htmlspecialchars($calorie['calories']) ?>"><?= htmlspecialchars($calorie['calories']) ?> kcal</option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <label for="ingredient_id">食材を選択してください:</label>
-        <select name="ingredient_id" id="ingredient_id">
-            <option value="">選択してください</option>
-            <?php foreach ($ingredients as $ingredient): ?>
-                <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
-            <?php endforeach; ?>
-        </select>     
-        <br>  
-        <label for="ingredient_id">食材を選択してください:</label>
-        <select name="ingredient_id" id="ingredient_id">
-            <option value="">選択してください</option>
-            <?php foreach ($ingredients as $ingredient): ?>
-                <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
-            <?php endforeach; ?>
-        </select>  
-        <br>     
-        <label for="ingredient_id">食材を選択してください:</label>
-        <select name="ingredient_id" id="ingredient_id">
-            <option value="">選択してください</option>
-            <?php foreach ($ingredients as $ingredient): ?>
-                <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
-            <?php endforeach; ?>
-        </select>
-        <br><br>
+            <div class="section">
+                <label for="ingredient_id_1">食材を選択してください (1):</label> <select name="ingredient_id[]" id="ingredient_id_1"> <option value="">選択してください</option>
+                    <?php foreach ($ingredients as $ingredient): ?>
+                        <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="section">
+                <label for="ingredient_id_2">食材を選択してください (2):</label>
+                <select name="ingredient_id[]" id="ingredient_id_2">
+                    <option value="">選択してください</option>
+                    <?php foreach ($ingredients as $ingredient): ?>
+                        <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+            <div class="section">
+                <label for="ingredient_id_3">食材を選択してください (3):</label>
+                <select name="ingredient_id[]" id="ingredient_id_3">
+                    <option value="">選択してください</option>
+                    <?php foreach ($ingredients as $ingredient): ?>
+                        <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
 
-        <button type="submit">送信</button>
-    </form>
+            <input type="submit" value="送信"> </form>
+    </div>
 </body>
 </html>
