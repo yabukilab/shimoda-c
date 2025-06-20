@@ -58,8 +58,8 @@ if (isset($_POST['login'])) {
            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // 入力されたIDのパスワード取得
-            $sql = 'SELECT user_pass FROM user WHERE user_id = :user_id'; // SQL文を構成
-            $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
+            $sql = 'SELECT user_pass FROM infomation WHERE user_id = :user_id'; // SQL文を構成
+            $sth = $db->prepare($sql); // SQL文を実行変数へ投入
             $sth->bindParam(':user_id', $_POST['user_id']); // ユーザIDを実行変数に挿入
             $sth->execute(); // SQLの実行
             $user_pass = $sth->fetch(); // 処理結果の取得
