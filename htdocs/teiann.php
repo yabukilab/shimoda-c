@@ -2,7 +2,7 @@
 session_start(); // エラーメッセージに $_SESSION を使用するためにセッションを開始
 
 // データベース接続
-$dsn = 'mysql:host=localhost;dbname=study5;charset=utf8';
+$dsn = 'mysql:host=localhost;dbname=study5(3);charset=utf8';
 $user = 'root';
 $password = '';
 $pdo = null; // $pdo を null で初期化
@@ -85,14 +85,16 @@ try {
             <?php foreach ($ingredients as $ingredient): ?>
                 <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
             <?php endforeach; ?>
-        </select>       
+        </select>     
+        <br>  
         <label for="ingredient_id">食材を選択してください:</label>
         <select name="ingredient_id" id="ingredient_id">
             <option value="">選択してください</option>
             <?php foreach ($ingredients as $ingredient): ?>
                 <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"><?= htmlspecialchars($ingredient['ingredient_name']) ?></option>
             <?php endforeach; ?>
-        </select>       
+        </select>  
+        <br>     
         <label for="ingredient_id">食材を選択してください:</label>
         <select name="ingredient_id" id="ingredient_id">
             <option value="">選択してください</option>
