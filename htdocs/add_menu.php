@@ -1,7 +1,7 @@
 <?php
 // データベース接続設定
 $host = 'localhost';
-$db   = 'study5'; // 使用するDB名
+$db   = 'study5(3)'; // 使用するDB名
 $user = 'root';
 $pass = '';
 $charset = 'utf8mb4';
