@@ -1,10 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
-<<<<<<< HEAD
--- Host: localhost    Database: study5
-=======
--- Host: localhost    Database: mydb
->>>>>>> 1bf74a1c1f10cf9f08ccb8126a487370a9f68d2a
+-- Host: localhost    Database: login
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
 
@@ -18,87 +14,135 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 /*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-<<<<<<< HEAD
-=======
 
 --
--- Table structure for table `mytable`
+-- Table structure for table `dish_ingredients`
 --
 
-DROP TABLE IF EXISTS `mytable`;
+DROP TABLE IF EXISTS `dish_ingredients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `mytable` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `foo` varchar(100) DEFAULT NULL,
-  `bar` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `dish_ingredients` (
+  `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dish_id` int(11) NOT NULL,
+  `ingredient_id` int(11) NOT NULL,
+  PRIMARY KEY (`dish_ingredient_id`),
+  UNIQUE KEY `dish_id` (`dish_id`,`ingredient_id`),
+  KEY `ingredient_id` (`ingredient_id`),
+  CONSTRAINT `dish_ingredients_ibfk_1` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`) ON DELETE CASCADE,
+  CONSTRAINT `dish_ingredients_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE CASCADE
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dish_ingredients`
+--
+
+LOCK TABLES `dish_ingredients` WRITE;
+/*!40000 ALTER TABLE `dish_ingredients` DISABLE KEYS */;
+INSERT INTO `dish_ingredients` VALUES (1,1,1),(4,1,2);
+/*!40000 ALTER TABLE `dish_ingredients` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `dishes`
+--
+
+DROP TABLE IF EXISTS `dishes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `dishes` (
+  `dish_id` int(11) NOT NULL AUTO_INCREMENT,
+  `dish_name` varchar(255) NOT NULL,
+  `calories` int(11) DEFAULT NULL,
+  `dish_category` varchar(255) NOT NULL,
+  PRIMARY KEY (`dish_id`),
+  UNIQUE KEY `dish_name` (`dish_name`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `dishes`
+--
+
+LOCK TABLES `dishes` WRITE;
+/*!40000 ALTER TABLE `dishes` DISABLE KEYS */;
+INSERT INTO `dishes` VALUES (1,'彼のカレー',500,''),(3,'炒飯',600,'中華'),(4,'ラーメン',600,'中華'),(5,'チャーシュー',300,'中華'),(6,'天津飯',500,'中華');
+/*!40000 ALTER TABLE `dishes` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `infomation`
+--
+
+DROP TABLE IF EXISTS `infomation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `infomation` (
+  `user_id` varchar(30) NOT NULL,
+  `user_pass` varchar(255) NOT NULL,
+  PRIMARY KEY (`user_id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `infomation`
+--
+
+LOCK TABLES `infomation` WRITE;
+/*!40000 ALTER TABLE `infomation` DISABLE KEYS */;
+/*!40000 ALTER TABLE `infomation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ingredients`
+--
+
+DROP TABLE IF EXISTS `ingredients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `ingredients` (
+  `ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
+  `ingredient_name` varchar(255) NOT NULL,
+  PRIMARY KEY (`ingredient_id`),
+  UNIQUE KEY `ingredient_name` (`ingredient_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `mytable`
+-- Dumping data for table `ingredients`
 --
 
-LOCK TABLES `mytable` WRITE;
-/*!40000 ALTER TABLE `mytable` DISABLE KEYS */;
-INSERT INTO `mytable` VALUES (1,'か',100),(2,'い',-200),(3,'う',300);
-/*!40000 ALTER TABLE `mytable` ENABLE KEYS */;
+LOCK TABLES `ingredients` WRITE;
+/*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
+INSERT INTO `ingredients` VALUES (2,'ルー'),(1,'玉ねぎ'),(3,'鶏肉');
+/*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 
 --
--- Table structure for table `productinfo`
+-- Table structure for table `menu`
 --
 
-DROP TABLE IF EXISTS `productinfo`;
+DROP TABLE IF EXISTS `menu`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `productinfo` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `productname` varchar(30) NOT NULL,
-  `price` int(11) NOT NULL,
-  `stock` int(11) NOT NULL,
-  `imgfile` varchar(40) DEFAULT NULL,
-  PRIMARY KEY (`id`)
+CREATE TABLE `menu` (
+  `menu_id` int(100) NOT NULL AUTO_INCREMENT,
+  `name` varchar(1000) NOT NULL,
+  `kcal` int(200) NOT NULL,
+  `shokuzai` int(100) NOT NULL,
+  PRIMARY KEY (`menu_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `productinfo`
+-- Dumping data for table `menu`
 --
 
-LOCK TABLES `productinfo` WRITE;
-/*!40000 ALTER TABLE `productinfo` DISABLE KEYS */;
-INSERT INTO `productinfo` VALUES (1,'イヤホン',1500,100,'product6.png'),(2,'モバイルバッテリ',3980,10,NULL),(3,' USB-TypeC接続ケーブル',800,50,NULL);
-/*!40000 ALTER TABLE `productinfo` ENABLE KEYS */;
+LOCK TABLES `menu` WRITE;
+/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
+/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
-
---
--- Table structure for table `table1`
---
-
-DROP TABLE IF EXISTS `table1`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `table1` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `product` varchar(40) NOT NULL,
-  `cost` int(11) NOT NULL,
-  `stock` int(11) NOT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `table1`
---
-
-LOCK TABLES `table1` WRITE;
-/*!40000 ALTER TABLE `table1` DISABLE KEYS */;
-INSERT INTO `table1` VALUES (1,'A',1280,1),(2,'B',2980,0),(3,'C',198,3),(4,'D',3980,5),(5,'E',990,121),(6,'F',1500,100),(7,'G',1980,52),(8,'H',256,22),(9,'I',512,27),(10,'J',3333,4);
-/*!40000 ALTER TABLE `table1` ENABLE KEYS */;
-UNLOCK TABLES;
->>>>>>> 1bf74a1c1f10cf9f08ccb8126a487370a9f68d2a
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
@@ -109,8 +153,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
-<<<<<<< HEAD
--- Dump completed on 2025-06-13 14:31:56
-=======
--- Dump completed on 2025-06-13 16:31:44
->>>>>>> 1bf74a1c1f10cf9f08ccb8126a487370a9f68d2a
+-- Dump completed on 2025-06-20 15:44:53

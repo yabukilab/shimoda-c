@@ -31,8 +31,9 @@
                     $dish_name = $conn->real_escape_string($dish_data['dish_name']);
                     $calories = (int)$dish_data['calories'];
                     $dish_category = $conn->real_escape_string($dish_data['dish_category']); // dish_category を取得
+                    $menu_url = $conn->real_escape_string($dish_data['menu_url']);
 
-                    $sql = "UPDATE dishes SET dish_name='$dish_name', calories=$calories, dish_category='$dish_category' WHERE dish_id=$dish_id"; // クエリを修正
+                    $sql = "UPDATE dishes SET dish_name='$dish_name', calories=$calories, dish_category='$dish_category', menu_url='$menu_url' WHERE dish_id=$dish_id"; // クエリを修正
 
                     if ($conn->query($sql) !== TRUE) {
                         echo "<div class='error'>料理ID $dish_id の更新エラー: " . $conn->error . "</div>";
@@ -87,7 +88,7 @@
         }
 
         // dishesテーブルからデータを取得
-        $dishes_result = $conn->query("SELECT dish_id, dish_name, calories, dish_category FROM dishes"); // dish_category を取得
+        $dishes_result = $conn->query("SELECT dish_id, dish_name, calories, dish_category, menu_url FROM dishes"); // dish_category を取得
         if ($dishes_result->num_rows > 0) {
             echo "<div class='section'><h3>料理の編集</h3><form method='post'>";
             while($row = $dishes_result->fetch_assoc()) {
@@ -98,6 +99,8 @@
                 echo "<input type='number' id='calories_" . $row['dish_id'] . "' name='dishes[" . $row['dish_id'] . "][calories]' value='" . htmlspecialchars($row['calories']) . "'>";
                 echo "<label for='dish_category_" . $row['dish_id'] . "'>カテゴリ:</label>"; // カテゴリ入力フィールドを追加
                 echo "<input type='text' id='dish_category_" . $row['dish_id'] . "' name='dishes[" . $row['dish_id'] . "][dish_category]' value='" . htmlspecialchars($row['dish_category']) . "'>";
+                echo "<label for='menu_url_" . $row['dish_id'] . "'>レシピのURL:</label>"; // url入力フィールドを追加
+                echo "<input type='text' id='menu_url_" . $row['dish_id'] . "' name='dishes[" . $row['dish_id'] . "][menu_url]' value='" . htmlspecialchars($row['menu_url']) . "'>";
                 echo "</div>";
             }
             echo "<input type='submit' name='update_dishes' value='料理を更新'>";

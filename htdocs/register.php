@@ -69,7 +69,7 @@ if (isset($_POST['resister'])) {
         
         // IDの重複チェック
         $sql = 'SELECT * FROM user where user_id = :user_id'; // SQL文を構成
-        $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
+        $sth = $db->prepare($sql); // SQL文を実行変数へ投入
         $sth->bindParam(':user_id', $_POST['user_id']); // ユーザIDを実行変数に挿入
         $sth->execute(); // SQLの実行
         $result = $sth->fetch(); // 処理結果の取得
@@ -83,7 +83,7 @@ if (isset($_POST['resister'])) {
          
           // ユーザ追加処理のSQLの生成と実行
           $sql = 'INSERT INTO user (user_id, user_pass) VALUES(:user_id, :user_pass)'; // SQL文を構成
-          $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
+          $sth = $db->prepare($sql); // SQL文を実行変数へ投入
           $sth->bindParam(':user_id', $_POST['user_id']); // ユーザIDを実行変数に挿入
           $sth->bindParam(':user_pass', $hash_pass); // パスワードを実行変数に挿入
           $sth->execute(); // SQLの実行
