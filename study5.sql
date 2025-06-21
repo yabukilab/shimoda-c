@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2025-06-13 11:09:56
+-- 生成日時: 2025-06-21 15:17:30
 -- サーバのバージョン： 10.4.32-MariaDB
 -- PHP のバージョン: 8.2.12
 
@@ -30,15 +30,24 @@ SET time_zone = "+00:00";
 CREATE TABLE `dishes` (
   `dish_id` int(11) NOT NULL,
   `dish_name` varchar(255) NOT NULL,
-  `calories` int(11) DEFAULT NULL
+  `calories` int(11) DEFAULT NULL,
+  `dish_category` varchar(255) NOT NULL,
+  `menu_url` varchar(255) NOT NULL,
+  `Shounin_umu` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- テーブルのデータのダンプ `dishes`
 --
 
-INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`) VALUES
-(1, 'カレー', 500);
+INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`, `dish_category`, `menu_url`, `Shounin_umu`) VALUES
+(1, '彼のカレー', 500, '洋食', 'bbbbbbb', 1),
+(4, 'ラーメン', 600, '中華', 'ddddddd', 1),
+(5, 'チャーシュー', 200, '中華', 'nnnnnnn', 1),
+(6, '天津飯', 500, '中華', 'mmmmmmm', 1),
+(7, 'ちゃんぽん', 500, '中華', 'ttttttt', 1),
+(8, 'たこやき', 600, '洋食', 'aaaaa', 1),
+(9, 'かつ丼', 700, '和食', 'bbbbb', 1);
 
 -- --------------------------------------------------------
 
@@ -49,16 +58,29 @@ INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`) VALUES
 CREATE TABLE `dish_ingredients` (
   `dish_ingredient_id` int(11) NOT NULL,
   `dish_id` int(11) NOT NULL,
-  `ingredient_id` int(11) NOT NULL
+  `ingredient_id` int(11) NOT NULL,
+  `shounin_umu` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- テーブルのデータのダンプ `dish_ingredients`
 --
 
-INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`) VALUES
-(1, 1, 1),
-(4, 1, 2);
+INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `shounin_umu`) VALUES
+(1, 1, 1, 1),
+(4, 1, 2, 1);
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `infomation`
+--
+
+CREATE TABLE `infomation` (
+  `user_id` varchar(30) NOT NULL,
+  `user_pass` varchar(255) NOT NULL,
+  `user_hanbetu` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -68,29 +90,18 @@ INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`
 
 CREATE TABLE `ingredients` (
   `ingredient_id` int(11) NOT NULL,
-  `ingredient_name` varchar(255) NOT NULL
+  `ingredient_name` varchar(255) NOT NULL,
+  `shounin_umu` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- テーブルのデータのダンプ `ingredients`
 --
 
-INSERT INTO `ingredients` (`ingredient_id`, `ingredient_name`) VALUES
-(2, 'ルー'),
-(1, '玉ねぎ');
-
--- --------------------------------------------------------
-
---
--- テーブルの構造 `menu`
---
-
-CREATE TABLE `menu` (
-  `menu_id` int(100) NOT NULL,
-  `name` varchar(1000) NOT NULL,
-  `kcal` int(200) NOT NULL,
-  `shokuzai` int(100) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+INSERT INTO `ingredients` (`ingredient_id`, `ingredient_name`, `shounin_umu`) VALUES
+(1, '玉ねぎ', 1),
+(2, 'ルー', 1),
+(3, '鶏肉', 1);
 
 --
 -- ダンプしたテーブルのインデックス
@@ -112,17 +123,17 @@ ALTER TABLE `dish_ingredients`
   ADD KEY `ingredient_id` (`ingredient_id`);
 
 --
+-- テーブルのインデックス `infomation`
+--
+ALTER TABLE `infomation`
+  ADD PRIMARY KEY (`user_id`);
+
+--
 -- テーブルのインデックス `ingredients`
 --
 ALTER TABLE `ingredients`
   ADD PRIMARY KEY (`ingredient_id`),
   ADD UNIQUE KEY `ingredient_name` (`ingredient_name`);
-
---
--- テーブルのインデックス `menu`
---
-ALTER TABLE `menu`
-  ADD PRIMARY KEY (`menu_id`);
 
 --
 -- ダンプしたテーブルの AUTO_INCREMENT
@@ -132,25 +143,19 @@ ALTER TABLE `menu`
 -- テーブルの AUTO_INCREMENT `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- テーブルの AUTO_INCREMENT `dish_ingredients`
 --
 ALTER TABLE `dish_ingredients`
-  MODIFY `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- テーブルの AUTO_INCREMENT `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
---
--- テーブルの AUTO_INCREMENT `menu`
---
-ALTER TABLE `menu`
-  MODIFY `menu_id` int(100) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- ダンプしたテーブルの制約
