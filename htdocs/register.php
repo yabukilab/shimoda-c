@@ -12,11 +12,7 @@ if (empty($_SESSION['register_msg'])) {
 $dbServer = '127.0.0.1'; // または '127.0.0.1'
 $dbUser = 'testuser';
 $dbPass = 'pass';     // XAMPPのデフォルトはパスワードなし
-<<<<<<< HEAD
 $dbName = 'mydb'; // 使用するDB名
-=======
-$dbName = 'study5'; // 使用するDB名
->>>>>>> 6d2b76c7ca30a5715b22133c7f992fc1b0bd57c9
 
 // 環境変数からの取得を残す場合は以下のコメントを解除
 // $dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
