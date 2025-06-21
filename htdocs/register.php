@@ -8,9 +8,9 @@ if (empty($_SESSION['register_msg'])) {
 
 // DB接続情報（ここを共通化）
 $dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
-$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser';
-$dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
-$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
+$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'root';
+$dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : '';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'study5'; // Changed 'login' to 'study5'
 
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 
@@ -68,8 +68,8 @@ if (isset($_POST['resister'])) {
          $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
         
         // IDの重複チェック
-        $sql = 'SELECT * FROM user where user_id = :user_id'; // SQL文を構成
-        $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
+        $sql = 'SELECT * FROM infomation where user_id = :user_id'; // SQL文を構成
+        $sth = $db->prepare($sql); // SQL文を実行変数へ投入
         $sth->bindParam(':user_id', $_POST['user_id']); // ユーザIDを実行変数に挿入
         $sth->execute(); // SQLの実行
         $result = $sth->fetch(); // 処理結果の取得
@@ -82,8 +82,8 @@ if (isset($_POST['resister'])) {
           $hash_pass=password_hash($_POST['user_pass1'],PASSWORD_DEFAULT);
          
           // ユーザ追加処理のSQLの生成と実行
-          $sql = 'INSERT INTO user (user_id, user_pass) VALUES(:user_id, :user_pass)'; // SQL文を構成
-          $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
+          $sql = 'INSERT INTO infomation (user_id, user_pass) VALUES(:user_id, :user_pass)'; // SQL文を構成
+          $sth = $db->prepare($sql); // SQL文を実行変数へ投入
           $sth->bindParam(':user_id', $_POST['user_id']); // ユーザIDを実行変数に挿入
           $sth->bindParam(':user_pass', $hash_pass); // パスワードを実行変数に挿入
           $sth->execute(); // SQLの実行
