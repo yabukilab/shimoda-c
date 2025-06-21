@@ -158,10 +158,10 @@
         <h2>メニュー・食材・関連付けの編集</h2>
 
         <?php
-        $servername = "localhost";
-        $username = "root"; // XAMPPのデフォルトユーザー名
-        $password = "";     // XAMPPのデフォルトパスワード
-        $dbname = "study5";
+        $servername = "127.0.0.1";
+        $username = "testuser"; // XAMPPのデフォルトユーザー名
+        $password = "pass";     // XAMPPのデフォルトパスワード
+        $dbname = "mydb";
 
         // データベース接続
         $conn = new mysqli($servername, $username, $password, $dbname);
