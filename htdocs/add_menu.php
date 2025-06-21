@@ -21,7 +21,7 @@ try {
 
     // フォーム送信処理
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
-        $menu_name = trim($_POST["menu_name"]);
+        $menu_name = trim($_POST["dish_name"]);
         $calorie = (int)$_POST["calorie"];
         $category = $_POST["category"];
         $ingredient_ids = $_POST["ingredients"] ?? [];
@@ -49,7 +49,7 @@ try {
             $pdo->beginTransaction();
 
             $stmt = $pdo->prepare("
-                INSERT INTO dishes (menu_name, calorie, category, url, shounin_umu)
+                INSERT INTO dishes (dish_name, calorie, category, url, shounin_umu)
                 VALUES (?, ?, ?, ?, 2)
             ");
             $stmt->execute([$menu_name, $calorie, $category, $url]);
