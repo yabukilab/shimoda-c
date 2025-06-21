@@ -513,6 +513,9 @@
         </div>
 
     </div>
+    <div class="button">
+    <a href="TOP.php">TOP画面</a>
+    </div>
 </body>
 </html>
 

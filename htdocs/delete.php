@@ -73,6 +73,9 @@ $result = $mysqli->query("SELECT dish_id, dish_name, dish_category, calories FRO
       <p>現在、削除申請可能な（Shounin_umu = 1）メニューはありません。</p>
     <?php endif; ?>
   </main>
+  <div class="button">
+    <a href="TOP.php">TOP画面</a>
+    </div>
 </body>
 </html>
 
