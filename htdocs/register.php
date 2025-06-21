@@ -10,8 +10,8 @@ if (empty($_SESSION['register_msg'])) {
 // 環境変数を使用しているようですが、ローカル環境の場合は直接記述をお勧めします
 // 例:
 $dbServer = '127.0.0.1'; // または '127.0.0.1'
-$dbUser = 'root';
-$dbPass = '';     // XAMPPのデフォルトはパスワードなし
+$dbUser = 'testuser';
+$dbPass = 'pass';     // XAMPPのデフォルトはパスワードなし
 $dbName = 'study5'; // 使用するDB名
 
 // 環境変数からの取得を残す場合は以下のコメントを解除
