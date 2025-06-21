@@ -1,5 +1,5 @@
 <?php
-$mysqli = new mysqli("localhost", "root", "", "study5");
+$mysqli = new mysqli("127.0.0.1", "testuser", "pass", "mydb");
 $message = "";
 
 if ($mysqli->connect_error) {
