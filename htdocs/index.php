@@ -58,18 +58,24 @@ if (isset($_POST['login'])) {
            $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
             // 入力されたIDのパスワード取得
-            $sql = 'SELECT user_pass FROM infomation WHERE user_id = :user_id'; // SQL文を構成
+            $sql = 'SELECT user_pass, user_hanbetu FROM infomation WHERE user_id = :user_id';
             $sth = $db->prepare($sql); // SQL文を実行変数へ投入
             $sth->bindParam(':user_id', $_POST['user_id']); // ユーザIDを実行変数に挿入
             $sth->execute(); // SQLの実行
-            $user_pass = $sth->fetch(); // 処理結果の取得
+            $row = $sth->fetch(); // 処理結果の取得
             
             // ログイン認証処理
-            if($user_pass!=0 && password_verify($_POST['user_pass'], $user_pass['user_pass'])){
+            if ($row && password_verify($_POST['user_pass'], $row['user_pass'])) {
                 // ログイン成功時の処理
-                $_SESSION['user_id'] = $_POST['user_id']; // ログインIDを格納したセッション変数を定義
-                $_SESSION['index_err_msg'] = ""; // エラーメッセージの削除
-                header("Location:recorder.php");
+               if ($row['user_hanbetu'] == 1) {
+                // 管理者A用TOP画面へ
+                header("Location: admin_top.php");
+                exit();
+            } else {
+                // 管理者B用TOP画面へ
+                header("Location: TOP.php");
+                exit();
+            }
                 }else{
                     // ログイン失敗時にエラーメッセージを表示する処理
                     $_SESSION['index_err_msg'] = "ユーザIDまたはパスワードに不備があります";
