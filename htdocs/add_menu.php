@@ -22,10 +22,10 @@ try {
     // フォーム送信処理
     if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $menu_name = trim($_POST["dish_name"]);
-        $calorie = (int)$_POST["calorie"];
-        $category = $_POST["category"];
+        $calorie = (int)$_POST["calories"];
+        $category = $_POST["dish_category"];
         $ingredient_ids = $_POST["ingredients"] ?? [];
-        $url = trim($_POST["url"]);
+        $url = trim($_POST["menu_url"]);
 
         // 入力チェック
         if (empty($menu_name) || mb_strlen($menu_name) > 50) {
@@ -49,8 +49,8 @@ try {
             $pdo->beginTransaction();
 
             $stmt = $pdo->prepare("
-                INSERT INTO dishes (dish_name, calorie, category, url, shounin_umu)
-                VALUES (?, ?, ?, ?, 2)
+                INSERT INTO dishes (dish_name, calories, dish_category, menu_url, shounin_umu)
+                VALUES (?, ?, ?, ?, 3)
             ");
             $stmt->execute([$menu_name, $calorie, $category, $url]);
             $dish_id = $pdo->lastInsertId();
@@ -65,7 +65,7 @@ try {
             }
 
             $pdo->commit();
-            header("Location: menu_add_success.php");
+            header("Location: add_menu_success.php");
             exit;
         }
     }
@@ -104,11 +104,11 @@ try {
         </label>
 
         <label>カロリー（1〜5000kcal）:
-            <input type="number" name="calorie" min="1" max="5000" required> kcal
+            <input type="number" name="calories" min="1" max="5000" required> kcal
         </label>
 
         <label>メニューの系統:
-            <select name="category" required>
+            <select name="dish_category" required>
                 <option value="">選択してください</option>
                 <option value="和食">和食</option>
                 <option value="洋食">洋食</option>
@@ -129,11 +129,17 @@ try {
         </label>
 
         <label>レシピのURL:
-            <input type="url" name="url" required>
+            <input type="url" name="menu_url" required>
         </label>
 
         <br><br>
         <input type="submit" value="メニュー追加">
     </form>
+
+    <!-- ✅ TOPに戻るボタン -->
+    <form action="TOP.php" method="get" style="margin-top: 20px;">
+        <input type="submit" value="TOPに戻る">
+    </form>
+
 </body>
 </html>
