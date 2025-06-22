@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "study5(3)");
+$conn = new mysqli("localhost", "root", "", "mydb");
 $conn->set_charset("utf8");
 
 if ($conn->connect_error) {

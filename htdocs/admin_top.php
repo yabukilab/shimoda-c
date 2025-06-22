@@ -1,5 +1,5 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "study5(3)"); // ← 注意点あり（下記参照）
+$conn = new mysqli("localhost", "root", "", "mydb"); // ← 注意点あり（下記参照）
 $conn->set_charset("utf8");
 
 if ($conn->connect_error) {
