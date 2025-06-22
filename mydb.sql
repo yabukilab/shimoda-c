@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
--- Host: localhost    Database: login
+-- Host: localhost    Database: mydb
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
 
@@ -26,6 +26,7 @@ CREATE TABLE `dish_ingredients` (
   `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
   `dish_id` int(11) NOT NULL,
   `ingredient_id` int(11) NOT NULL,
+  `shounin_umu` int(1) NOT NULL,
   PRIMARY KEY (`dish_ingredient_id`),
   UNIQUE KEY `dish_id` (`dish_id`,`ingredient_id`),
   KEY `ingredient_id` (`ingredient_id`),
@@ -40,7 +41,7 @@ CREATE TABLE `dish_ingredients` (
 
 LOCK TABLES `dish_ingredients` WRITE;
 /*!40000 ALTER TABLE `dish_ingredients` DISABLE KEYS */;
-INSERT INTO `dish_ingredients` VALUES (1,1,1),(4,1,2);
+INSERT INTO `dish_ingredients` VALUES (1,1,1,1),(4,1,2,1);
 /*!40000 ALTER TABLE `dish_ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -56,9 +57,11 @@ CREATE TABLE `dishes` (
   `dish_name` varchar(255) NOT NULL,
   `calories` int(11) DEFAULT NULL,
   `dish_category` varchar(255) NOT NULL,
+  `menu_url` varchar(255) NOT NULL,
+  `Shounin_umu` int(1) NOT NULL,
   PRIMARY KEY (`dish_id`),
   UNIQUE KEY `dish_name` (`dish_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -67,7 +70,7 @@ CREATE TABLE `dishes` (
 
 LOCK TABLES `dishes` WRITE;
 /*!40000 ALTER TABLE `dishes` DISABLE KEYS */;
-INSERT INTO `dishes` VALUES (1,'彼のカレー',500,''),(3,'炒飯',600,'中華'),(4,'ラーメン',600,'中華'),(5,'チャーシュー',300,'中華'),(6,'天津飯',500,'中華');
+INSERT INTO `dishes` VALUES (1,'彼のカレー',500,'洋食','bbbbbbb',1),(4,'ラーメン',600,'中華','ddddddd',1),(5,'チャーシュー',200,'中華','nnnnnnn',1),(6,'天津飯',500,'中華','mmmmmmm',1),(7,'ちゃんぽん',500,'中華','ttttttt',1),(8,'たこやき',600,'洋食','aaaaa',1),(9,'かつ丼',700,'和食','bbbbb',1);
 /*!40000 ALTER TABLE `dishes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -81,6 +84,7 @@ DROP TABLE IF EXISTS `infomation`;
 CREATE TABLE `infomation` (
   `user_id` varchar(30) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
+  `user_hanbetu` int(1) NOT NULL,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -104,6 +108,7 @@ DROP TABLE IF EXISTS `ingredients`;
 CREATE TABLE `ingredients` (
   `ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
   `ingredient_name` varchar(255) NOT NULL,
+  `shounin_umu` int(1) NOT NULL,
   PRIMARY KEY (`ingredient_id`),
   UNIQUE KEY `ingredient_name` (`ingredient_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
@@ -115,33 +120,8 @@ CREATE TABLE `ingredients` (
 
 LOCK TABLES `ingredients` WRITE;
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
-INSERT INTO `ingredients` VALUES (2,'ルー'),(1,'玉ねぎ'),(3,'鶏肉');
+INSERT INTO `ingredients` VALUES (1,'玉ねぎ',1),(2,'ルー',1),(3,'鶏肉',1);
 /*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
-UNLOCK TABLES;
-
---
--- Table structure for table `menu`
---
-
-DROP TABLE IF EXISTS `menu`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `menu` (
-  `menu_id` int(100) NOT NULL AUTO_INCREMENT,
-  `name` varchar(1000) NOT NULL,
-  `kcal` int(200) NOT NULL,
-  `shokuzai` int(100) NOT NULL,
-  PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
---
--- Dumping data for table `menu`
---
-
-LOCK TABLES `menu` WRITE;
-/*!40000 ALTER TABLE `menu` DISABLE KEYS */;
-/*!40000 ALTER TABLE `menu` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
 
@@ -153,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-20 15:44:53
+-- Dump completed on 2025-06-22  0:43:41
