@@ -100,7 +100,7 @@ try {
 
     <form method="post" action="">
         <label>メニュー名（50文字以内）:
-            <input type="text" name="menu_name" maxlength="50" required>
+            <input type="text" name="dish_name" maxlength="50" required>
         </label>
 
         <label>カロリー（1〜5000kcal）:
