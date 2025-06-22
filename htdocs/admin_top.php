@@ -68,4 +68,5 @@ $delete = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 4");
         </div>
     </form>
 </body>
+<link rel="stylesheet" href="system.css">
 </html>

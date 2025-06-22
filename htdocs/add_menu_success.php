@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>メニュー追加完了</title>
-    <link rel="stylesheet" href="https://raw.githubusercontent.com/yabukilab/shimoda-c/main/htdocs/system.css">
+    <link rel="stylesheet" href="system.css">
     <style>
         body {
             font-family: sans-serif;
