@@ -52,5 +52,9 @@ $conn->close();
             <a class="button" href="admin_top.php">管理者TOPに戻る</a>
         </div>
     </div>
+     <!-- ✅ TOPに戻るボタン -->
+    <form action="TOP.php" method="get" style="margin-top: 20px;">
+        <input type="submit" value="TOPに戻る">
+    </form>
 </body>
 </html>

@@ -67,6 +67,10 @@ $delete = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 4");
             <input type="submit" value="選択したメニューを承認">
         </div>
     </form>
+     <!-- ✅ TOPに戻るボタン -->
+    <form action="TOP.php" method="get" style="margin-top: 20px;">
+        <input type="submit" value="TOPに戻る">
+    </form>
 </body>
 <link rel="stylesheet" href="system.css">
 </html>
