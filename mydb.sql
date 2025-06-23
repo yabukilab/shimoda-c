@@ -84,7 +84,7 @@ DROP TABLE IF EXISTS `infomation`;
 CREATE TABLE `infomation` (
   `user_id` varchar(30) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
-  `user_hanbetu` int(1) NOT NULL,
+  `user_hanbetu` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -95,7 +95,7 @@ CREATE TABLE `infomation` (
 
 LOCK TABLES `infomation` WRITE;
 /*!40000 ALTER TABLE `infomation` DISABLE KEYS */;
-INSERT INTO `infomation` VALUES ('ert','$2y$10$krA.LdLL/7VRbDX3Xq6U4OPZAXn0KLvnwG8RwldXC0uR3Ent0oi4S',0),('re','$2y$10$nHSGTM6VBHIRCPICNrB8zuKuE65.BTgG/qLAToIEOAZGR3BBjQxeK',1),('totoro','$2y$10$BamRMhL4FMpvuqbrO8NbvO7Oq8t4s05SerXD3sD5BFeL47G5ykfhm',0),('ww','$2y$10$6K3tC2dWw9qtXy1stxaoq.dEZWeGTR.YIvKGhR/yf5hdW7xe2K9oq',0);
+INSERT INTO `infomation` VALUES ('ert','$2y$10$krA.LdLL/7VRbDX3Xq6U4OPZAXn0KLvnwG8RwldXC0uR3Ent0oi4S',0),('konan','$2y$10$Yql3O2DziBOs1MYph.40re1EvKJ9ThrYGZ8QA.QiysqeuzPJU3Zne',0),('re','$2y$10$nHSGTM6VBHIRCPICNrB8zuKuE65.BTgG/qLAToIEOAZGR3BBjQxeK',1),('tihiro','$2y$10$BlpuJX73P/SjZDMf17LuXuzSu3WkEoazmNX8qHvwub8uTSbfT3wcG',0),('totoro','$2y$10$BamRMhL4FMpvuqbrO8NbvO7Oq8t4s05SerXD3sD5BFeL47G5ykfhm',0),('ww','$2y$10$6K3tC2dWw9qtXy1stxaoq.dEZWeGTR.YIvKGhR/yf5hdW7xe2K9oq',0);
 /*!40000 ALTER TABLE `infomation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-22 17:52:39
+-- Dump completed on 2025-06-23 20:46:44
