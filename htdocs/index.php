@@ -35,9 +35,15 @@ if (empty($_SESSION['index_err_msg'])) {
 
 // DB接続情報（ここを共通化）
 $dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+<<<<<<< HEAD
+$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'root';
+$dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : '';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'study5'; // データベース名を 'login' から 'study5' に変更
+=======
 $dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser'; // ★ユーザー名を確認
 $dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';     // ★パスワードを確認
 $dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';     // ★データベース名を正しいものに変更
+>>>>>>> 628dfdc12ae8f64462f9cd93821956f590722f22
 
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 
