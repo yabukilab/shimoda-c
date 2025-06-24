@@ -95,7 +95,7 @@ CREATE TABLE `infomation` (
 
 LOCK TABLES `infomation` WRITE;
 /*!40000 ALTER TABLE `infomation` DISABLE KEYS */;
-INSERT INTO `infomation` VALUES ('ert','$2y$10$krA.LdLL/7VRbDX3Xq6U4OPZAXn0KLvnwG8RwldXC0uR3Ent0oi4S',0),('konan','$2y$10$Yql3O2DziBOs1MYph.40re1EvKJ9ThrYGZ8QA.QiysqeuzPJU3Zne',0),('re','$2y$10$nHSGTM6VBHIRCPICNrB8zuKuE65.BTgG/qLAToIEOAZGR3BBjQxeK',1),('tihiro','$2y$10$BlpuJX73P/SjZDMf17LuXuzSu3WkEoazmNX8qHvwub8uTSbfT3wcG',0),('totoro','$2y$10$BamRMhL4FMpvuqbrO8NbvO7Oq8t4s05SerXD3sD5BFeL47G5ykfhm',0),('ww','$2y$10$6K3tC2dWw9qtXy1stxaoq.dEZWeGTR.YIvKGhR/yf5hdW7xe2K9oq',0);
+INSERT INTO `infomation` VALUES ('ert','$2y$10$krA.LdLL/7VRbDX3Xq6U4OPZAXn0KLvnwG8RwldXC0uR3Ent0oi4S',0),('konan','$2y$10$Yql3O2DziBOs1MYph.40re1EvKJ9ThrYGZ8QA.QiysqeuzPJU3Zne',1),('re','$2y$10$nHSGTM6VBHIRCPICNrB8zuKuE65.BTgG/qLAToIEOAZGR3BBjQxeK',1),('syuukatu','$2y$10$9UsLrdeKt785vAtTm.owG.gpPwUcxP5wuGp7JWBroGBGWdX1m9tBW',0),('tihiro','$2y$10$BlpuJX73P/SjZDMf17LuXuzSu3WkEoazmNX8qHvwub8uTSbfT3wcG',0),('tkg','$2y$10$QAxfdweijwNnK6CuMrhGW.a8g50XlabNQnQ.1MMs6fsh6F1ETnO7O',1),('totoro','$2y$10$BamRMhL4FMpvuqbrO8NbvO7Oq8t4s05SerXD3sD5BFeL47G5ykfhm',0),('ww','$2y$10$6K3tC2dWw9qtXy1stxaoq.dEZWeGTR.YIvKGhR/yf5hdW7xe2K9oq',0);
 /*!40000 ALTER TABLE `infomation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -134,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-23 20:46:44
+-- Dump completed on 2025-06-24 10:55:43
