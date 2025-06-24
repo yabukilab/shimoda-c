@@ -1,5 +1,12 @@
 <?php
-$mysqli = new mysqli("127.0.0.1", "testuser", "pass", "mydb");
+// DB接続情報（ここを共通化）
+$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser';
+$dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
+
+// mysqli_connect を使用する場合
+$mysqli = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
 $message = "";
 
 if ($mysqli->connect_error) {
