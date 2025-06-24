@@ -19,8 +19,13 @@ try {
     $db = new PDO($dsn, $dbUser, $dbPass);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+    // 現在のデータベース名＆ホスト名確認
     $db_now = $db->query("SELECT DATABASE()")->fetchColumn();
+    $host_now = $db->query("SELECT @@hostname")->fetchColumn();
     echo "<p>今接続しているDB: {$db_now}</p>";
+    echo "<p>接続中のMySQLホスト名: {$host_now}</p>";
+
 } catch (PDOException $e) {
     die("データベース接続失敗: " . htmlspecialchars($e->getMessage()));
 }
@@ -45,8 +50,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resister'])) {
         exit();
     }
 
-    // 重複チェック
     try {
+        // トランザクション開始
+        $db->beginTransaction();
+
+        // 重複チェック
         $sql = "SELECT COUNT(*) FROM infomation WHERE user_id = :user_id";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);
@@ -54,6 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resister'])) {
         $count = $stmt->fetchColumn();
 
         if ($count > 0) {
+            $db->rollBack();
             $_SESSION['register_err_msg'] = "このIDは既に登録されています。";
             $_SESSION['register_msg'] = "";
             header("Location: register.php");
@@ -69,12 +78,16 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resister'])) {
         $stmt->bindParam(':user_pass', $hash_pass);
         $stmt->execute();
 
+        // コミット
+        $db->commit();
+
         $_SESSION['register_msg'] = "ユーザ登録が完了しました。";
         $_SESSION['register_err_msg'] = "";
         header("Location: register.php");
         exit();
 
     } catch (PDOException $e) {
+        $db->rollBack();
         $_SESSION['register_err_msg'] = "登録中にエラーが発生しました: " . htmlspecialchars($e->getMessage());
         $_SESSION['register_msg'] = "";
         header("Location: register.php");
