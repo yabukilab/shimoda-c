@@ -1,144 +1,89 @@
 <?php
-// セッションのスタート及びセッション変数の定義
-session_start();
-if (empty($_SESSION['list_err_msg'])) {
-    $_SESSION['list_err_msg'] = "";}
-if (empty($_SESSION['list_msg'])) {
-    $_SESSION['list_msg'] = "";}
+// DB接続情報（ここを共通化）
+$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser';
+$dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
 
-////// 以降、HTMLのコード //////
+// mysqli_connect を使用する場合
+$mysqli = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
+$message = "";
+
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
+
+// 削除申請処理（承認済み → 削除申請中（4）に変更）
+if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["request_ids"])) {
+    $ids = $_POST["request_ids"];
+    $placeholders = implode(',', array_fill(0, count($ids), '?'));
+    $types = str_repeat('i', count($ids));
+
+    // Shounin_umu = 1 のメニューを対象に、Shounin_umu を 4 に更新
+    $stmt = $mysqli->prepare("UPDATE dishes SET Shounin_umu = 4 WHERE dish_id IN ($placeholders) AND Shounin_umu = 1");
+    $stmt->bind_param($types, ...array_map('intval', $ids));
+    if ($stmt->execute()) {
+        $message = "✅ 削除申請を送信しました（Shounin_umu = 4 に更新されました）。";
+    } else {
+        $message = "❌ 削除申請の送信に失敗しました。";
+    }
+    $stmt->close();
+}
+
+// 承認済み（Shounin_umu = 1）のメニュー一覧取得
+$result = $mysqli->query("SELECT dish_id, dish_name, dish_category, calories FROM dishes WHERE Shounin_umu = 1 ORDER BY dish_id ASC");
 ?>
+
 <!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="UTF-8">
-        <title>メニュー削除</title>
-        <link rel="stylesheet" href="system.css">
-    </head>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <title>削除申請ページ（承認済みメニュー）</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+<body>
+  <main class="container">
+    <h1>削除申請ページ（Shounin_umu = 1 のみ表示）</h1>
 
-    <body>
-    <div class="container">
-        <h2>メニュー削除</h2>
-    <form method="POST">
-        <?php
-        // HTML内に楽曲一覧表を表示する処理
-            try {
-                // データベースへの接続
-                $dsn = 'mysql:dbname=study5;host=127.0.0.1';
-                $dbh = new PDO($dsn, 'db_admin', 'admin');
+    <?php if (!empty($message)): ?>
+      <article><strong><?php echo htmlspecialchars($message); ?></strong></article>
+    <?php endif; ?>
 
-                // 登録されている楽曲リストを取得
-                $sql = 'SELECT * FROM dishes'; // SQLを構成
-                $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
-                $sth->execute(); // SQLの実行
-                $row_count = $sth->rowCount(); // 該当するレコード件数取得
-                // 出力結果を配列に格納
-                while($row = $sth->fetch()){
-                    $rows[] = $row;
-                }
-            } catch (PDOException $e) {
-                // データベースへの接続に失敗した場合
-                print('データベースへの接続に失敗しました:' . $e->getMessage());
-                die();
-            }
- 
-        // 楽曲が1件以上あるか判定
-        if ($row_count != 0) {
-            // 楽曲が1件以上ある場合の処理
-            ?>
-            <div class="table-scroll-container">
-                <table border='1'>
-                <thead>
-                    <tr bgcolor="#e3f0fb"><td>選択</td><td>メニュー名</td><td>カロリー数値</td><td>メニューの系統</td></tr>
-                </thead>
-                <tbody>
-                <?php // 取得した楽曲を繰り返し処理で表へ展開（ ↑ 表見出し　↓ 配列の中身）
-                foreach($rows as $row){
-                ?> 
-                <tr> 
-                    <td align="center"><input type="checkbox" name="dish_id" value=<?php echo $row['dish_id']; ?>></td>
-                    <td><?php echo htmlspecialchars($row['dish_name'],ENT_QUOTES,'UTF-8'); ?></td> 
-                    <td><?php echo htmlspecialchars($row['calories'],ENT_QUOTES,'UTF-8'); ?></td> 
-                    <td><?php echo htmlspecialchars($row['dish_category'],ENT_QUOTES,'UTF-8'); ?></td> 
-                </tr> 
-                <?php 
-                } 
-                ?>        
-                </tbody>
-                </table>
-            </div>
-            <br>
-            <input type="submit" name="delete" value="選択した項目を削除"><br>
-            <?php if (!empty($_SESSION['list_err_msg'])): ?>
-                <div class="error"><?php echo $_SESSION['list_err_msg']; ?></div>
-            <?php endif; ?>
-            <?php if (!empty($_SESSION['list_msg'])): ?>
-                <div class="success"><?php echo $_SESSION['list_msg']; ?></div>
-            <?php endif; ?>
-        <?php
-        // 楽曲が1件以上ない場合の処理
-        }else{
-            echo "<p>メニューが1件も登録されていません</p>";
-        }
-        ?>
-        
-        <input type="submit" name="recorder" value="TOP画面に戻る"><br><br><br>
-        <input type="submit" name="logout" value="ログアウト"><br>
-        </form>
+    <?php if ($result->num_rows > 0): ?>
+      <form method="post">
+        <table>
+          <thead>
+            <tr>
+              <th>申請</th>
+              <th>ID</th>
+              <th>料理名</th>
+              <th>カテゴリ</th>
+              <th>カロリー</th>
+            </tr>
+          </thead>
+          <tbody>
+            <?php while ($row = $result->fetch_assoc()): ?>
+              <tr>
+                <td><input type="checkbox" name="request_ids[]" value="<?php echo $row["dish_id"]; ?>"></td>
+                <td><?php echo $row["dish_id"]; ?></td>
+                <td><?php echo htmlspecialchars($row["dish_name"]); ?></td>
+                <td><?php echo htmlspecialchars($row["dish_category"]); ?></td>
+                <td><?php echo $row["calories"]; ?> kcal</td>
+              </tr>
+            <?php endwhile; ?>
+          </tbody>
+        </table>
+
+        <button type="submit">選択したメニューを削除申請する</button>
+      </form>
+    <?php else: ?>
+      <p>現在、削除申請可能な（Shounin_umu = 1）メニューはありません。</p>
+    <?php endif; ?>
+  </main>
+  <div class="button">
+    <a href="TOP.php">TOP画面</a>
     </div>
-    </body>
+</body>
 </html>
 
-<?php
-////// 以降、PHPのコード //////
-
-// 削除ボタンが押された時の処理
-if (isset($_POST['delete'])) {
-    // 項目が選択されていることをチェック
-    if(empty($_POST['dish_id'])) {
-        $_SESSION['list_err_msg'] = "削除したい項目を選択して下さい";
-        $_SESSION['list_msg'] = "";
-        header("Location: ".$_SERVER['HTTP_REFERER']);  
-        exit;
-    }else{
-        try {
-            // データベースへの接続
-            $dsn = 'mysql:dbname=study5;host=127.0.0.1';
-            $dbh = new PDO($dsn, 'db_admin', 'admin');
-
-            // 楽曲追加処理の実行
-            $sql = 'DELETE FROM dishes WHERE dish_id = :dish_id'; // SQL文を構成
-            $sth = $dbh->prepare($sql); // SQL文を実行変数へ投入
-            $sth->bindParam(':dish_id', $_POST['dish_id']); // ユーザIDを実行変数に挿入
-            $sth->execute(); // SQLの実行
-            $_SESSION['list_msg'] = "メニューの削除が正常に完了しました"; // 登録成功のメッセージを入力
-            $_SESSION['list_err_msg'] = ""; // 失敗メッセージを削除
-            header("Location: ".$_SERVER['HTTP_REFERER']); // 元の画面を表示
-            exit;
-        } catch (PDOException $e) {
-                // データベースへの接続に失敗した場合
-                print('データベースへの接続に失敗しました:' . $e->getMessage());
-                die();
-        }
-    }
-}
-
-// 楽曲の登録に戻るボタンが押された時の処理
-if (isset($_POST['recorder'])) {
-    $_SESSION['list_msg'] = ""; // 登録成功のメッセージの削除
-    $_SESSION['list_err_msg'] = ""; // エラーメッセージの削除
-    header("Location:recorder.php"); // 楽曲登録画面へ遷移
-    exit;
-}
-
-// ログアウトボタンが押された時の処理
-if (isset($_POST['logout'])) {
-    $_SESSION = array(); // セッション変数を全て削除
-    if (isset($_COOKIE["PHPSESSID"])) { // セッションクッキーを削除
-        setcookie("PHPSESSID", '', time() - 1800, '/');
-    }
-    session_destroy(); // セッションの登録データを削除
-    header("Location:index.php"); // ログイン画面へ遷移
-    exit;
-}
-?>
+<?php $mysqli->close(); ?>

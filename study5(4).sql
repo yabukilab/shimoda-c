@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2025-06-24 07:32:19
+-- 生成日時: 2025-06-21 15:17:30
 -- サーバのバージョン： 10.4.32-MariaDB
 -- PHP のバージョン: 8.2.12
 
@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- データベース: `mydb`
+-- データベース: `study5`
 --
 
 -- --------------------------------------------------------
@@ -47,8 +47,7 @@ INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`, `dish_category`, `menu
 (6, '天津飯', 500, '中華', 'mmmmmmm', 1),
 (7, 'ちゃんぽん', 500, '中華', 'ttttttt', 1),
 (8, 'たこやき', 600, '洋食', 'aaaaa', 1),
-(9, 'かつ丼', 700, '和食', 'bbbbb', 1),
-(10, 'タイ焼き', 300, 'デザート', 'http://localhost/shimoda-c/htdocs/add_menu.php', 1);
+(9, 'かつ丼', 700, '和食', 'bbbbb', 1);
 
 -- --------------------------------------------------------
 
@@ -69,8 +68,7 @@ CREATE TABLE `dish_ingredients` (
 
 INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `shounin_umu`) VALUES
 (1, 1, 1, 1),
-(4, 1, 2, 1),
-(6, 10, 3, 0);
+(4, 1, 2, 1);
 
 -- --------------------------------------------------------
 
@@ -83,17 +81,6 @@ CREATE TABLE `infomation` (
   `user_pass` varchar(255) NOT NULL,
   `user_hanbetu` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- テーブルのデータのダンプ `infomation`
---
-
-INSERT INTO `infomation` (`user_id`, `user_pass`, `user_hanbetu`) VALUES
-('murakami', '$2y$10$jeXyEM4rG2rbw1zpQGnxCODMeMPx5bI0EthDWAzfTnDdfv.9ToF9.', 0),
-('nabuti', '$2y$10$MLoUeyDZI03kInIxBvQO6eMOb0PgNsOK4fnvKrttKTRG3P2sPeG0a', 0),
-('soutome', 'bbbb', 1),
-('takuma', '$2y$10$Lq2nBB10.7ld2FTa80ssMOy4Nw7CsN/4jY8VyL7MHy3kjUzjQ1DoO', 1),
-('takumi', 'aaaa', 0);
 
 -- --------------------------------------------------------
 
@@ -156,13 +143,13 @@ ALTER TABLE `ingredients`
 -- テーブルの AUTO_INCREMENT `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- テーブルの AUTO_INCREMENT `dish_ingredients`
 --
 ALTER TABLE `dish_ingredients`
-  MODIFY `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- テーブルの AUTO_INCREMENT `ingredients`
