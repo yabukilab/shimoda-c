@@ -10,15 +10,20 @@ $dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb
 // Changed 'login' to 'study5'
 
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
-$pdo = null; // $pdo を null で初期化
 
 try {
-    $pdo = new PDO($dsn, $user, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // エラーモードを例外に設定
+    $db = new PDO($dsn, $dbUser, $dbPass);
+    $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+    $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+    // 現在のデータベース名＆ホスト名確認
+    $db_now = $db->query("SELECT DATABASE()")->fetchColumn();
+    $host_now = $db->query("SELECT @@hostname")->fetchColumn();
+    
 } catch (PDOException $e) {
-    echo "データベースエラー: " . $e->getMessage();
-    exit;
+    die("データベース接続失敗: " . htmlspecialchars($e->getMessage()));
 }
+
 
 // 料理カテゴリの定義（固定リストに変更、中華を除外）
 $dishCategories = ['洋食', '和食', 'デザート', 'その他']; // ここを固定リストに変更
