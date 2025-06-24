@@ -278,4 +278,34 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
             </div>
             <div class="section">
                 <label for="ingredient_id_3">食材を選択してください (3):</label>
-                <select name="ingredient_id[]" id="ingredient_id
+                <select name="ingredient_id[]" id="ingredient_id_3">
+                    <option value="">選択してください</option>
+                    <?php foreach ($ingredients as $ingredient): ?>
+                        <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"
+                            <?php if (isset($_POST['ingredient_id']) && in_array($ingredient['ingredient_id'], $_POST['ingredient_id'])) echo 'selected'; ?>>
+                            <?= htmlspecialchars($ingredient['ingredient_name']) ?>
+                        </option>
+                    <?php endforeach; ?>
+                </select>
+            </div>
+
+            <input type="submit" value="メニューを提案する">
+        </form>
+
+        <?php if ($suggested_dish): ?>
+            <div class="suggested-dish">
+                <h3>提案されたメニュー</h3>
+                <p><strong>料理名:</strong> <?= htmlspecialchars($suggested_dish['dish_name']) ?></p>
+                <p><strong>カロリー:</strong> <?= htmlspecialchars($suggested_dish['calories']) ?> kcal</p>
+                <p><strong>カテゴリ:</strong> <?= htmlspecialchars($suggested_dish['dish_category']) ?></p>
+                <?php if (!empty($suggested_dish['menu_url'])): ?>
+                    <p><strong>レシピURL:</strong> <a href="<?= htmlspecialchars($suggested_dish['menu_url']) ?>" target="_blank"><?= htmlspecialchars($suggested_dish['menu_url']) ?></a></p>
+                <?php endif; ?>
+            </div>
+        <?php endif; ?>
+
+    </div>
+</body>
+</html>
+
+<?php $pdo = null; // データベース接続を閉じる ?>
