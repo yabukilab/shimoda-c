@@ -10,6 +10,7 @@ $dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb
 // Changed 'login' to 'study5'
 
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
+$pdo = null; // $pdo を null で初期化
 
 try {
     $pdo = new PDO($dsn, $user, $password);
