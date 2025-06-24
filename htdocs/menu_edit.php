@@ -389,3 +389,4 @@
                                 <td><input type="url" name="menu_url" value="<?php echo htmlspecialchars($row['menu_url']); ?>" required style="width: 120px;"></td>
                                 <td>
                                         <button type="submit" name="update_dish" class="update-btn">
+                        </div>
