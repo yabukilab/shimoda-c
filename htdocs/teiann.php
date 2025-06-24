@@ -1,5 +1,5 @@
 <?php
-session_start(); // エラーメッセージに $_SESSION を使用するためにセッションを開始
+session_start();
 
 // データベース接続
 $dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
@@ -7,14 +7,13 @@ $dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'test
 $dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
 $dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
 
-// Changed 'login' to 'study5'
-
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
-$pdo = null; // $pdo を null で初期化
+$pdo = null;
 
 try {
-    $pdo = new PDO($dsn, $dbUser, $dbName);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // エラーモードを例外に設定
+    // 修正: $dbName の代わりに $dbPass を渡す
+    $pdo = new PDO($dsn, $dbUser, $dbPass);
+    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 } catch (PDOException $e) {
     echo "データベースエラー: " . $e->getMessage();
     exit;
