@@ -24,9 +24,7 @@ try {
     // 現在のデータベース名＆ホスト名確認
     $db_now = $db->query("SELECT DATABASE()")->fetchColumn();
     $host_now = $db->query("SELECT @@hostname")->fetchColumn();
-    echo "<p>今接続しているDB: {$db_now}</p>";
-    echo "<p>接続中のMySQLホスト名: {$host_now}</p>";
-
+    
 } catch (PDOException $e) {
     die("データベース接続失敗: " . htmlspecialchars($e->getMessage()));
 }
@@ -123,7 +121,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
         パスワード（再入力）：<br>
         <input type="password" name="user_pass2"><br><br>
 
-        <button type="submit" name="resister">登録</button><br><br>
+        <button type="submit" name="register">登録</button><br><br>
 
         <font color="red"><?php echo htmlspecialchars($_SESSION['register_err_msg']); ?></font><br>
         <font color="blue"><?php echo htmlspecialchars($_SESSION['register_msg']); ?></font><br><br>
