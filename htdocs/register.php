@@ -19,6 +19,8 @@ try {
     $db = new PDO($dsn, $dbUser, $dbPass);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+    $db_now = $db->query("SELECT DATABASE()")->fetchColumn();
+    echo "<p>今接続しているDB: {$db_now}</p>";
 } catch (PDOException $e) {
     die("データベース接続失敗: " . htmlspecialchars($e->getMessage()));
 }
