@@ -2,10 +2,14 @@
 session_start(); // エラーメッセージに $_SESSION を使用するためにセッションを開始
 
 // データベース接続
-$dsn = 'mysql:host=localhost;dbname=mydb;charset=utf8'; // データベース名を 'mydb' に変更
-$user = 'testuser';
-$password = 'pass';
-$pdo = null; // $pdo を null で初期化
+$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser';
+$dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
+
+// Changed 'login' to 'study5'
+
+$dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 
 try {
     $pdo = new PDO($dsn, $user, $password);
