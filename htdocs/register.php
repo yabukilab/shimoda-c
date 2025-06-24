@@ -32,7 +32,7 @@ try {
 }
 
 // 登録処理
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resister'])) {
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $user_id = trim($_POST['user_id']);
     $pass1 = $_POST['user_pass1'];
     $pass2 = $_POST['user_pass2'];
