@@ -3,8 +3,8 @@ session_start(); // エラーメッセージに $_SESSION を使用するため�
 
 // データベース接続
 $dsn = 'mysql:host=localhost;dbname=mydb;charset=utf8'; // データベース名を 'mydb' に変更
-$user = 'root';
-$password = '';
+$user = 'testuser';
+$password = 'pass';
 $pdo = null; // $pdo を null で初期化
 
 try {
