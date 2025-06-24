@@ -8,81 +8,110 @@ if (!isset($_SESSION['register_msg'])) {
     $_SESSION['register_msg'] = "";
 }
 
-// 外部設定ファイルを読み込む
-$config = include('/var/www/shimoda-c/htdocs/db_config.php'); // 本番環境では実際の絶対パスに変更してください
+// DB接続情報
+// DB接続情報（ここを共通化）
+$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+$dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser';
+$dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
 
-$dsn = "mysql:host={$config['dbServer']};dbname={$config['dbName']};charset=utf8";
+// Changed 'login' to 'study5'
+
+$dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
+
 
 try {
-    $db = new PDO($dsn, $config['dbUser'], $config['dbPass']);
+    $db = new PDO($dsn, $dbUser, $dbPass);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+    // 現在のデータベース名＆ホスト名確認
+    $db_now = $db->query("SELECT DATABASE()")->fetchColumn();
+    $host_now = $db->query("SELECT @@hostname")->fetchColumn();
+    
 } catch (PDOException $e) {
     die("データベース接続失敗: " . htmlspecialchars($e->getMessage()));
 }
 
 // 登録処理
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    if (isset($_POST['action']) && $_POST['action'] === '登録') {
-        $user_id = trim($_POST['user_id']);
-        $pass1 = $_POST['user_pass1'];
-        $pass2 = $_POST['user_pass2'];
+    echo '<pre>';
+    var_dump($_POST);
+    echo '</pre>';
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
+    $user_id = trim($_POST['user_id']);
+    $pass1 = $_POST['user_pass1'];
+    $pass2 = $_POST['user_pass2'];
 
-        if ($user_id === '' || $pass1 === '' || $pass2 === '') {
-            $_SESSION['register_err_msg'] = "全ての項目を入力してください。";
-            $_SESSION['register_msg'] = "";
-            header("Location: register.php");
-            exit();
-        }
-
-        if ($pass1 !== $pass2) {
-            $_SESSION['register_err_msg'] = "パスワードが一致しません。";
-            $_SESSION['register_msg'] = "";
-            header("Location: register.php");
-            exit();
-        }
-
-        try {
-            $sql = "SELECT COUNT(*) FROM infomation WHERE user_id = :user_id";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->execute();
-            $count = $stmt->fetchColumn();
-
-            if ($count > 0) {
-                $_SESSION['register_err_msg'] = "このIDは既に登録されています。";
-                $_SESSION['register_msg'] = "";
-                header("Location: register.php");
-                exit();
-            }
-
-            $hash_pass = password_hash($pass1, PASSWORD_DEFAULT);
-
-            $sql = "INSERT INTO infomation (user_id, user_pass) VALUES (:user_id, :user_pass)";
-            $stmt = $db->prepare($sql);
-            $stmt->bindParam(':user_id', $user_id);
-            $stmt->bindParam(':user_pass', $hash_pass);
-            $stmt->execute();
-
-            $_SESSION['register_msg'] = "ユーザ登録が完了しました。";
-            $_SESSION['register_err_msg'] = "";
-            header("Location: register.php");
-            exit();
-
-        } catch (PDOException $e) {
-            $_SESSION['register_err_msg'] = "登録中にエラーが発生しました: " . htmlspecialchars($e->getMessage());
-            $_SESSION['register_msg'] = "";
-            header("Location: register.php");
-            exit();
-        }
-    } elseif (isset($_POST['action']) && $_POST['action'] === 'ログイン画面に戻る') {
-        $_SESSION['register_err_msg'] = "";
+    if ($user_id === '' || $pass1 === '' || $pass2 === '') {
+        $_SESSION['register_err_msg'] = "全ての項目を入力してください。";
         $_SESSION['register_msg'] = "";
-        header("Location: index.php");
+        header("Location: register.php");
+        exit();
+    }
+
+    if ($pass1 !== $pass2) {
+        $_SESSION['register_err_msg'] = "パスワードが一致しません。";
+        $_SESSION['register_msg'] = "";
+        header("Location: register.php");
+        exit();
+    }
+
+    try {
+        // トランザクション開始
+        $db->beginTransaction();
+
+        // 重複チェック
+        $sql = "SELECT COUNT(*) FROM infomation WHERE user_id = :user_id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            $db->rollBack();
+            $_SESSION['register_err_msg'] = "このIDは既に登録されています。";
+            $_SESSION['register_msg'] = "";
+            header("Location: register.php");
+            exit();
+        }
+
+        // パスワードハッシュ化して登録
+        $hash_pass = password_hash($pass1, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO infomation (user_id, user_pass) VALUES (:user_id, :user_pass)";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':user_pass', $hash_pass);
+        $stmt->execute();
+
+        // コミット
+        $db->commit();
+
+        $_SESSION['register_msg'] = "ユーザ登録が完了しました。";
+        $_SESSION['register_err_msg'] = "";
+        header("Location: register.php");
+        exit();
+
+    } catch (PDOException $e) {
+        $db->rollBack();
+        $_SESSION['register_err_msg'] = "登録中にエラーが発生しました: " . htmlspecialchars($e->getMessage());
+        $_SESSION['register_msg'] = "";
+        header("Location: register.php");
         exit();
     }
 }
+
+// ログイン画面へ戻る
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $_SESSION['register_err_msg'] = "";
+    $_SESSION['register_msg'] = "";
+    header("Location: index.php");
+    exit();
+}
 ?>
+
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -101,11 +130,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         パスワード（再入力）：<br>
         <input type="password" name="user_pass2"><br><br>
 
-        <input type="submit" name="action" value="登録">
-        <input type="submit" name="action" value="ログイン画面に戻る"><br><br>
+        <button type="submit" name="register">登録</button><br><br>
 
         <font color="red"><?php echo htmlspecialchars($_SESSION['register_err_msg']); ?></font><br>
         <font color="blue"><?php echo htmlspecialchars($_SESSION['register_msg']); ?></font><br><br>
+
+        <button type="submit" name="login">ログイン画面に戻る</button>
     </form>
 </body>
 </html>
