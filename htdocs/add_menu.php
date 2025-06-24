@@ -78,7 +78,9 @@ try {
 <html lang="ja">
 <head>
     <meta charset="UTF-8">
-    <title>メニュー追加</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>追加申請ページ</title>
+    <link rel="stylesheet" href="style.css"> </head>
     <style>
         body { font-family: sans-serif; max-width: 600px; margin: 0 auto; }
         label { display: block; margin-top: 15px; }
@@ -142,5 +144,4 @@ try {
     </form>
 
 </body>
-<link rel="stylesheet" href="system.css">
 </html>
