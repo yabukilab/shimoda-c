@@ -1,8 +1,14 @@
 <?php
-// セッションのスタート
+// セッション開始
 session_start();
+if (!isset($_SESSION['register_err_msg'])) {
+    $_SESSION['register_err_msg'] = "";
+}
+if (!isset($_SESSION['register_msg'])) {
+    $_SESSION['register_msg'] = "";
+}
 
-// DB接続情報（あなたの今の仕様に合わせます）
+// DB接続情報
 $dbServer = '127.0.0.1';
 $dbUser = isset($_SERVER['MYSQL_USER']) ? $_SERVER['MYSQL_USER'] : 'testuser';
 $dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
@@ -10,51 +16,103 @@ $dbName = isset($_SERVER['MYSQL_DB']) ? $_SERVER['MYSQL_DB'] : 'mydb';
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 
 try {
-    // DB接続
     $db = new PDO($dsn, $dbUser, $dbPass);
     $db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $db->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    echo "<p>✅ データベース接続成功しました</p>";
+} catch (PDOException $e) {
+    die("データベース接続失敗: " . htmlspecialchars($e->getMessage()));
+}
 
-    // 現在の使用中DB確認
-    $sth = $db->query("SELECT DATABASE()");
-    $dbname_now = $sth->fetchColumn();
-    echo "<p>✅ 現在接続中のデータベース: {$dbname_now}</p>";
+// 登録処理
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['resister'])) {
+    $user_id = trim($_POST['user_id']);
+    $pass1 = $_POST['user_pass1'];
+    $pass2 = $_POST['user_pass2'];
 
-    // テーブル定義確認
-    $sth = $db->query("SHOW CREATE TABLE infomation");
-    $tableInfo = $sth->fetch(PDO::FETCH_ASSOC);
-    echo "<h3>✅ infomationテーブル定義:</h3>";
-    echo "<pre>" . htmlspecialchars($tableInfo['Create Table']) . "</pre>";
-
-    // 仮登録テスト
-    $test_user_id = 'test_user_' . time();
-    $test_user_pass = password_hash('password123', PASSWORD_DEFAULT);
-    
-    echo "<p>✅ テストユーザID: {$test_user_id}</p>";
-
-    $sql = 'INSERT INTO infomation (user_id, user_pass) VALUES (:user_id, :user_pass)';
-    $sth = $db->prepare($sql);
-    $sth->bindParam(':user_id', $test_user_id);
-    $sth->bindParam(':user_pass', $test_user_pass);
-    $sth->execute();
-
-    $count = $sth->rowCount();
-    echo "<p>✅ INSERT実行結果: {$count}件追加</p>";
-
-    // 実際に登録されたか確認
-    $sth = $db->prepare("SELECT * FROM infomation WHERE user_id = :user_id");
-    $sth->bindParam(':user_id', $test_user_id);
-    $sth->execute();
-    $result = $sth->fetch();
-
-    if ($result) {
-        echo "<p>✅ テーブルに登録されました。</p>";
-    } else {
-        echo "<p>❌ 登録が確認できませんでした。</p>";
+    if ($user_id === '' || $pass1 === '' || $pass2 === '') {
+        $_SESSION['register_err_msg'] = "全ての項目を入力してください。";
+        $_SESSION['register_msg'] = "";
+        header("Location: register.php");
+        exit();
     }
 
-} catch (PDOException $e) {
-    echo "<p>❌ DBエラー発生: " . htmlspecialchars($e->getMessage()) . "</p>";
+    if ($pass1 !== $pass2) {
+        $_SESSION['register_err_msg'] = "パスワードが一致しません。";
+        $_SESSION['register_msg'] = "";
+        header("Location: register.php");
+        exit();
+    }
+
+    // 重複チェック
+    try {
+        $sql = "SELECT COUNT(*) FROM infomation WHERE user_id = :user_id";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->execute();
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            $_SESSION['register_err_msg'] = "このIDは既に登録されています。";
+            $_SESSION['register_msg'] = "";
+            header("Location: register.php");
+            exit();
+        }
+
+        // パスワードハッシュ化して登録
+        $hash_pass = password_hash($pass1, PASSWORD_DEFAULT);
+
+        $sql = "INSERT INTO infomation (user_id, user_pass) VALUES (:user_id, :user_pass)";
+        $stmt = $db->prepare($sql);
+        $stmt->bindParam(':user_id', $user_id);
+        $stmt->bindParam(':user_pass', $hash_pass);
+        $stmt->execute();
+
+        $_SESSION['register_msg'] = "ユーザ登録が完了しました。";
+        $_SESSION['register_err_msg'] = "";
+        header("Location: register.php");
+        exit();
+
+    } catch (PDOException $e) {
+        $_SESSION['register_err_msg'] = "登録中にエラーが発生しました: " . htmlspecialchars($e->getMessage());
+        $_SESSION['register_msg'] = "";
+        header("Location: register.php");
+        exit();
+    }
+}
+
+// ログイン画面へ戻る
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
+    $_SESSION['register_err_msg'] = "";
+    $_SESSION['register_msg'] = "";
+    header("Location: index.php");
+    exit();
 }
 ?>
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>ユーザ情報の登録画面</title>
+</head>
+<body>
+    <h2>新規ユーザの登録</h2>
+    <form method="POST" action="register.php">
+        ユーザID（半角英数）：<br>
+        <input type="text" name="user_id"><br><br>
+
+        パスワード（半角英数）：<br>
+        <input type="password" name="user_pass1"><br><br>
+
+        パスワード（再入力）：<br>
+        <input type="password" name="user_pass2"><br><br>
+
+        <button type="submit" name="resister">登録</button><br><br>
+
+        <font color="red"><?php echo htmlspecialchars($_SESSION['register_err_msg']); ?></font><br>
+        <font color="blue"><?php echo htmlspecialchars($_SESSION['register_msg']); ?></font><br><br>
+
+        <button type="submit" name="login">ログイン画面に戻る</button>
+    </form>
+</body>
+</html>
