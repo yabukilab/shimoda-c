@@ -9,7 +9,7 @@ if (!isset($_SESSION['register_msg'])) {
 }
 
 // 外部設定ファイルを読み込む
-$config = include('/path/to/your/db_config.php'); // 本番環境では実際の絶対パスに変更してください
+$config = include('/var/www/shimoda-c/htdocs/db_config.php'); // 本番環境では実際の絶対パスに変更してください
 
 $dsn = "mysql:host={$config['dbServer']};dbname={$config['dbName']};charset=utf8";
 
