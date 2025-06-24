@@ -1,33 +1,24 @@
--- phpMyAdmin SQL Dump
--- version 5.2.1
--- https://www.phpmyadmin.net/
+-- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
-<<<<<<< HEAD
 -- Host: localhost    Database: mydb
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
-=======
--- ホスト: 127.0.0.1
--- 生成日時: 2025-06-21 17:21:42
--- サーバのバージョン： 10.4.32-MariaDB
--- PHP のバージョン: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
 /*!40101 SET NAMES utf8mb4 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
 
 --
--- データベース: `mydb`
+-- Table structure for table `dish_ingredients`
 --
 
-<<<<<<< HEAD
 DROP TABLE IF EXISTS `dish_ingredients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
@@ -43,15 +34,11 @@ CREATE TABLE `dish_ingredients` (
   CONSTRAINT `dish_ingredients_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE CASCADE
 ) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-=======
--- --------------------------------------------------------
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
 
 --
--- テーブルの構造 `dishes`
+-- Dumping data for table `dish_ingredients`
 --
 
-<<<<<<< HEAD
 LOCK TABLES `dish_ingredients` WRITE;
 /*!40000 ALTER TABLE `dish_ingredients` DISABLE KEYS */;
 INSERT INTO `dish_ingredients` VALUES (1,1,1,1),(4,1,2,1);
@@ -65,194 +52,86 @@ UNLOCK TABLES;
 DROP TABLE IF EXISTS `dishes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
-=======
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
 CREATE TABLE `dishes` (
-  `dish_id` int(11) NOT NULL,
+  `dish_id` int(11) NOT NULL AUTO_INCREMENT,
   `dish_name` varchar(255) NOT NULL,
   `calories` int(11) DEFAULT NULL,
   `dish_category` varchar(255) NOT NULL,
   `menu_url` varchar(255) NOT NULL,
-<<<<<<< HEAD
   `Shounin_umu` int(1) NOT NULL,
   PRIMARY KEY (`dish_id`),
   UNIQUE KEY `dish_name` (`dish_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-=======
-  `Shounin_umu` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
 
 --
--- テーブルのデータのダンプ `dishes`
+-- Dumping data for table `dishes`
 --
 
-<<<<<<< HEAD
 LOCK TABLES `dishes` WRITE;
 /*!40000 ALTER TABLE `dishes` DISABLE KEYS */;
 INSERT INTO `dishes` VALUES (1,'彼のカレー',500,'洋食','bbbbbbb',1),(4,'ラーメン',600,'中華','ddddddd',1),(5,'チャーシュー',200,'中華','nnnnnnn',1),(6,'天津飯',500,'中華','mmmmmmm',1),(7,'ちゃんぽん',500,'中華','ttttttt',1),(8,'たこやき',600,'洋食','aaaaa',1),(9,'かつ丼',700,'和食','bbbbb',1);
 /*!40000 ALTER TABLE `dishes` ENABLE KEYS */;
 UNLOCK TABLES;
-=======
-INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`, `dish_category`, `menu_url`, `Shounin_umu`) VALUES
-(1, '彼のカレー', 500, '洋食', 'bbbbbbb', 1),
-(4, 'ラーメン', 600, '中華', 'ddddddd', 1),
-(5, 'チャーシュー', 200, '中華', 'nnnnnnn', 1),
-(6, '天津飯', 500, '中華', 'mmmmmmm', 1),
-(7, 'ちゃんぽん', 500, '中華', 'ttttttt', 1),
-(8, 'たこやき', 600, '洋食', 'aaaaa', 1),
-(9, 'かつ丼', 700, '和食', 'bbbbb', 1);
-
--- --------------------------------------------------------
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
 
 --
--- テーブルの構造 `dish_ingredients`
+-- Table structure for table `infomation`
 --
 
-CREATE TABLE `dish_ingredients` (
-  `dish_ingredient_id` int(11) NOT NULL,
-  `dish_id` int(11) NOT NULL,
-  `ingredient_id` int(11) NOT NULL,
-  `shounin_umu` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
---
--- テーブルのデータのダンプ `dish_ingredients`
---
-
-INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `shounin_umu`) VALUES
-(1, 1, 1, 1),
-(4, 1, 2, 1);
-
--- --------------------------------------------------------
-
---
--- テーブルの構造 `infomation`
---
-
+DROP TABLE IF EXISTS `infomation`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `infomation` (
   `user_id` varchar(30) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
-<<<<<<< HEAD
-  `user_hanbetu` int(1) NOT NULL,
+  `user_hanbetu` int(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`user_id`)
-=======
-  `user_hanbetu` int(1) NOT NULL
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
-
--- --------------------------------------------------------
+/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- テーブルの構造 `ingredients`
+-- Dumping data for table `infomation`
 --
 
+LOCK TABLES `infomation` WRITE;
+/*!40000 ALTER TABLE `infomation` DISABLE KEYS */;
+INSERT INTO `infomation` VALUES ('ert','$2y$10$krA.LdLL/7VRbDX3Xq6U4OPZAXn0KLvnwG8RwldXC0uR3Ent0oi4S',0),('konan','$2y$10$Yql3O2DziBOs1MYph.40re1EvKJ9ThrYGZ8QA.QiysqeuzPJU3Zne',1),('re','$2y$10$nHSGTM6VBHIRCPICNrB8zuKuE65.BTgG/qLAToIEOAZGR3BBjQxeK',1),('syuukatu','$2y$10$9UsLrdeKt785vAtTm.owG.gpPwUcxP5wuGp7JWBroGBGWdX1m9tBW',0),('tihiro','$2y$10$BlpuJX73P/SjZDMf17LuXuzSu3WkEoazmNX8qHvwub8uTSbfT3wcG',0),('tkg','$2y$10$QAxfdweijwNnK6CuMrhGW.a8g50XlabNQnQ.1MMs6fsh6F1ETnO7O',1),('totoro','$2y$10$BamRMhL4FMpvuqbrO8NbvO7Oq8t4s05SerXD3sD5BFeL47G5ykfhm',0),('ww','$2y$10$6K3tC2dWw9qtXy1stxaoq.dEZWeGTR.YIvKGhR/yf5hdW7xe2K9oq',0);
+/*!40000 ALTER TABLE `infomation` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
+-- Table structure for table `ingredients`
+--
+
+DROP TABLE IF EXISTS `ingredients`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `ingredients` (
-  `ingredient_id` int(11) NOT NULL,
+  `ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
   `ingredient_name` varchar(255) NOT NULL,
-<<<<<<< HEAD
   `shounin_umu` int(1) NOT NULL,
   PRIMARY KEY (`ingredient_id`),
   UNIQUE KEY `ingredient_name` (`ingredient_name`)
 ) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
-=======
-  `shounin_umu` int(1) NOT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
 
 --
--- テーブルのデータのダンプ `ingredients`
+-- Dumping data for table `ingredients`
 --
 
-<<<<<<< HEAD
 LOCK TABLES `ingredients` WRITE;
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
 INSERT INTO `ingredients` VALUES (1,'玉ねぎ',1),(2,'ルー',1),(3,'鶏肉',1);
 /*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
-=======
-INSERT INTO `ingredients` (`ingredient_id`, `ingredient_name`, `shounin_umu`) VALUES
-(1, '玉ねぎ', 1),
-(2, 'ルー', 1),
-(3, '鶏肉', 1);
 
---
--- ダンプしたテーブルのインデックス
---
-
---
--- テーブルのインデックス `dishes`
---
-ALTER TABLE `dishes`
-  ADD PRIMARY KEY (`dish_id`),
-  ADD UNIQUE KEY `dish_name` (`dish_name`);
-
---
--- テーブルのインデックス `dish_ingredients`
---
-ALTER TABLE `dish_ingredients`
-  ADD PRIMARY KEY (`dish_ingredient_id`),
-  ADD UNIQUE KEY `dish_id` (`dish_id`,`ingredient_id`),
-  ADD KEY `ingredient_id` (`ingredient_id`);
-
---
--- テーブルのインデックス `infomation`
---
-ALTER TABLE `infomation`
-  ADD PRIMARY KEY (`user_id`);
-
---
--- テーブルのインデックス `ingredients`
---
-ALTER TABLE `ingredients`
-  ADD PRIMARY KEY (`ingredient_id`),
-  ADD UNIQUE KEY `ingredient_name` (`ingredient_name`);
-
---
--- ダンプしたテーブルの AUTO_INCREMENT
---
-
---
--- テーブルの AUTO_INCREMENT `dishes`
---
-ALTER TABLE `dishes`
-  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
-
---
--- テーブルの AUTO_INCREMENT `dish_ingredients`
---
-ALTER TABLE `dish_ingredients`
-  MODIFY `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
---
--- テーブルの AUTO_INCREMENT `ingredients`
---
-ALTER TABLE `ingredients`
-  MODIFY `ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
---
--- ダンプしたテーブルの制約
---
-
---
--- テーブルの制約 `dish_ingredients`
---
-ALTER TABLE `dish_ingredients`
-  ADD CONSTRAINT `dish_ingredients_ibfk_1` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `dish_ingredients_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE CASCADE;
-COMMIT;
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
-
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-<<<<<<< HEAD
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-06-22  0:43:41
-=======
->>>>>>> 94986eaf8529501664ae5d22de73d5221a2c1342
+-- Dump completed on 2025-06-24 10:55:43
