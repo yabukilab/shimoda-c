@@ -13,7 +13,7 @@ $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 $pdo = null; // $pdo を null で初期化
 
 try {
-    $pdo = new PDO($dsn, $user, $password);
+    $pdo = new PDO($dsn, $dbUser, $dbName);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // エラーモードを例外に設定
 } catch (PDOException $e) {
     echo "データベースエラー: " . $e->getMessage();
