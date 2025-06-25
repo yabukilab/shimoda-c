@@ -18,7 +18,7 @@ $delete = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 4");
     <title>管理者TOP</title>
 </head>
 <body>
-    <h1>管理者TOP画面</h1>
+    <h1>承認画面</h1>
 
     <form method="post" action="approve.php">
         <table border="1" style="float: left; margin-right: 20px;">
@@ -72,5 +72,5 @@ $delete = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 4");
         <input type="submit" value="TOPに戻る">
     </form>
 </body>
-<link rel="stylesheet" href="system.css">
+<link rel="stylesheet" href="style.css">
 </html>
