@@ -85,6 +85,7 @@ if (isset($_POST['register'])) {
 <head>
     <meta charset='utf-8' />
     <title>（実験・演習用）</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h2>ログイン</h2>
