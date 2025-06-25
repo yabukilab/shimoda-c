@@ -1,7 +1,7 @@
 <?php
 $host = 'localhost';
 $db   = 'mydb'; // 使用するDB名
-$user = 'root';
+$user = 'testuser';
 $pass = 'pass';
 $charset = 'utf8mb4';
 
