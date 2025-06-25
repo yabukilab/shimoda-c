@@ -12,6 +12,7 @@ if (empty($_SESSION['index_err_msg'])) {
   <head>
     <meta charset='utf-8' />
     <title>（実験・演習用）</title>
+    <link rel="stylesheet" href="style.css">
   </head>
 
  <body>
