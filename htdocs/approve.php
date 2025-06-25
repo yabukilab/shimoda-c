@@ -47,6 +47,28 @@ if (!empty($_POST['approve_ids_delete'])) {
     }
     $approved = true;
 }
+// dish_ingredients の追加申請（Shounin_umu = 5 → 承認 = 1）
+if (!empty($_POST['approve_ingredients_add'])) {
+    foreach ($_POST['approve_ingredients_add'] as $id) {
+        $stmt = $conn->prepare("UPDATE dish_ingredients SET Shounin_umu = 1 WHERE dish_ingredient_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+    $approved = true;
+}
+
+// dish_ingredients の削除申請（Shounin_umu = 6 → 削除）
+if (!empty($_POST['approve_ingredients_delete'])) {
+    foreach ($_POST['approve_ingredients_delete'] as $id) {
+        $stmt = $conn->prepare("DELETE FROM dish_ingredients WHERE dish_ingredient_id = ?");
+        $stmt->bind_param("i", $id);
+        $stmt->execute();
+        $stmt->close();
+    }
+    $approved = true;
+}
+
 
 
 // dish_ingredients 単体での承認（任意：表示している場合）
