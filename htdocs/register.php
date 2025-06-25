@@ -117,6 +117,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 <head>
     <meta charset="UTF-8">
     <title>ユーザ情報の登録画面</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h2>新規ユーザの登録</h2>
