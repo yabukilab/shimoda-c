@@ -368,6 +368,70 @@ ul.success-list li {
         padding: 20px;
     }
 
+    /* Adjust table display for small screens */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #555;
+    }
+
+    /* Label the data for each column */
+    td:nth-of-type(1):before { content: "ID:"; }
+    td:nth-of-type(2):before { content: "料理名:"; }
+    td:nth-of-type(3):before { content: "カロリー:"; }
+    td:nth-of-type(4):before { content: "カテゴリ:"; }
+    td:nth-of-type(5):before { content: "URL:"; }
+    td:nth-of-type(6):before { content: "操作:"; }
+
+    /* Adjust specific input widths within table cells on small screens */
+    td input[type="text"],
+    td input[type="number"],
+    td input[type="url"],
+    td select {
+        width: calc(100% - 10px) !important; /* Override inline styles and other rules */
+        max-width: unset;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+
+    td button {
+        width: calc(100% - 10px);
+        margin: 5px 0;
+        display: block;
+    }
+
     .button-group {
         flex-direction: column;
     }
@@ -387,6 +451,11 @@ ul.success-list li {
         flex-direction: column;
     }
 
+    .section {
+        min-width: unset; /* Remove min-width restriction for full width */
+        width: 100%;
+    }
+
     .table-container {
         flex-direction: column;
     }
@@ -394,5 +463,52 @@ ul.success-list li {
     .table-container table {
         width: 100%;
         min-width: unset;
+    }
+
+    .dish-ingredient-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dish-ingredient-item span {
+        margin-bottom: 5px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .dish-ingredient-item form {
+        width: 100%;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        margin-top: 5px;
+    }
+
+    .dish-ingredient-item button {
+        width: 100%;
+    }
+}
+
+/* Very small screens adjustment */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    td:before {
+        width: 40%;
+        padding-right: 5px;
     }
 }

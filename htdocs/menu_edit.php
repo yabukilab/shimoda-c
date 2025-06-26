@@ -282,9 +282,9 @@
         </div>
 
     </div>
-    <div class="button">
-    <a href="TOP.php">TOP画面</a>
-    </div>
+    <form action="TOP.php" method="get" style="margin-top: 20px;">
+        <input type="submit" value="TOPに戻る">
+    </form>
 </body>
 </html>
 
