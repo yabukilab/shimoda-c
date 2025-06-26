@@ -112,7 +112,8 @@
             if ($count > 0) {
                 $error_message = "この料理と食材の組み合わせは既に登録されています。";
             } else {
-                $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, Shounin_umu) VALUES (?, ?, 1)"); // Shounin_umu=1で登録
+                // Shounin_umu=2 で登録
+                $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, Shounin_umu) VALUES (?, ?, 2)");
                 $stmt->bind_param("ii", $dish_id, $ingredient_id);
                 if ($stmt->execute()) {
                     $message = "料理と食材の関連付けを追加しました。";
@@ -212,39 +213,6 @@
                 <p>現在、承認済みのメニューはありません。</p>
             <?php endif; ?>
         </div>
-
-        <div class="section">
-            <h3>食材の追加・削除申請</h3>
-            <h4>新しい食材を追加</h4>
-            <form method="post">
-                <div class="form-group">
-                    <label for="ingredient_name">食材名:</label>
-                    <input type="text" id="ingredient_name" name="ingredient_name" required>
-                </div>
-                <button type="submit" name="add_ingredient" class="add-btn">食材を追加</button>
-            </form>
-
-            <h4>既存食材の削除申請 (Shounin_umu = 1 のみ対象)</h4>
-            <?php
-            // 食材一覧を再取得して最新の状態を表示
-            $ingredients_query_for_delete = $conn->query("SELECT ingredient_id, ingredient_name FROM ingredients WHERE Shounin_umu = 1 ORDER BY ingredient_name ASC");
-            if ($ingredients_query_for_delete->num_rows > 0): ?>
-                <ul>
-                    <?php while ($row = $ingredients_query_for_delete->fetch_assoc()): ?>
-                        <li>
-                            <span>ID: <?php echo $row['ingredient_id']; ?> - <?php echo htmlspecialchars($row['ingredient_name']); ?></span>
-                            <form method="post">
-                                <input type="hidden" name="ingredient_id" value="<?php echo $row['ingredient_id']; ?>">
-                                <button type="submit" name="remove_ingredient" onclick="return confirm('この食材の削除を申請しますか？管理者の承認後に削除されます。');" class="reject-btn">削除申請</button>
-                            </form>
-                        </li>
-                    <?php endwhile; ?>
-                </ul>
-            <?php else: ?>
-                <p>現在、削除申請可能な食材はありません。</p>
-            <?php endif; ?>
-        </div>
-
         <div class="section">
             <h3>料理と食材の関連付けの追加・削除申請</h3>
             <h4>新しい関連付けを追加</h4>
@@ -314,9 +282,9 @@
         </div>
 
     </div>
-    <div class="button">
-    <a href="TOP.php">TOP画面</a>
-    </div>
+    <form action="TOP.php" method="get" style="margin-top: 20px;">
+        <input type="submit" value="TOPに戻る">
+    </form>
 </body>
 </html>
 

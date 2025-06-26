@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>ログインに成功しました</h2>
-    <div class="button">
-      <a href="admin_top1.php">管理者TOP画面</a>
+    <div class="container">
+        <h2>ログインに成功しました</h2>
+        <div class="button-group">
+            <a href="admin_top1.php">管理者TOP画面</a>
+        </div>
     </div>
 </body>
 </html>

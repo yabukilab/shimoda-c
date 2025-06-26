@@ -116,105 +116,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>メニュー提案</title>
-    <link rel="stylesheet" href="system.css">
-    <style>
-        .container {
-            max-width: 800px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        h2 {
-            color: #333;
-            text-align: center;
-            margin-bottom: 20px;
-        }
-        .section {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #eee;
-            border-radius: 5px;
-            background-color: #f9f9f9;
-        }
-        .section label {
-            display: block;
-            margin-bottom: 8px;
-            font-weight: bold;
-        }
-        .section select {
-            width: 100%;
-            padding: 10px;
-            border: 1px solid #ddd;
-            border-radius: 4px;
-            box-sizing: border-box;
-        }
-        .section input[type="submit"] {
-            background-color: #007bff;
-            color: white;
-            padding: 12px 20px;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 16px;
-            width: 100%;
-            margin-top: 10px;
-        }
-        .section input[type="submit"]:hover {
-            background-color: #0056b3;
-        }
-        .message {
-            padding: 10px;
-            margin-bottom: 20px;
-            border-radius: 5px;
-            text-align: center;
-            font-weight: bold;
-        }
-        .message.success {
-            background-color: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
-        }
-        .message.info {
-            background-color: #e2e3e5;
-            color: #383d41;
-            border: 1px solid #d6d8db;
-        }
-        .message.error {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
-        }
-        .suggested-dish {
-            border: 2px solid #007bff;
-            padding: 20px;
-            margin-top: 30px;
-            border-radius: 8px;
-            background-color: #e7f3ff;
-        }
-        .suggested-dish h3 {
-            color: #0056b3;
-            margin-top: 0;
-            margin-bottom: 15px;
-            text-align: center;
-        }
-        .suggested-dish p {
-            margin-bottom: 8px;
-        }
-        .suggested-dish p strong {
-            display: inline-block;
-            width: 80px;
-            color: #333;
-        }
-        .suggested-dish a {
-            color: #007bff;
-            text-decoration: none;
-        }
-        .suggested-dish a:hover {
-            text-decoration: underline;
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
@@ -307,8 +209,13 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
             </div>
         <?php endif; ?>
-
+    <div class="button">
+    <a href="TOP.php">TOP画面</a>
     </div>
+    </div>
+    <form action="TOP.php" method="get" style="margin-top: 20px;">
+        <input type="submit" value="TOPに戻る">
+    </form>
 </body>
 </html>
 

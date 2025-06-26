@@ -1,8 +1,8 @@
 <?php
 $host = 'localhost';
 $db   = 'mydb'; // 使用するDB名
-$user = 'root';
-$pass = '';
+$user = 'testuser';
+$pass = 'pass';
 $charset = 'utf8mb4';
 
 $dsn = "mysql:host=$host;dbname=$db;charset=$charset";

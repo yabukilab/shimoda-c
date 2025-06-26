@@ -7,9 +7,11 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h2>管理者TOP画面</h2>
-    <div class="button">
-      <a href="admin_top.php">承認画面</a>
+    <div class="container">
+        <h2>管理者TOP画面</h2>
+        <div class="button-group">
+            <a href="admin_top.php">承認画面</a>
+        </div>
     </div>
 </body>
 </html>
