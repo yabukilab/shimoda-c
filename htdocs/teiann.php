@@ -209,7 +209,9 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 <?php endif; ?>
             </div>
         <?php endif; ?>
-
+    <div class="button">
+    <a href="TOP.php">TOP画面</a>
+    </div>
     </div>
     <form action="TOP.php" method="get" style="margin-top: 20px;">
         <input type="submit" value="TOPに戻る">
