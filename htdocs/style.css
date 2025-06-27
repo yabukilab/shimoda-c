@@ -121,11 +121,46 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* Add this to make the table scrollable */
+.scrollable-table-container {
+    max-height: 400px; /* スクロール領域の最大高さを設定 */
+    overflow-y: auto;  /* コンテンツが最大高さを超えた場合に垂直スクロールを有効にする */
+    margin-bottom: 20px; /* テーブルの下にスペースを追加 (任意) */
+    border: 1px solid #e0e0e0; /* スクロール領域の周囲に境界線を追加 (任意) */
+    border-radius: 8px; /* スクロール領域の角を丸くする (任意) */
+}
+
+/* Ensure table header is fixed when scrolling */
+.scrollable-table-container table {
+    width: 100%; /* Make sure the table takes full width of its container */
+    border-collapse: collapse; /* Collapse borders */
+}
+
+.scrollable-table-container thead th {
+    position: sticky; /* Make headers sticky */
+    top: 0; /* Stick to the top of the scrollable container */
+    background-color: #eaf2f8; /* Background color for sticky header */
+    z-index: 10; /* Ensure header stays above scrolling content */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+/* Add this for scrollable lists (e.g., dish-ingredient associations) */
+.scrollable-list-container {
+    max-height: 300px; /* リストの最大高さを設定。必要に応じて調整してください */
+    overflow-y: auto;  /* コンテンツが最大高さを超えた場合に垂直スクロールを有効にする */
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px; /* リスト内のアイテムとのパディング */
+    background-color: #fcfcfc;
+}
+
 /* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 20px; /* This margin might need adjustment if it affects the scrollable container */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
 }
@@ -150,25 +185,24 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Message Styles */
-.success-message {
-    color: #28a745; /* Green for success */
-    background-color: #d4edda;
-    border: 1px solid #c3e6cb;
+/* Message Styles - Unified under .message with specific modifiers */
+.message { /* successとerrorに共通のスタイル */
     padding: 10px;
     border-radius: 5px;
     margin-bottom: 20px;
     text-align: center;
 }
 
-.error-message {
+.message.success { /* PHPファイルで使われているクラス名に合わせて修正 */
+    color: #28a745; /* Green for success */
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.message.error { /* PHPファイルで使われているクラス名に合わせて修正 */
     color: #dc3545; /* Red for errors */
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
-    padding: 10px;
-    border-radius: 5px;
-    margin-bottom: 20px;
-    text-align: center;
 }
 
 .info-message {
@@ -299,6 +333,7 @@ select[multiple] {
 .dish-ingredient-list {
     list-style: none;
     padding: 0;
+    /* Removed padding-top here as the container will provide it */
 }
 
 .dish-ingredient-item {
@@ -337,7 +372,7 @@ select[multiple] {
     color: #333;
 }
 
-/* Specific styles for lists of errors/messages */
+/* Specific styles for lists of errors/messages - these are now unused if PHP is correct */
 ul.error-list, ul.success-list {
     list-style-type: none;
     padding: 0;
@@ -368,6 +403,70 @@ ul.success-list li {
         padding: 20px;
     }
 
+    /* Adjust table display for small screens */
+    table, thead, tbody, th, td, tr {
+        display: block;
+    }
+
+    thead tr {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+    }
+
+    tr {
+        border: 1px solid #ddd;
+        margin-bottom: 10px;
+        border-radius: 8px;
+    }
+
+    td {
+        border: none;
+        border-bottom: 1px solid #eee;
+        position: relative;
+        padding-left: 50%;
+        text-align: right;
+    }
+
+    td:before {
+        position: absolute;
+        top: 6px;
+        left: 6px;
+        width: 45%;
+        padding-right: 10px;
+        white-space: nowrap;
+        text-align: left;
+        font-weight: bold;
+        color: #555;
+    }
+
+    /* Label the data for each column */
+    td:nth-of-type(1):before { content: "ID:"; }
+    td:nth-of-type(2):before { content: "料理名:"; }
+    td:nth-of-type(3):before { content: "カロリー:"; }
+    td:nth-of-type(4):before { content: "カテゴリ:"; }
+    td:nth-of-type(5):before { content: "URL:"; }
+    td:nth-of-type(6):before { content: "操作:"; }
+
+    /* Adjust specific input widths within table cells on small screens */
+    td input[type="text"],
+    td input[type="number"],
+    td input[type="url"],
+    td select {
+        width: calc(100% - 10px) !important; /* Override inline styles and other rules */
+        max-width: unset;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        text-align: left;
+    }
+
+    td button {
+        width: calc(100% - 10px);
+        margin: 5px 0;
+        display: block;
+    }
+
     .button-group {
         flex-direction: column;
     }
@@ -382,9 +481,14 @@ ul.success-list li {
         margin-right: 0;
         margin-bottom: 10px;
     }
-    
+
     .section-group {
         flex-direction: column;
+    }
+
+    .section {
+        min-width: unset; /* Remove min-width restriction for full width */
+        width: 100%;
     }
 
     .table-container {
@@ -394,5 +498,52 @@ ul.success-list li {
     .table-container table {
         width: 100%;
         min-width: unset;
+    }
+
+    .dish-ingredient-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .dish-ingredient-item span {
+        margin-bottom: 5px;
+        width: 100%;
+        text-align: left;
+    }
+
+    .dish-ingredient-item form {
+        width: 100%;
+        padding: 0;
+        border: none;
+        background-color: transparent;
+        margin-top: 5px;
+    }
+
+    .dish-ingredient-item button {
+        width: 100%;
+    }
+}
+
+/* Very small screens adjustment */
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .container {
+        padding: 15px;
+    }
+
+    h1 {
+        font-size: 1.5em;
+    }
+
+    h3 {
+        font-size: 1.2em;
+    }
+
+    td:before {
+        width: 40%;
+        padding-right: 5px;
     }
 }
