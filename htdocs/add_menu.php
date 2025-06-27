@@ -1,6 +1,6 @@
 <?php
-$host = 'localhost';
-$db   = 'mydb'; // 使用するDB名
+$host = '127.0.0.1';
+$db   = 'mydb';
 $user = 'testuser';
 $pass = 'pass';
 $charset = 'utf8mb4';
