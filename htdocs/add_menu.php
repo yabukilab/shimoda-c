@@ -1,20 +1,20 @@
 <?php
-$host = 'localhost';
-$db   = 'mydb'; // 使用するDB名
-$user = 'testuser';
-$pass = 'pass';
-$charset = 'utf8mb4';
+$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+$dbUser   = isset($_SERVER['MYSQL_USER'])   ? $_SERVER['MYSQL_USER']     : 'testuser';
+$dbPass   = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'testpass';
+$dbName   = isset($_SERVER['MYSQL_DB'])     ? $_SERVER['MYSQL_DB']       : 'mydb';
 
-$dsn = "mysql:host=$host;dbname=$db;charset=$charset";
-$options = [
-    PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
-    PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
-];
+// mysqli
+$mysqli = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
+if ($mysqli->connect_error) {
+    die("Connection failed: " . $mysqli->connect_error);
+}
 
-$errors = [];
-
+// PDO
 try {
-    $pdo = new PDO($dsn, $user, $pass, $options);
+    $dsn = "mysql:host=$dbServer;dbname=$dbName;charset=utf8mb4"; // ← ここが大事
+    $pdo = new PDO($dsn, $dbUser, $dbPass);
+
 
     // 食材一覧を取得
     $ingredient_list = $pdo->query("SELECT ingredient_id, ingredient_name FROM ingredients")->fetchAll();
