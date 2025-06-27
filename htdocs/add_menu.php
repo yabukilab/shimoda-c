@@ -45,11 +45,11 @@ try {
         }
 
         if (empty($errors)) {
-            // dishes テーブルに挿入（shounin_umu = 2）
+            // dishes テーブルに挿入（shounin_umu = 3）
             $pdo->beginTransaction();
 
             $stmt = $pdo->prepare("
-                INSERT INTO dishes (dish_name, calories, dish_category, menu_url, Shounin_umu)
+                INSERT INTO dishes (dish_name, calories, dish_category, menu_url, shounin_umu)
                 VALUES (?, ?, ?, ?, 3)
             ");
             $stmt->execute([$menu_name, $calorie, $category, $url]);
