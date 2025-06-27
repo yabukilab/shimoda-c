@@ -185,7 +185,7 @@ tr:hover {
     background-color: #f1f1f1;
 }
 
-/* Message Styles */
+/* Message Styles - Unified under .message with specific modifiers */
 .message { /* successとerrorに共通のスタイル */
     padding: 10px;
     border-radius: 5px;
@@ -193,13 +193,13 @@ tr:hover {
     text-align: center;
 }
 
-.message.success {
+.message.success { /* PHPファイルで使われているクラス名に合わせて修正 */
     color: #28a745; /* Green for success */
     background-color: #d4edda;
     border: 1px solid #c3e6cb;
 }
 
-.message.error {
+.message.error { /* PHPファイルで使われているクラス名に合わせて修正 */
     color: #dc3545; /* Red for errors */
     background-color: #f8d7da;
     border: 1px solid #f5c6cb;
@@ -372,7 +372,7 @@ select[multiple] {
     color: #333;
 }
 
-/* Specific styles for lists of errors/messages */
+/* Specific styles for lists of errors/messages - these are now unused if PHP is correct */
 ul.error-list, ul.success-list {
     list-style-type: none;
     padding: 0;
