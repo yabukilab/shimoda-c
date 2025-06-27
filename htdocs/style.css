@@ -121,11 +121,46 @@ input[type="submit"]:hover {
     background-color: #0056b3;
 }
 
+/* Add this to make the table scrollable */
+.scrollable-table-container {
+    max-height: 400px; /* スクロール領域の最大高さを設定 */
+    overflow-y: auto;  /* コンテンツが最大高さを超えた場合に垂直スクロールを有効にする */
+    margin-bottom: 20px; /* テーブルの下にスペースを追加 (任意) */
+    border: 1px solid #e0e0e0; /* スクロール領域の周囲に境界線を追加 (任意) */
+    border-radius: 8px; /* スクロール領域の角を丸くする (任意) */
+}
+
+/* Ensure table header is fixed when scrolling */
+.scrollable-table-container table {
+    width: 100%; /* Make sure the table takes full width of its container */
+    border-collapse: collapse; /* Collapse borders */
+}
+
+.scrollable-table-container thead th {
+    position: sticky; /* Make headers sticky */
+    top: 0; /* Stick to the top of the scrollable container */
+    background-color: #eaf2f8; /* Background color for sticky header */
+    z-index: 10; /* Ensure header stays above scrolling content */
+    box-shadow: 0 2px 2px -1px rgba(0, 0, 0, 0.1); /* Optional: Add a subtle shadow */
+}
+
+/* Add this for scrollable lists (e.g., dish-ingredient associations) */
+.scrollable-list-container {
+    max-height: 300px; /* リストの最大高さを設定。必要に応じて調整してください */
+    overflow-y: auto;  /* コンテンツが最大高さを超えた場合に垂直スクロールを有効にする */
+    margin-top: 15px;
+    margin-bottom: 20px;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 10px; /* リスト内のアイテムとのパディング */
+    background-color: #fcfcfc;
+}
+
 /* Table Styles */
 table {
     width: 100%;
     border-collapse: collapse;
-    margin-top: 20px;
+    margin-top: 20px; /* This margin might need adjustment if it affects the scrollable container */
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
     background-color: #ffffff;
 }
@@ -299,6 +334,7 @@ select[multiple] {
 .dish-ingredient-list {
     list-style: none;
     padding: 0;
+    /* Removed padding-top here as the container will provide it */
 }
 
 .dish-ingredient-item {
@@ -446,7 +482,7 @@ ul.success-list li {
         margin-right: 0;
         margin-bottom: 10px;
     }
-    
+
     .section-group {
         flex-direction: column;
     }

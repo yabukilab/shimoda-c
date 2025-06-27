@@ -17,10 +17,11 @@ if ($mysqli->connect_error) {
 if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST["request_ids"])) {
     $ids = $_POST["request_ids"];
     $placeholders = implode(',', array_fill(0, count($ids), '?'));
-    $types = str_repeat('i', count($ids));
+    $types = str_repeat('i', count(intval($ids)));
 
     // Shounin_umu = 1 のメニューを対象に、Shounin_umu を 4 に更新
     $stmt = $mysqli->prepare("UPDATE dishes SET Shounin_umu = 4 WHERE dish_id IN ($placeholders) AND Shounin_umu = 1");
+    // call_user_func_array を使用してパラメーターを動的にバインド
     $stmt->bind_param($types, ...array_map('intval', $ids));
     if ($stmt->execute()) {
         $message = "✅ 削除申請を送信しました（Shounin_umu = 4 に更新されました）。";
@@ -52,30 +53,29 @@ $result = $mysqli->query("SELECT dish_id, dish_name, dish_category, calories FRO
 
     <?php if ($result->num_rows > 0): ?>
       <form method="post">
-        <table>
-          <thead>
-            <tr>
-              <th>申請</th>
-              <th>ID</th>
-              <th>料理名</th>
-              <th>カテゴリ</th>
-              <th>カロリー</th>
-            </tr>
-          </thead>
-          <tbody>
-            <?php while ($row = $result->fetch_assoc()): ?>
+        <div class="scrollable-table-container"> <table>
+            <thead>
               <tr>
-                <td><input type="checkbox" name="request_ids[]" value="<?php echo $row["dish_id"]; ?>"></td>
-                <td><?php echo $row["dish_id"]; ?></td>
-                <td><?php echo htmlspecialchars($row["dish_name"]); ?></td>
-                <td><?php echo htmlspecialchars($row["dish_category"]); ?></td>
-                <td><?php echo $row["calories"]; ?> kcal</td>
+                <th>申請</th>
+                <th>ID</th>
+                <th>料理名</th>
+                <th>カテゴリ</th>
+                <th>カロリー</th>
               </tr>
-            <?php endwhile; ?>
-          </tbody>
-        </table>
-
-        <button type="submit">選択したメニューを削除申請する</button>
+            </thead>
+            <tbody>
+              <?php while ($row = $result->fetch_assoc()): ?>
+                <tr>
+                  <td><input type="checkbox" name="request_ids[]" value="<?php echo $row["dish_id"]; ?>"></td>
+                  <td><?php echo $row["dish_id"]; ?></td>
+                  <td><?php echo htmlspecialchars($row["dish_name"]); ?></td>
+                  <td><?php echo htmlspecialchars($row["dish_category"]); ?></td>
+                  <td><?php echo $row["calories"]; ?> kcal</td>
+                </tr>
+              <?php endwhile; ?>
+            </tbody>
+          </table>
+        </div> <button type="submit">選択したメニューを削除申請する</button>
       </form>
     <?php else: ?>
       <p>現在、削除申請可能な（Shounin_umu = 1）メニューはありません。</p>

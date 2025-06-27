@@ -170,46 +170,46 @@
         <div class="section">
             <h3>承認済みメニューの編集・削除申請 (Shounin_umu = 1)</h3>
             <?php if ($dishes_query->num_rows > 0): ?>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>ID</th>
-                            <th>料理名</th>
-                            <th>カロリー</th>
-                            <th>カテゴリ</th>
-                            <th>URL</th>
-                            <th>操作</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php while ($row = $dishes_query->fetch_assoc()): ?>
+                <div class="scrollable-table-container"> <table>
+                        <thead>
                             <tr>
-                                <td><?php echo $row['dish_id']; ?></td>
-                                <td>
-                                    <form method="post" style="display:inline-block;">
-                                        <input type="hidden" name="dish_id" value="<?php echo $row['dish_id']; ?>">
-                                        <input type="text" name="dish_name" value="<?php echo htmlspecialchars($row['dish_name']); ?>" required style="width: 120px;">
-                                </td>
-                                <td><input type="number" name="calories" value="<?php echo $row['calories']; ?>" required style="width: 60px;"> kcal</td>
-                                <td>
-                                    <select name="dish_category" required style="width: 100px;">
-                                        <option value="和食" <?php if ($row['dish_category'] == '和食') echo 'selected'; ?>>和食</option>
-                                        <option value="洋食" <?php if ($row['dish_category'] == '洋食') echo 'selected'; ?>>洋食</option>
-                                        <option value="中華" <?php if ($row['dish_category'] == '中華') echo 'selected'; ?>>中華</option>
-                                        <option value="デザート" <?php if ($row['dish_category'] == 'デザート') echo 'selected'; ?>>デザート</option>
-                                        <option value="その他" <?php if ($row['dish_category'] == 'その他') echo 'selected'; ?>>その他</option>
-                                    </select>
-                                </td>
-                                <td><input type="url" name="menu_url" value="<?php echo htmlspecialchars($row['menu_url']); ?>" required style="width: 120px;"></td>
-                                <td>
-                                        <button type="submit" name="update_dish" class="update-btn">更新申請</button>
-                                    </form>
-                                </td>
+                                <th>ID</th>
+                                <th>料理名</th>
+                                <th>カロリー</th>
+                                <th>カテゴリ</th>
+                                <th>URL</th>
+                                <th>操作</th>
                             </tr>
-                        <?php endwhile; ?>
-                    </tbody>
-                </table>
-            <?php else: ?>
+                        </thead>
+                        <tbody>
+                            <?php while ($row = $dishes_query->fetch_assoc()): ?>
+                                <tr>
+                                    <td><?php echo $row['dish_id']; ?></td>
+                                    <td>
+                                        <form method="post" style="display:inline-block;">
+                                            <input type="hidden" name="dish_id" value="<?php echo $row['dish_id']; ?>">
+                                            <input type="text" name="dish_name" value="<?php echo htmlspecialchars($row['dish_name']); ?>" required style="width: 120px;">
+                                    </td>
+                                    <td><input type="number" name="calories" value="<?php echo $row['calories']; ?>" required style="width: 60px;"> kcal</td>
+                                    <td>
+                                        <select name="dish_category" required style="width: 100px;">
+                                            <option value="和食" <?php if ($row['dish_category'] == '和食') echo 'selected'; ?>>和食</option>
+                                            <option value="洋食" <?php if ($row['dish_category'] == '洋食') echo 'selected'; ?>>洋食</option>
+                                            <option value="中華" <?php if ($row['dish_category'] == '中華') echo 'selected'; ?>>中華</option>
+                                            <option value="デザート" <?php if ($row['dish_category'] == 'デザート') echo 'selected'; ?>>デザート</option>
+                                            <option value="その他" <?php if ($row['dish_category'] == 'その他') echo 'selected'; ?>>その他</option>
+                                        </select>
+                                    </td>
+                                    <td><input type="url" name="menu_url" value="<?php echo htmlspecialchars($row['menu_url']); ?>" required style="width: 120px;"></td>
+                                    <td>
+                                            <button type="submit" name="update_dish" class="update-btn">更新申請</button>
+                                        </form>
+                                    </td>
+                                </tr>
+                            <?php endwhile; ?>
+                        </tbody>
+                    </table>
+                </div> <?php else: ?>
                 <p>現在、承認済みのメニューはありません。</p>
             <?php endif; ?>
         </div>
@@ -257,25 +257,25 @@
             ");
 
             if ($dish_ingredients_query_for_delete->num_rows > 0): ?>
-                <ul>
-                    <?php while ($row = $dish_ingredients_query_for_delete->fetch_assoc()): ?>
-                            <li class="dish-ingredient-item <?php echo ($row['Shounin_umu'] == 6 ? 'status-6' : ''); ?>">
-                                <span><?php echo htmlspecialchars($row['dish_name']) . " - " . htmlspecialchars($row['ingredient_name']); ?></span>
-                                <span style="margin-left: 10px; min-width: 120px;">
-                                    承認状態: <?php
-                                    if ($row['Shounin_umu'] == 1) echo "承認済み (1)";
-                                    else if ($row['Shounin_umu'] == 6) echo "変更申請中 (6)";
-                                    else echo "不明";
-                                    ?>
-                                </span>
-                                <form method="post">
-                                    <input type="hidden" name="dish_ingredient_id" value="<?php echo $row['dish_ingredient_id']; ?>">
-                                    <button type="submit" name="remove_dish_ingredient" onclick="return confirm('この関連付けの削除を申請しますか？管理者の承認後に削除されます。');" class="reject-btn">削除申請</button>
-                                </form>
-                            </li>
-                        <?php endwhile; ?>
-                    </ul>
-                <?php else: ?>
+                <div class="scrollable-list-container"> <ul class="dish-ingredient-list">
+                        <?php while ($row = $dish_ingredients_query_for_delete->fetch_assoc()): ?>
+                                <li class="dish-ingredient-item <?php echo ($row['Shounin_umu'] == 6 ? 'status-6' : ''); ?>">
+                                    <span><?php echo htmlspecialchars($row['dish_name']) . " - " . htmlspecialchars($row['ingredient_name']); ?></span>
+                                    <span style="margin-left: 10px; min-width: 120px;">
+                                        承認状態: <?php
+                                        if ($row['Shounin_umu'] == 1) echo "承認済み (1)";
+                                        else if ($row['Shounin_umu'] == 6) echo "変更申請中 (6)";
+                                        else echo "不明";
+                                        ?>
+                                    </span>
+                                    <form method="post">
+                                        <input type="hidden" name="dish_ingredient_id" value="<?php echo $row['dish_ingredient_id']; ?>">
+                                        <button type="submit" name="remove_dish_ingredient" onclick="return confirm('この関連付けの削除を申請しますか？管理者の承認後に削除されます。');" class="reject-btn">削除申請</button>
+                                    </form>
+                                </li>
+                            <?php endwhile; ?>
+                        </ul>
+                    </div> <?php else: ?>
                     <p>料理と材料の関連付けがありません。</p>
                 <?php endif; ?>
             </div>
