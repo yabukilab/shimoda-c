@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2025-06-27 09:16:31
+-- 生成日時: 2025-06-28 16:15:49
 -- サーバのバージョン： 10.4.32-MariaDB
 -- PHP のバージョン: 8.2.12
 
@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 -- テーブルの構造 `dishes`
 --
 
-DROP TABLE IF EXISTS `dishes`;
 CREATE TABLE `dishes` (
   `dish_id` int(11) NOT NULL,
   `dish_name` varchar(255) NOT NULL,
@@ -56,7 +55,8 @@ INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`, `dish_category`, `menu
 (15, 'ビビンバ丼', 800, 'その他', 'http://localhost/shimoda-c/htdocs/add_menu.php', 3),
 (16, '唐揚げ', 800, '和食', 'http://localhost/shimoda-c/htdocs/add_menu.php', 3),
 (17, 'とり天', 800, '和食', 'http://localhost/shimoda-c/htdocs/add_menu.php', 3),
-(18, 'ドーナツ', 200, '洋食', 'http://localhost/shimoda-c/htdocs/add_menu.php', 3);
+(18, 'ドーナツ', 200, '洋食', 'http://localhost/shimoda-c/htdocs/add_menu.php', 3),
+(19, 'テストメニュー', 100, '和食', 'https://example.com', 3);
 
 -- --------------------------------------------------------
 
@@ -64,19 +64,18 @@ INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`, `dish_category`, `menu
 -- テーブルの構造 `dish_ingredients`
 --
 
-DROP TABLE IF EXISTS `dish_ingredients`;
 CREATE TABLE `dish_ingredients` (
   `dish_ingredient_id` int(11) NOT NULL,
   `dish_id` int(11) NOT NULL,
   `ingredient_id` int(11) NOT NULL,
-  `Shounin_umu` int(1) NOT NULL
+  `himodukeshounin_umu` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- テーブルのデータのダンプ `dish_ingredients`
 --
 
-INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `Shounin_umu`) VALUES
+INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `himodukeshounin_umu`) VALUES
 (1, 1, 1, 1),
 (4, 1, 2, 1),
 (6, 13, 1, 0),
@@ -91,7 +90,6 @@ INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`
 -- テーブルの構造 `infomation`
 --
 
-DROP TABLE IF EXISTS `infomation`;
 CREATE TABLE `infomation` (
   `user_id` varchar(30) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
@@ -111,7 +109,6 @@ INSERT INTO `infomation` (`user_id`, `user_pass`, `user_hanbetu`) VALUES
 -- テーブルの構造 `ingredients`
 --
 
-DROP TABLE IF EXISTS `ingredients`;
 CREATE TABLE `ingredients` (
   `ingredient_id` int(11) NOT NULL,
   `ingredient_name` varchar(255) NOT NULL,
@@ -167,7 +164,7 @@ ALTER TABLE `ingredients`
 -- テーブルの AUTO_INCREMENT `dishes`
 --
 ALTER TABLE `dishes`
-  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- テーブルの AUTO_INCREMENT `dish_ingredients`
