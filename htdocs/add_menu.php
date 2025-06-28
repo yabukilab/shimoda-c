@@ -52,9 +52,9 @@ try {
 
             $stmt = $pdo->prepare("
                 INSERT INTO dishes (dish_name, calories, dish_category, menu_url, shounin_umu)
-                VALUES (?, ?, ?, ?, 3)
+                VALUES (?, ?, ?, ?, ?)
             ");
-            $stmt->execute([$menu_name, $calorie, $category, $url]);
+            $stmt->execute([$menu_name, $calorie, $category, $url,3]);
             $dish_id = $pdo->lastInsertId();
 
             // 中間テーブルに食材登録
