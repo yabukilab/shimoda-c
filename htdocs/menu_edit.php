@@ -112,8 +112,8 @@
             if ($count > 0) {
                 $error_message = "この料理と食材の組み合わせは既に登録されています。";
             } else {
-                // Shounin_umu=2 で登録
-                $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, Shounin_umu) VALUES (?, ?, 2)");
+                // himozukeshounin_umu=2 で登録
+                $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, himozukeshounin_umu) VALUES (?, ?, 2)");
                 $stmt->bind_param("ii", $dish_id, $ingredient_id);
                 if ($stmt->execute()) {
                     $message = "料理と食材の関連付けを追加しました。";
@@ -125,12 +125,12 @@
         }
     }
 
-    // 料理と食材の関連付け削除申請処理 (Shounin_umu=1 から 6 (削除申請中)へ)
+    // 料理と食材の関連付け削除申請処理 (himozukeshounin_umu=1 から 6 (削除申請中)へ)
     if ($_SERVER["REQUEST_METHOD"] === "POST" && isset($_POST['remove_dish_ingredient'])) {
         $dish_ingredient_id = $_POST['dish_ingredient_id'];
 
-        // 承認済み (Shounin_umu = 1) の関連付けを対象に、Shounin_umu を 6 に更新
-        $stmt = $conn->prepare("UPDATE dish_ingredients SET Shounin_umu = 6 WHERE dish_ingredient_id = ? AND Shounin_umu = 1");
+        // 承認済み (himozukeshounin_umu = 1) の関連付けを対象に、himozukeshounin_umu を 6 に更新
+        $stmt = $conn->prepare("UPDATE dish_ingredients SET himozukeshounin_umu = 6 WHERE dish_ingredient_id = ? AND himozukeshounin_umu = 1");
         $stmt->bind_param("i", $dish_ingredient_id);
         if ($stmt->execute()) {
             $message = "関連付けの削除申請を送信しました。管理者の承認をお待ちください。";
@@ -146,13 +146,13 @@
     // 食材一覧を取得 (承認済み Shounin_umu = 1)
     $ingredients_query = $conn->query("SELECT ingredient_id, ingredient_name FROM ingredients WHERE Shounin_umu = 1 ORDER BY ingredient_name ASC");
 
-    // 料理と食材の関連付け一覧を取得 (承認済み Shounin_umu = 1 および 変更申請中 Shounin_umu = 6 を含む)
+    // 料理と食材の関連付け一覧を取得 (承認済み himozukeshounin_umu = 1 および 変更申請中 himozukeshounin_umu = 6 を含む)
     $dish_ingredients_query = $conn->query("
-        SELECT di.dish_ingredient_id, d.dish_name, i.ingredient_name, di.Shounin_umu
+        SELECT di.dish_ingredient_id, d.dish_name, i.ingredient_name, di.himozukeshounin_umu
         FROM dish_ingredients di
         JOIN dishes d ON di.dish_id = d.dish_id
         JOIN ingredients i ON di.ingredient_id = i.ingredient_id
-        WHERE di.Shounin_umu IN (1, 6)
+        WHERE di.himozukeshounin_umu IN (1, 6)
         ORDER BY di.dish_id ASC
     ");
     ?>
@@ -244,27 +244,27 @@
                 <button type="submit" name="add_dish_ingredient" class="add-btn">関連付けを追加</button>
             </form>
 
-            <h4>既存の関連付けの削除申請 (Shounin_umu = 1 のみ対象)</h4>
+            <h4>既存の関連付けの削除申請 (himozukeshounin_umu = 1 のみ対象)</h4>
             <?php
             // 料理と食材の関連付け一覧を再取得して最新の状態を表示
             $dish_ingredients_query_for_delete = $conn->query("
-                SELECT di.dish_ingredient_id, d.dish_name, i.ingredient_name, di.Shounin_umu
+                SELECT di.dish_ingredient_id, d.dish_name, i.ingredient_name, di.himozukeshounin_umu
                 FROM dish_ingredients di
                 JOIN dishes d ON di.dish_id = d.dish_id
                 JOIN ingredients i ON di.ingredient_id = i.ingredient_id
-                WHERE di.Shounin_umu IN (1, 6) -- 承認済みと変更申請中を表示
+                WHERE di.himozukeshounin_umu IN (1, 6) -- 承認済みと変更申請中を表示
                 ORDER BY di.dish_id ASC
             ");
 
             if ($dish_ingredients_query_for_delete->num_rows > 0): ?>
                 <div class="scrollable-list-container"> <ul class="dish-ingredient-list">
                         <?php while ($row = $dish_ingredients_query_for_delete->fetch_assoc()): ?>
-                                <li class="dish-ingredient-item <?php echo ($row['Shounin_umu'] == 6 ? 'status-6' : ''); ?>">
+                                <li class="dish-ingredient-item <?php echo ($row['himozukeshounin_umu'] == 6 ? 'status-6' : ''); ?>">
                                     <span><?php echo htmlspecialchars($row['dish_name']) . " - " . htmlspecialchars($row['ingredient_name']); ?></span>
                                     <span style="margin-left: 10px; min-width: 120px;">
                                         承認状態: <?php
-                                        if ($row['Shounin_umu'] == 1) echo "承認済み (1)";
-                                        else if ($row['Shounin_umu'] == 6) echo "変更申請中 (6)";
+                                        if ($row['himozukeshounin_umu'] == 1) echo "承認済み (1)";
+                                        else if ($row['himozukeshounin_umu'] == 6) echo "変更申請中 (6)";
                                         else echo "不明";
                                         ?>
                                     </span>
