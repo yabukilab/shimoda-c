@@ -91,7 +91,7 @@ if (isset($_POST['register'])) {
     <h2>ログイン</h2>
     <form method="POST">
         ユーザID:<br>
-        <input type="text" name="user_id"><br><br>
+        <input type="text" name="user_id" pattern="[A-Za-z0-9]+" inputmode="latin" title="半角英数字で入力してください"><br><br>
         パスワード:<br>
         <input type="password" name="user_pass"><br><br>
         <button type="submit" name="login">ログイン</button>
