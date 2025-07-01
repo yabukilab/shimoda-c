@@ -90,10 +90,10 @@ if (isset($_POST['register'])) {
 <body>
     <h2>ログイン</h2>
     <form method="POST">
-        ユーザID:<br>
-        <input type="text" name="user_id" pattern="[A-Za-z0-9]+" inputmode="latin" title="半角英数字で入力してください"><br><br>
-        パスワード:<br>
-        <input type="password" name="user_pass"><br><br>
+        ユーザID (半角英数):<br>
+        <input type="text" name="user_id" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内でで入力してください"><br><br>
+        パスワード (半角英数):<br>
+        <input type="password" name="user_pass" maxlength="30" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください"><br><br>
         <button type="submit" name="login">ログイン</button>
         <p><font color="red"><?php echo htmlspecialchars($_SESSION['index_err_msg']); ?></font></p><br>
         <button type="submit" name="register">ユーザ登録はこちら</button>
