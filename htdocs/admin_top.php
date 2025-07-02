@@ -21,7 +21,7 @@ $ingredients_add = $conn->query("
     FROM dish_ingredients di
     JOIN ingredients i ON di.ingredient_id = i.ingredient_id
     JOIN dishes d ON di.dish_id = d.dish_id
-    WHERE di.himodukeshounin_umu = 5
+    WHERE di.himozukeshounin_umu = 5
 ");
 
 // 食材削除申請 (himozukeshounin_umu = 6)
@@ -30,7 +30,7 @@ $ingredients_delete = $conn->query("
     FROM dish_ingredients di
     JOIN ingredients i ON di.ingredient_id = i.ingredient_id
     JOIN dishes d ON di.dish_id = d.dish_id
-    WHERE di.himodukeshounin_umu = 6
+    WHERE di.himozukeshounin_umu = 6
 ");
 ?>
 
