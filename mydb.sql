@@ -1,8 +1,20 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
+<<<<<<< HEAD
 -- Host: localhost    Database: mydb
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
+=======
+-- ホスト: 127.0.0.1
+-- 生成日時: 2025-07-02 16:21:41
+-- サーバのバージョン： 10.4.32-MariaDB
+-- PHP のバージョン: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+>>>>>>> 7793dd4633925da33240877710c26631a9f78468
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
