@@ -68,14 +68,14 @@ CREATE TABLE `dish_ingredients` (
   `dish_ingredient_id` int(11) NOT NULL,
   `dish_id` int(11) NOT NULL,
   `ingredient_id` int(11) NOT NULL,
-  `himodukeshounin_umu` int(1) NOT NULL
+  `himozukeshounin_umu` int(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 --
 -- テーブルのデータのダンプ `dish_ingredients`
 --
 
-INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `himodukeshounin_umu`) VALUES
+INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `himozukeshounin_umu`) VALUES
 (1, 1, 1, 1),
 (4, 1, 2, 1),
 (6, 13, 1, 0),
