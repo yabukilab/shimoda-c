@@ -122,14 +122,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
 <body>
     <h2>新規ユーザの登録</h2>
     <form method="POST" action="register.php">
-        ユーザID（半角英数）：<br>
-        <input type="text" name="user_id"><br><br>
+        ユーザID (半角英数):<br>
+        <input type="text" name="user_id" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください"><br><br>
 
         パスワード（半角英数）：<br>
-        <input type="password" name="user_pass1"><br><br>
+        <input type="password" name="user_pass1" maxlength="30" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください"><br><br>
 
         パスワード（再入力）：<br>
-        <input type="password" name="user_pass2"><br><br>
+        <input type="password" name="user_pass2" maxlength="30" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください"><br><br>
 
         <button type="submit" name="register">登録</button><br><br>
 
