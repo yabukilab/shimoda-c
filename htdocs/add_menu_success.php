@@ -28,7 +28,7 @@
 
     <p class="link">
         <a href="add_menu.php">別のメニューを追加する</a><br>
-        <a href="index.php">トップページに戻る</a>
+        <a href="TOP.php">トップページに戻る</a>
     </p>
 </body>
 </html>
