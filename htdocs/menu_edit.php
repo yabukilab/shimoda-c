@@ -147,13 +147,13 @@
     $ingredients_query = $conn->query("SELECT ingredient_id, ingredient_name FROM ingredients WHERE Shounin_umu = 1 ORDER BY ingredient_name ASC");
 
     // 料理と食材の関連付け一覧を取得 (承認済み himozukeshounin_umu = 1 および 変更申請中 himozukeshounin_umu = 6 を含む)
-    $dish_ingredients_query = $conn->query("SELECT dish_ingredient_id, dish_name, ingredient_name, himozukeshounin_umu
-        FROM dish_ingredients 
-        JOIN dishes  ON dish_id = dish_id
-        JOIN ingredients  ON ingredient_id = ingredient_id
-        WHERE himozukeshounin_umu IN (1, 6)
-        ORDER BY dish_id ASC
-    ");
+    $dish_ingredients_query = $conn->query("SELECT dish_ingredients.dish_ingredient_id, dishes.dish_name, ingredients.ingredient_name, dish_ingredients.himozukeshounin_umu
+    FROM dish_ingredients
+    JOIN dishes ON dish_ingredients.dish_id = dishes.dish_id
+    JOIN ingredients ON dish_ingredients.ingredient_id = ingredients.ingredient_id
+    WHERE dishes.Shounin_umu IN (1, 6)
+    ORDER BY dish_ingredients.dish_id ASC
+");
     ?>
 
     <div class="container">
@@ -246,13 +246,13 @@
             <h4>既存の関連付けの削除申請 (himozukeshounin_umu = 1 のみ対象)</h4>
             <?php
             // 料理と食材の関連付け一覧を再取得して最新の状態を表示
-            $dish_ingredients_query_for_delete = $conn->query("SELECT di.dish_ingredient_id, d.dish_name, i.ingredient_name, di.himozukeshounin_umu
-                FROM dish_ingredients di
-                JOIN dishes d ON di.dish_id = d.dish_id
-                JOIN ingredients i ON di.ingredient_id = i.ingredient_id
-                WHERE di.himozukeshounin_umu IN (1, 6) -- 承認済みと変更申請中を表示
-                ORDER BY di.dish_id ASC
-            ");
+            $dish_ingredients_query_for_delete = $conn->query("SELECT dish_ingredients.dish_ingredient_id, dishes.dish_name, ingredients.ingredient_name,  dish_ingredients.himozukeshounin_umu
+    FROM dish_ingredients
+    JOIN dishes ON dish_ingredients.dish_id = dishes.dish_id
+    JOIN ingredients ON dish_ingredients.ingredient_id = ingredients.ingredient_id
+    WHERE dishes.Shounin_umu IN (1, 6) -- 承認済みと変更申請中を表示
+    ORDER BY dish_ingredients.dish_id ASC
+");
 
             if ($dish_ingredients_query_for_delete->num_rows > 0): ?>
                 <div class="scrollable-list-container"> <ul class="dish-ingredient-list">
