@@ -246,7 +246,7 @@
             <h4>既存の関連付けの削除申請 (himozukeshounin_umu = 1 のみ対象)</h4>
             <?php
             // 料理と食材の関連付け一覧を再取得して最新の状態を表示
-            $dish_ingredients_query_for_delete = $conn->query("SELECT dish_ingredients.dish_ingredient_id, dishes.dish_name, ingredients.ingredient_name, dishes.Shounin_umu
+            $dish_ingredients_query_for_delete = $conn->query("SELECT dish_ingredients.dish_ingredient_id, dishes.dish_name, ingredients.ingredient_name,  dish_ingredients.himozukeshounin_umu
     FROM dish_ingredients
     JOIN dishes ON dish_ingredients.dish_id = dishes.dish_id
     JOIN ingredients ON dish_ingredients.ingredient_id = ingredients.ingredient_id
