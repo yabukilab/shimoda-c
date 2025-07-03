@@ -243,7 +243,7 @@
                 <button type="submit" name="add_dish_ingredient" class="add-btn">関連付けを追加</button>
             </form>
 
-            <h4>既存の関連付けの削除申請 (himozukeshounin_umu = 1 のみ対象)</h4>
+            <h4>既存の関連付けの削除申請</h4>
             <?php
             // 料理と食材の関連付け一覧を再取得して最新の状態を表示
             $dish_ingredients_query_for_delete = $conn->query("SELECT dish_ingredients.dish_ingredient_id, dishes.dish_name, ingredients.ingredient_name,  dish_ingredients.himozukeshounin_umu
