@@ -101,26 +101,50 @@
         if (empty($dish_id) || empty($ingredient_id)) {
             $error_message = "料理と食材の両方を選択してください。";
         } else {
-            // 重複チェック
-            $check_stmt = $conn->prepare("SELECT COUNT(*) FROM dish_ingredients WHERE dish_id = ? AND ingredient_id = ?");
-            $check_stmt->bind_param("ii", $dish_id, $ingredient_id);
-            $check_stmt->execute();
-            $check_stmt->bind_result($count);
-            $check_stmt->fetch();
-            $check_stmt->close();
+            // dish_id が dishes テーブルに存在し、Shounin_umu=1 であることを確認
+            $check_dish_stmt = $conn->prepare("SELECT COUNT(*) FROM dishes WHERE dish_id = ? AND Shounin_umu = 1");
+            $check_dish_stmt->bind_param("i", $dish_id);
+            $check_dish_stmt->execute();
+            $check_dish_stmt->bind_result($dish_exists);
+            $check_dish_stmt->fetch();
+            $check_dish_stmt->close();
 
-            if ($count > 0) {
-                $error_message = "この料理と食材の組み合わせは既に登録されています。";
+            if ($dish_exists == 0) {
+                $error_message = "選択された料理は存在しないか、まだ承認されていません。";
             } else {
-                // himozukeshounin_umu=5 で登録
-                $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, himozukeshounin_umu) VALUES (?, ?, 5)");
-                $stmt->bind_param("ii", $dish_id, $ingredient_id);
-                if ($stmt->execute()) {
-                    $message = "料理と食材の関連付けの追加申請を送信しました。管理者の承認をお待ちください。";
+                // ingredient_id が ingredients テーブルに存在し、Shounin_umu=1 であることを確認
+                $check_ingredient_stmt = $conn->prepare("SELECT COUNT(*) FROM ingredients WHERE ingredient_id = ? AND Shounin_umu = 1");
+                $check_ingredient_stmt->bind_param("i", $ingredient_id);
+                $check_ingredient_stmt->execute();
+                $check_ingredient_stmt->bind_result($ingredient_exists);
+                $check_ingredient_stmt->fetch();
+                $check_ingredient_stmt->close();
+
+                if ($ingredient_exists == 0) {
+                    $error_message = "選択された食材は存在しないか、まだ承認されていません。";
                 } else {
-                    $error_message = "関連付けの追加に失敗しました: " . $stmt->error;
+                    // 重複チェック
+                    $check_stmt = $conn->prepare("SELECT COUNT(*) FROM dish_ingredients WHERE dish_id = ? AND ingredient_id = ?");
+                    $check_stmt->bind_param("ii", $dish_id, $ingredient_id);
+                    $check_stmt->execute();
+                    $check_stmt->bind_result($count);
+                    $check_stmt->fetch();
+                    $check_stmt->close();
+
+                    if ($count > 0) {
+                        $error_message = "この料理と食材の組み合わせは既に登録されています。";
+                    } else {
+                        // himozukeshounin_umu=5 で登録
+                        $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, himozukeshounin_umu) VALUES (?, ?, 5)");
+                        $stmt->bind_param("ii", $dish_id, $ingredient_id);
+                        if ($stmt->execute()) {
+                            $message = "料理と食材の関連付けの追加申請を送信しました。管理者の承認をお待ちください。";
+                        } else {
+                            $error_message = "関連付けの追加に失敗しました: " . $stmt->error;
+                        }
+                        $stmt->close();
+                    }
                 }
-                $stmt->close();
             }
         }
     }
