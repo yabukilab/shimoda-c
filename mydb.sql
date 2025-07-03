@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2025-07-03 03:55:58
+-- 生成日時: 2025-07-03 08:30:37
 -- サーバのバージョン： 10.4.32-MariaDB
 -- PHP のバージョン: 8.2.12
 
@@ -27,7 +27,6 @@ SET time_zone = "+00:00";
 -- テーブルの構造 `dishes`
 --
 
-DROP TABLE IF EXISTS `dishes`;
 CREATE TABLE `dishes` (
   `dish_id` int(11) NOT NULL,
   `dish_name` varchar(255) NOT NULL,
@@ -66,7 +65,6 @@ INSERT INTO `dishes` (`dish_id`, `dish_name`, `calories`, `dish_category`, `menu
 -- テーブルの構造 `dish_ingredients`
 --
 
-DROP TABLE IF EXISTS `dish_ingredients`;
 CREATE TABLE `dish_ingredients` (
   `dish_ingredient_id` int(11) NOT NULL,
   `dish_id` int(11) NOT NULL,
@@ -93,7 +91,6 @@ INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`
 -- テーブルの構造 `infomation`
 --
 
-DROP TABLE IF EXISTS `infomation`;
 CREATE TABLE `infomation` (
   `user_id` varchar(30) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
@@ -115,7 +112,6 @@ INSERT INTO `infomation` (`user_id`, `user_pass`, `user_hanbetu`) VALUES
 -- テーブルの構造 `ingredients`
 --
 
-DROP TABLE IF EXISTS `ingredients`;
 CREATE TABLE `ingredients` (
   `ingredient_id` int(11) NOT NULL,
   `ingredient_name` varchar(255) NOT NULL,
@@ -129,7 +125,58 @@ CREATE TABLE `ingredients` (
 INSERT INTO `ingredients` (`ingredient_id`, `ingredient_name`, `shounin_umu`) VALUES
 (1, '玉ねぎ', 1),
 (2, 'ルー', 1),
-(3, '鶏肉', 1);
+(3, '鶏肉', 1),
+(4, 'キャベツ', 1),
+(5, 'トマト', 1),
+(23, 'きゅうり', 1),
+(24, '豚肉', 1),
+(26, '牛肉', 1),
+(27, '牛乳', 1),
+(28, '卵', 1),
+(29, '豆腐', 1),
+(30, '合い挽き肉', 1),
+(31, '人参', 1),
+(32, '大根', 1),
+(33, 'わかめ', 1),
+(34, 'ねぎ', 1),
+(35, 'サツマイモ', 1),
+(36, 'レンコン', 1),
+(37, 'ちくわ', 1),
+(53, 'ベーコン', 1),
+(54, 'ハム', 1),
+(55, '生クリーム', 1),
+(56, 'チーズ', 1),
+(57, 'ニンニク', 1),
+(58, 'チンゲン菜', 1),
+(59, '小松菜', 1),
+(60, 'ほうれん草', 1),
+(61, 'セロリ', 1),
+(62, 'ブロッコリー', 1),
+(63, 'カリフラワー', 1),
+(64, 'ピーマン', 1),
+(65, 'レタス', 1),
+(66, 'パプリカ', 1),
+(67, '貝', 1),
+(68, '油揚げ', 1),
+(74, 'なす', 1),
+(75, 'もやし', 1),
+(76, 'ニラ', 1),
+(77, 'イチゴ', 1),
+(78, '餅', 1),
+(79, 'ぶどう', 1),
+(80, 'バナナ', 1),
+(81, 'りんご', 1),
+(82, 'ナッツ', 1),
+(83, '魚', 1),
+(84, '麵類', 1),
+(85, 'きのこ', 1),
+(86, 'ウインナー', 1),
+(87, 'ツナ', 1),
+(88, 'キムチ', 1),
+(89, '白菜', 1),
+(90, 'チョコレート', 1),
+(91, 'マシュマロ', 1),
+(92, 'クッキー', 1);
 
 --
 -- ダンプしたテーブルのインデックス
@@ -183,7 +230,7 @@ ALTER TABLE `dish_ingredients`
 -- テーブルの AUTO_INCREMENT `ingredients`
 --
 ALTER TABLE `ingredients`
-  MODIFY `ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
 
 --
 -- ダンプしたテーブルの制約
