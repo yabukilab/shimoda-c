@@ -38,7 +38,7 @@
             $error_message = "全ての項目を正しく入力してください。";
         } else {
             $stmt = $conn->prepare("UPDATE dishes SET dish_name = ?, calories = ?, dish_category = ?, menu_url = ?, Shounin_umu = 2 WHERE dish_id = ? AND Shounin_umu = 1");
-            $stmt->bind_param("sisssi", $dish_name, $calories, $dish_category, $menu_url, $dish_id);
+            $stmt->bind_param("sissi", $dish_name, $calories, $dish_category, $menu_url, $dish_id);
             if ($stmt->execute()) {
                 $message = "メニューの更新申請を送信しました。管理者の承認をお待ちください。";
             } else {
