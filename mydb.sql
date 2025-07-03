@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- ホスト: 127.0.0.1
--- 生成日時: 2025-07-03 02:12:44
+-- 生成日時: 2025-07-03 03:55:58
 -- サーバのバージョン： 10.4.32-MariaDB
 -- PHP のバージョン: 8.2.12
 
@@ -79,7 +79,6 @@ CREATE TABLE `dish_ingredients` (
 --
 
 INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `himozukeshounin_umu`) VALUES
-(1, 1, 1, 1),
 (4, 1, 2, 1),
 (6, 13, 1, 0),
 (7, 15, 1, 0),
@@ -107,6 +106,7 @@ CREATE TABLE `infomation` (
 
 INSERT INTO `infomation` (`user_id`, `user_pass`, `user_hanbetu`) VALUES
 ('kami', '$2y$10$EL7qoijSUFQYMp1.1xWoLuQNRQuKhRBuYCEAENuD0QjWFH6xkFPiC', 0),
+('mituhasi', '$2y$10$9TiBhRaFZH9J2.Fh.b/6guMNY6ZlVX08O6j5kFm266HjmI.TmJp9.', 0),
 ('takumi', '$2y$10$yFIaCnZS1.JGjxFjGY7xEuhEfXvIcsofufFndSLQEkZsjAGoC9RkK', 0);
 
 -- --------------------------------------------------------
