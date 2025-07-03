@@ -80,7 +80,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         // パスワードハッシュ化して登録
         $hash_pass = password_hash($pass1, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO infomation (user_id, user_pass) VALUES (:user_id, :user_pass)";
+        $sql = "INSERT INTO infomation (user_id, user_pass, user_hanbetu) VALUES (:user_id, :user_pass, 1)";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':user_pass', $hash_pass);
