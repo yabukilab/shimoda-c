@@ -1,8 +1,20 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
+<<<<<<< HEAD
+-- ホスト: 127.0.0.1
+-- 生成日時: 2025-07-03 08:30:37
+-- サーバのバージョン： 10.4.32-MariaDB
+-- PHP のバージョン: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+=======
 -- Host: localhost    Database: mydb
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
+>>>>>>> 09eb8a7e30437ed2610dc87e8609ecaff3fded96
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -49,9 +61,12 @@ UNLOCK TABLES;
 -- Table structure for table `dishes`
 --
 
+<<<<<<< HEAD
+=======
 DROP TABLE IF EXISTS `dishes`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+>>>>>>> 09eb8a7e30437ed2610dc87e8609ecaff3fded96
 CREATE TABLE `dishes` (
   `dish_id` int(11) NOT NULL AUTO_INCREMENT,
   `dish_name` varchar(255) NOT NULL,
@@ -75,12 +90,44 @@ INSERT INTO `dishes` VALUES (1,'彼のカレー',500,'洋食','bbbbbbb',1),(4,'�
 UNLOCK TABLES;
 
 --
+<<<<<<< HEAD
+-- テーブルの構造 `dish_ingredients`
+--
+
+CREATE TABLE `dish_ingredients` (
+  `dish_ingredient_id` int(11) NOT NULL,
+  `dish_id` int(11) NOT NULL,
+  `ingredient_id` int(11) NOT NULL,
+  `himozukeshounin_umu` int(1) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- テーブルのデータのダンプ `dish_ingredients`
+--
+
+INSERT INTO `dish_ingredients` (`dish_ingredient_id`, `dish_id`, `ingredient_id`, `himozukeshounin_umu`) VALUES
+(4, 1, 2, 1),
+(6, 13, 1, 0),
+(7, 15, 1, 0),
+(8, 16, 3, 0),
+(9, 17, 3, 0),
+(10, 18, 2, 0),
+(11, 20, 3, 0);
+
+-- --------------------------------------------------------
+
+--
+-- テーブルの構造 `infomation`
+--
+
+=======
 -- Table structure for table `infomation`
 --
 
 DROP TABLE IF EXISTS `infomation`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+>>>>>>> 09eb8a7e30437ed2610dc87e8609ecaff3fded96
 CREATE TABLE `infomation` (
   `user_id` varchar(30) NOT NULL,
   `user_pass` varchar(255) NOT NULL,
@@ -103,9 +150,12 @@ UNLOCK TABLES;
 -- Table structure for table `ingredients`
 --
 
+<<<<<<< HEAD
+=======
 DROP TABLE IF EXISTS `ingredients`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
+>>>>>>> 09eb8a7e30437ed2610dc87e8609ecaff3fded96
 CREATE TABLE `ingredients` (
   `ingredient_id` int(11) NOT NULL AUTO_INCREMENT,
   `ingredient_name` varchar(255) NOT NULL,
@@ -119,12 +169,136 @@ CREATE TABLE `ingredients` (
 -- Dumping data for table `ingredients`
 --
 
+<<<<<<< HEAD
+INSERT INTO `ingredients` (`ingredient_id`, `ingredient_name`, `shounin_umu`) VALUES
+(1, '玉ねぎ', 1),
+(2, 'ルー', 1),
+(3, '鶏肉', 1),
+(4, 'キャベツ', 1),
+(5, 'トマト', 1),
+(23, 'きゅうり', 1),
+(24, '豚肉', 1),
+(26, '牛肉', 1),
+(27, '牛乳', 1),
+(28, '卵', 1),
+(29, '豆腐', 1),
+(30, '合い挽き肉', 1),
+(31, '人参', 1),
+(32, '大根', 1),
+(33, 'わかめ', 1),
+(34, 'ねぎ', 1),
+(35, 'サツマイモ', 1),
+(36, 'レンコン', 1),
+(37, 'ちくわ', 1),
+(53, 'ベーコン', 1),
+(54, 'ハム', 1),
+(55, '生クリーム', 1),
+(56, 'チーズ', 1),
+(57, 'ニンニク', 1),
+(58, 'チンゲン菜', 1),
+(59, '小松菜', 1),
+(60, 'ほうれん草', 1),
+(61, 'セロリ', 1),
+(62, 'ブロッコリー', 1),
+(63, 'カリフラワー', 1),
+(64, 'ピーマン', 1),
+(65, 'レタス', 1),
+(66, 'パプリカ', 1),
+(67, '貝', 1),
+(68, '油揚げ', 1),
+(74, 'なす', 1),
+(75, 'もやし', 1),
+(76, 'ニラ', 1),
+(77, 'イチゴ', 1),
+(78, '餅', 1),
+(79, 'ぶどう', 1),
+(80, 'バナナ', 1),
+(81, 'りんご', 1),
+(82, 'ナッツ', 1),
+(83, '魚', 1),
+(84, '麵類', 1),
+(85, 'きのこ', 1),
+(86, 'ウインナー', 1),
+(87, 'ツナ', 1),
+(88, 'キムチ', 1),
+(89, '白菜', 1),
+(90, 'チョコレート', 1),
+(91, 'マシュマロ', 1),
+(92, 'クッキー', 1);
+
+--
+-- ダンプしたテーブルのインデックス
+--
+
+--
+-- テーブルのインデックス `dishes`
+--
+ALTER TABLE `dishes`
+  ADD PRIMARY KEY (`dish_id`),
+  ADD UNIQUE KEY `dish_name` (`dish_name`);
+
+--
+-- テーブルのインデックス `dish_ingredients`
+--
+ALTER TABLE `dish_ingredients`
+  ADD PRIMARY KEY (`dish_ingredient_id`),
+  ADD UNIQUE KEY `dish_id` (`dish_id`,`ingredient_id`),
+  ADD KEY `ingredient_id` (`ingredient_id`);
+
+--
+-- テーブルのインデックス `infomation`
+--
+ALTER TABLE `infomation`
+  ADD PRIMARY KEY (`user_id`);
+
+--
+-- テーブルのインデックス `ingredients`
+--
+ALTER TABLE `ingredients`
+  ADD PRIMARY KEY (`ingredient_id`),
+  ADD UNIQUE KEY `ingredient_name` (`ingredient_name`);
+
+--
+-- ダンプしたテーブルの AUTO_INCREMENT
+--
+
+--
+-- テーブルの AUTO_INCREMENT `dishes`
+--
+ALTER TABLE `dishes`
+  MODIFY `dish_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+
+--
+-- テーブルの AUTO_INCREMENT `dish_ingredients`
+--
+ALTER TABLE `dish_ingredients`
+  MODIFY `dish_ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+
+--
+-- テーブルの AUTO_INCREMENT `ingredients`
+--
+ALTER TABLE `ingredients`
+  MODIFY `ingredient_id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=93;
+
+--
+-- ダンプしたテーブルの制約
+--
+
+--
+-- テーブルの制約 `dish_ingredients`
+--
+ALTER TABLE `dish_ingredients`
+  ADD CONSTRAINT `dish_ingredients_ibfk_1` FOREIGN KEY (`dish_id`) REFERENCES `dishes` (`dish_id`) ON DELETE CASCADE,
+  ADD CONSTRAINT `dish_ingredients_ibfk_2` FOREIGN KEY (`ingredient_id`) REFERENCES `ingredients` (`ingredient_id`) ON DELETE CASCADE;
+COMMIT;
+=======
 LOCK TABLES `ingredients` WRITE;
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
 INSERT INTO `ingredients` VALUES (1,'玉ねぎ',1),(2,'ルー',1),(3,'鶏肉',1),(4,'キャベツ',1),(5,'トマト',1),(23,'きゅうり',1),(24,'豚肉',1),(26,'牛肉',1),(27,'牛乳',1),(28,'卵',1),(29,'豆腐',1),(30,'合い挽き肉',1),(31,'人参',1),(32,'大根',1),(33,'わかめ',1),(34,'ねぎ',1),(35,'サツマイモ',1),(36,'レンコン',1),(37,'ちくわ',1),(53,'ベーコン',1),(54,'ハム',1),(55,'生クリーム',1),(56,'チーズ',1),(57,'ニンニク',1),(58,'チンゲン菜',1),(59,'小松菜',1),(60,'ほうれん草',1),(61,'セロリ',1),(62,'ブロッコリー',1),(63,'カリフラワー',1),(64,'ピーマン',1),(65,'レタス',1),(66,'パプリカ',1),(67,'貝',1),(68,'油揚げ',1),(74,'なす',1),(75,'もやし',1),(76,'ニラ',1),(77,'イチゴ',1),(78,'餅',1),(79,'ぶどう',1),(80,'バナナ',1),(81,'りんご',1),(82,'ナッツ',1),(83,'魚',1),(84,'麵類',1),(85,'きのこ',1),(86,'ウインナー',1),(87,'ツナ',1),(88,'キムチ',1),(89,'白菜',1),(90,'チョコレート',1),(91,'マシュマロ',1),(92,'クッキー',1);
 /*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+>>>>>>> 09eb8a7e30437ed2610dc87e8609ecaff3fded96
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
