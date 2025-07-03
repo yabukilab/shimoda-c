@@ -147,13 +147,13 @@
     $ingredients_query = $conn->query("SELECT ingredient_id, ingredient_name FROM ingredients WHERE Shounin_umu = 1 ORDER BY ingredient_name ASC");
 
     // 料理と食材の関連付け一覧を取得 (承認済み himozukeshounin_umu = 1 および 変更申請中 himozukeshounin_umu = 6 を含む)
-    $dish_ingredients_query = $conn->query("SELECT di.dish_ingredient_id, d.dish_name, i.ingredient_name, di.himozukeshounin_umu
-        FROM dish_ingredients di
-        JOIN dishes d ON di.dish_id = d.dish_id
-        JOIN ingredients i ON di.ingredient_id = i.ingredient_id
-        WHERE di.himozukeshounin_umu IN (1, 6)
-        ORDER BY di.dish_id ASC
-    ");
+    $dish_ingredients_query = $conn->query("SELECT dish_ingredients.dish_ingredient_id, dishes.dish_name, ingredients.ingredient_name, dishes.Shounin_umu
+    FROM dish_ingredients
+    JOIN dishes ON dish_ingredients.dish_id = dishes.dish_id
+    JOIN ingredients ON dish_ingredients.ingredient_id = ingredients.ingredient_id
+    WHERE dishes.Shounin_umu IN (1, 6)
+    ORDER BY dish_ingredients.dish_id ASC
+");
     ?>
 
     <div class="container">
