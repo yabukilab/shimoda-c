@@ -11,7 +11,6 @@ $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 $pdo = null; // $pdo を null で初期化
 
 try {
-    // 修正: $dbName の代わりに $dbPass を渡す
     $pdo = new PDO($dsn, $dbUser, $dbPass);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // エラーモードを例外に設定
 } catch (PDOException $e) {
@@ -20,7 +19,7 @@ try {
 }
 
 // 料理カテゴリの定義（固定リストに変更、中華を除外）
-$dishCategories = ['洋食', '和食', 'デザート', 'その他']; // ここを固定リストに変更
+$dishCategories = ['洋食', '和食', 'デザート', 'その他'];
 
 // 食材の取得
 $ingredients = [];
@@ -38,35 +37,31 @@ $error_message = '';
 if ($_SERVER["REQUEST_METHOD"] === "POST") {
     $selectedCategories = $_POST['dish_category'] ?? [];
     $selectedIngredients = $_POST['ingredients'] ?? [];
-    $maxCalories = (int)$_POST['calories']; // プルダウンからの値も(int)でキャスト
+    $maxCalories = (int)$_POST['calories'];
 
     if (empty($selectedCategories) || empty($selectedIngredients) || $maxCalories <= 0) {
         $error_message = "全ての項目を正しく選択してください。";
     } else {
+        // カテゴリと食材のプレースホルダーを生成
+        $categoryPlaceholders = implode(',', array_fill(0, count($selectedCategories), '?'));
+        $ingredientPlaceholders = implode(',', array_fill(0, count($selectedIngredients), '?'));
+        $numSelectedIngredients = count($selectedIngredients);
+
         // SQLクエリの構築
         $sql = "SELECT d.dish_name, d.calories, d.dish_category, d.menu_url
                 FROM dishes d
-                JOIN dish_ingredients di ON d.dish_id = di.dish_id
-                WHERE d.Shounin_umu = 1 AND d.calories <= ? ";
-
-        // カテゴリの条件を追加
-        $categoryPlaceholders = implode(',', array_fill(0, count($selectedCategories), '?'));
-        $sql .= " AND d.dish_category IN ({$categoryPlaceholders})";
-
-        // 食材の条件を追加 (サブクエリを使用して、選択されたすべての食材を含む料理を検索)
-        // DISTINCT を使用して重複する料理の提案を防ぐ
-        $sql .= "
-            GROUP BY d.dish_id
-            HAVING COUNT(DISTINCT di.ingredient_id) = (
-                SELECT COUNT(*)
-                FROM (SELECT DISTINCT ingredient_id FROM dish_ingredients WHERE dish_id = d.dish_id) AS sub_di
-                WHERE sub_di.ingredient_id IN (" . implode(',', array_fill(0, count($selectedIngredients), '?')) . ")
-            )
-            AND COUNT(DISTINCT di.ingredient_id) = ?
-        ";
-
-        // 実行されるSQLのデバッグ用出力
-        // echo "SQL: " . $sql . "<br>";
+                WHERE d.Shounin_umu = 1
+                  AND d.calories <= ?
+                  AND d.dish_category IN ({$categoryPlaceholders})
+                  AND d.dish_id IN (
+                    SELECT di_sub.dish_id
+                    FROM dish_ingredients di_sub
+                    WHERE di_sub.ingredient_id IN ({$ingredientPlaceholders})
+                    GROUP BY di_sub.dish_id
+                    HAVING COUNT(DISTINCT di_sub.ingredient_id) = ?
+                  )
+                ORDER BY RAND()
+                LIMIT 1;";
 
         try {
             $stmt = $pdo->prepare($sql);
@@ -80,20 +75,19 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $stmt->bindValue($paramIndex++, $category, PDO::PARAM_STR);
             }
 
-            // 食材をバインド
+            // 食材をバインド (サブクエリのIN句用)
             foreach ($selectedIngredients as $ingredient_id) {
                 $stmt->bindValue($paramIndex++, $ingredient_id, PDO::PARAM_INT);
             }
-            $stmt->bindValue($paramIndex++, count($selectedIngredients), PDO::PARAM_INT);
+
+            // 食材の数をバインド (サブクエリのHAVING句用)
+            $stmt->bindValue($paramIndex++, $numSelectedIngredients, PDO::PARAM_INT);
 
 
             $stmt->execute();
-            $dishes = $stmt->fetchAll(PDO::FETCH_ASSOC);
+            $suggested_dish = $stmt->fetch(PDO::FETCH_ASSOC); // 1つだけ取得するのでfetch()
 
-            if (!empty($dishes)) {
-                // ランダムに1つの料理を提案
-                $suggested_dish = $dishes[array_rand($dishes)];
-            } else {
+            if (!$suggested_dish) {
                 $error_message = "条件に合うメニューが見つかりませんでした。別の条件でお試しください。";
             }
         } catch (PDOException $e) {
@@ -113,7 +107,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <div class="container">
-        <h1>メニュー提案</h1>
+        <h1>メニューを提案します</h1>
 
         <?php if ($error_message): ?>
             <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
@@ -152,7 +146,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     <option value="">選択してください</option>
                     <?php foreach ($ingredients as $ingredient): ?>
                         <option value="<?= htmlspecialchars($ingredient['ingredient_id']) ?>"
-                            <?php if (isset($_POST['ingredient_id']) && in_array($ingredient['ingredient_id'], $_POST['ingredient_id'])) echo 'selected'; ?>>
+                            <?php if (isset($_POST['ingredients']) && in_array($ingredient['ingredient_id'], $_POST['ingredients'])) echo 'selected'; ?>>
                             <?= htmlspecialchars($ingredient['ingredient_name']) ?>
                         </option>
                     <?php endforeach; ?>
