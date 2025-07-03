@@ -80,10 +80,14 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
         // パスワードハッシュ化して登録
         $hash_pass = password_hash($pass1, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO infomation (user_id, user_pass) VALUES (:user_id, :user_pass)";
+        // 新規登録の場合、user_hanbetu をデフォルト値 (例: 0) に設定
+        $user_hanbetu_value = 0; // ここで値を設定します
+
+        $sql = "INSERT INTO infomation (user_id, user_pass, user_hanbetu) VALUES (:user_id, :user_pass, :user_hanbetu)";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':user_pass', $hash_pass);
+        $sth->bindParam(':user_hanbetu', $user_hanbetu_value);
         $stmt->execute();
 
         // コミット
