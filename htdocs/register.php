@@ -1,4 +1,3 @@
-register.phpデフォルト0
 <?php
 // セッション開始
 session_start();
