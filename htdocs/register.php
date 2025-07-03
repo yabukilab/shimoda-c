@@ -28,35 +28,30 @@ try {
     // 現在のデータベース名＆ホスト名確認
     $db_now = $db->query("SELECT DATABASE()")->fetchColumn();
     $host_now = $db->query("SELECT @@hostname")->fetchColumn();
-
+    
 } catch (PDOException $e) {
-    // データベース接続に失敗した場合
-    $_SESSION['register_err_msg'] = "データベース接続エラー: " . htmlspecialchars($e->getMessage());
-    $_SESSION['register_msg'] = "";
-    header("Location: register.php");
-    exit();
+    die("データベース接続失敗: " . htmlspecialchars($e->getMessage()));
 }
 
-// 新規ユーザ登録処理
-if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_submit'])) {
+// 登録処理
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    echo '<pre>';
+    var_dump($_POST);
+    echo '</pre>';
+}
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register'])) {
     $user_id = trim($_POST['user_id']);
-    $user_pass1 = trim($_POST['user_pass1']);
-    $user_pass2 = trim($_POST['user_pass2']);
+    $pass1 = $_POST['user_pass1'];
+    $pass2 = $_POST['user_pass2'];
 
-    // 入力チェック
-    if (empty($user_id) || !preg_match('/^[a-zA-Z0-9]+$/', $user_id) || mb_strlen($user_id) > 30) {
-        $_SESSION['register_err_msg'] = "ユーザIDは半角英数30文字以内で入力してください。";
+    if ($user_id === '' || $pass1 === '' || $pass2 === '') {
+        $_SESSION['register_err_msg'] = "全ての項目を入力してください。";
         $_SESSION['register_msg'] = "";
         header("Location: register.php");
         exit();
     }
-    if (empty($user_pass1) || !preg_match('/^[a-zA-Z0-9]+$/', $user_pass1) || mb_strlen($user_pass1) > 30) {
-        $_SESSION['register_err_msg'] = "パスワードは半角英数30文字以内で入力してください。";
-        $_SESSION['register_msg'] = "";
-        header("Location: register.php");
-        exit();
-    }
-    if ($user_pass1 !== $user_pass2) {
+
+    if ($pass1 !== $pass2) {
         $_SESSION['register_err_msg'] = "パスワードが一致しません。";
         $_SESSION['register_msg'] = "";
         header("Location: register.php");
@@ -64,27 +59,31 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_submit'])) {
     }
 
     try {
+        // トランザクション開始
         $db->beginTransaction();
 
-        // user_id の重複チェック
-        $stmt = $db->prepare("SELECT COUNT(*) FROM infomation WHERE user_id = :user_id");
+        // 重複チェック
+        $sql = "SELECT COUNT(*) FROM infomation WHERE user_id = :user_id";
+        $stmt = $db->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);
         $stmt->execute();
-        if ($stmt->fetchColumn() > 0) {
-            $_SESSION['register_err_msg'] = "このユーザIDは既に使用されています。";
+        $count = $stmt->fetchColumn();
+
+        if ($count > 0) {
+            $db->rollBack();
+            $_SESSION['register_err_msg'] = "このIDは既に登録されています。";
             $_SESSION['register_msg'] = "";
             header("Location: register.php");
             exit();
         }
 
-        // パスワードのハッシュ化
-        $hashed_password = password_hash($user_pass1, PASSWORD_DEFAULT);
+        // パスワードハッシュ化して登録
+        $hash_pass = password_hash($pass1, PASSWORD_DEFAULT);
 
-        $sql = "INSERT INTO infomation (user_id, user_pass, user_hanbetu) VALUES (:user_id, :user_pass, :user_hanbetu)";
+        $sql = "INSERT INTO infomation (user_id, user_pass, user_hanbetu) VALUES (:user_id, :user_pass, 0)";
         $stmt = $db->prepare($sql);
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':user_pass', $hash_pass);
-        $stmt->bindParam(':user_hanbetu', $user_hanbetu);
         $stmt->execute();
 
         // コミット
@@ -124,26 +123,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['login'])) {
     <h2>新規ユーザの登録</h2>
     <form method="POST" action="register.php">
         ユーザID (半角英数):<br>
-        <input type="text" name="user_id" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください" required><br><br>
+        <input type="text" name="user_id" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください"><br><br>
 
         パスワード（半角英数）：<br>
-        <input type="password" name="user_pass1" maxlength="30" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください" required><br><br>
+        <input type="password" name="user_pass1" maxlength="30" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください"><br><br>
 
         パスワード（再入力）：<br>
-        <input type="password" name="user_pass2" maxlength="30" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください" required><br><br>
+        <input type="password" name="user_pass2" maxlength="30" pattern="[A-Za-z0-9]+" inputmode="latin" title="30文字以内で入力してください"><br><br>
 
-        <button type="submit" name="register_submit">登録</button>
-        <button type="submit" name="login">ログイン画面へ戻る</button>
+        <button type="submit" name="register">登録</button><br><br>
+
+        <font color="red"><?php echo htmlspecialchars($_SESSION['register_err_msg']); ?></font><br>
+        <font color="blue"><?php echo htmlspecialchars($_SESSION['register_msg']); ?></font><br><br>
+
+        <button type="submit" name="login">ログイン画面に戻る</button>
     </form>
-
-    <?php if (!empty($_SESSION['register_err_msg'])): ?>
-        <p style="color: red;"><?php echo $_SESSION['register_err_msg']; ?></p>
-    <?php endif; ?>
-
-    <?php if (!empty($_SESSION['register_msg'])): ?>
-        <p style="color: green;"><?php echo $_SESSION['register_msg']; ?></p>
-    <?php endif; ?>
-
 </body>
 </html>
-
