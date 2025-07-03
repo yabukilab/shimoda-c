@@ -80,7 +80,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_submit'])) {
         // パスワードのハッシュ化
         $hashed_password = password_hash($user_pass1, PASSWORD_DEFAULT);
 
-<<<<<<< HEAD
         // user_hanbetu を 0 に設定
         $user_hanbetu = 0;
 
@@ -88,12 +87,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['register_submit'])) {
         $stmt = $db->prepare("INSERT INTO infomation (user_id, user_pass, user_hanbetu) VALUES (:user_id, :user_pass, :user_hanbetu)");
         $stmt->bindParam(':user_id', $user_id);
         $stmt->bindParam(':user_pass', $hashed_password);
-=======
-        $sql = "INSERT INTO infomation (user_id, user_pass, user_hanbetu) VALUES (:user_id, :user_pass, :user_hanbetu)";
-        $stmt = $db->prepare($sql);
-        $stmt->bindParam(':user_id', $user_id);
-        $stmt->bindParam(':user_pass', $hash_pass);
->>>>>>> a4ed256fb31f0295db6a41f54c3ee9809af33e2b
         $stmt->bindParam(':user_hanbetu', $user_hanbetu);
         $stmt->execute();
 
