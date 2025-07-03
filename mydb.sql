@@ -1,20 +1,8 @@
 -- MariaDB dump 10.19  Distrib 10.4.32-MariaDB, for Win64 (AMD64)
 --
-<<<<<<< HEAD
 -- Host: localhost    Database: mydb
 -- ------------------------------------------------------
 -- Server version	10.4.32-MariaDB
-=======
--- ホスト: 127.0.0.1
--- 生成日時: 2025-07-02 16:21:41
--- サーバのバージョン： 10.4.32-MariaDB
--- PHP のバージョン: 8.2.12
-
-SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-START TRANSACTION;
-SET time_zone = "+00:00";
-
->>>>>>> 7793dd4633925da33240877710c26631a9f78468
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -53,7 +41,7 @@ CREATE TABLE `dish_ingredients` (
 
 LOCK TABLES `dish_ingredients` WRITE;
 /*!40000 ALTER TABLE `dish_ingredients` DISABLE KEYS */;
-INSERT INTO `dish_ingredients` VALUES (1,1,1,1),(4,1,2,1),(6,13,1,0),(7,15,1,0),(8,16,3,0),(9,17,3,0),(10,18,2,0),(11,20,3,0);
+INSERT INTO `dish_ingredients` VALUES (4,1,2,1),(6,13,1,0),(7,15,1,0),(8,16,3,0),(9,17,3,0),(10,18,2,0),(11,20,3,0);
 /*!40000 ALTER TABLE `dish_ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -107,7 +95,7 @@ CREATE TABLE `infomation` (
 
 LOCK TABLES `infomation` WRITE;
 /*!40000 ALTER TABLE `infomation` DISABLE KEYS */;
-INSERT INTO `infomation` VALUES ('kami','$2y$10$EL7qoijSUFQYMp1.1xWoLuQNRQuKhRBuYCEAENuD0QjWFH6xkFPiC',1),('takumi','$2y$10$yFIaCnZS1.JGjxFjGY7xEuhEfXvIcsofufFndSLQEkZsjAGoC9RkK',0),('tuki','$2y$10$CbkU2yLy9uMEJ7KLjWn0Pu3jqx2HS4rFN6vGVdbEWMvV4gWBpeRtG',1);
+INSERT INTO `infomation` VALUES ('kami','$2y$10$EL7qoijSUFQYMp1.1xWoLuQNRQuKhRBuYCEAENuD0QjWFH6xkFPiC',0),('mituhasi','$2y$10$9TiBhRaFZH9J2.Fh.b/6guMNY6ZlVX08O6j5kFm266HjmI.TmJp9.',0),('takumi','$2y$10$yFIaCnZS1.JGjxFjGY7xEuhEfXvIcsofufFndSLQEkZsjAGoC9RkK',0);
 /*!40000 ALTER TABLE `infomation` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -124,7 +112,7 @@ CREATE TABLE `ingredients` (
   `shounin_umu` int(1) NOT NULL,
   PRIMARY KEY (`ingredient_id`),
   UNIQUE KEY `ingredient_name` (`ingredient_name`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=93 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -133,7 +121,7 @@ CREATE TABLE `ingredients` (
 
 LOCK TABLES `ingredients` WRITE;
 /*!40000 ALTER TABLE `ingredients` DISABLE KEYS */;
-INSERT INTO `ingredients` VALUES (1,'玉ねぎ',1),(2,'ルー',1),(3,'鶏肉',1);
+INSERT INTO `ingredients` VALUES (1,'玉ねぎ',1),(2,'ルー',1),(3,'鶏肉',1),(4,'キャベツ',1),(5,'トマト',1),(23,'きゅうり',1),(24,'豚肉',1),(26,'牛肉',1),(27,'牛乳',1),(28,'卵',1),(29,'豆腐',1),(30,'合い挽き肉',1),(31,'人参',1),(32,'大根',1),(33,'わかめ',1),(34,'ねぎ',1),(35,'サツマイモ',1),(36,'レンコン',1),(37,'ちくわ',1),(53,'ベーコン',1),(54,'ハム',1),(55,'生クリーム',1),(56,'チーズ',1),(57,'ニンニク',1),(58,'チンゲン菜',1),(59,'小松菜',1),(60,'ほうれん草',1),(61,'セロリ',1),(62,'ブロッコリー',1),(63,'カリフラワー',1),(64,'ピーマン',1),(65,'レタス',1),(66,'パプリカ',1),(67,'貝',1),(68,'油揚げ',1),(74,'なす',1),(75,'もやし',1),(76,'ニラ',1),(77,'イチゴ',1),(78,'餅',1),(79,'ぶどう',1),(80,'バナナ',1),(81,'りんご',1),(82,'ナッツ',1),(83,'魚',1),(84,'麵類',1),(85,'きのこ',1),(86,'ウインナー',1),(87,'ツナ',1),(88,'キムチ',1),(89,'白菜',1),(90,'チョコレート',1),(91,'マシュマロ',1),(92,'クッキー',1);
 /*!40000 ALTER TABLE `ingredients` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -146,4 +134,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2025-07-03  0:15:15
+-- Dump completed on 2025-07-03 15:39:03
