@@ -1,5 +1,11 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "mydb");
+// データベース接続情報
+$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+$dbUser   = isset($_SERVER['MYSQL_USER'])   ? $_SERVER['MYSQL_USER']     : 'testuser';
+$dbPass   = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
+$dbName   = isset($_SERVER['MYSQL_DB'])     ? $_SERVER['MYSQL_DB']       : 'mydb';
+
+$conn = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
 $conn->set_charset("utf8");
 
 if ($conn->connect_error) {
@@ -37,7 +43,7 @@ if (!empty($_POST['approve_ids_add'])) {
     $approved = true;
 }
 
-// 削除承認（dishes → 削除）
+// 削除承認（dishes）
 if (!empty($_POST['approve_ids_delete'])) {
     foreach ($_POST['approve_ids_delete'] as $dish_id) {
         $stmt = $conn->prepare("DELETE FROM dishes WHERE dish_id = ?");
@@ -78,20 +84,26 @@ $conn->close();
 <head>
     <meta charset="UTF-8">
     <title>承認完了</title>
-    <link rel="stylesheet" href="system.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <h1 class="title">承認完了</h1>
-        <div class="content">
+        <h1 class="
+<?php if ($approved): ?>
+            success
+<?php else: ?>
+            error
+<?php endif; ?>
+">
             <?php if ($approved): ?>
-                <p>選択された項目の承認が完了しました。</p>
+                承認が完了しました。
             <?php else: ?>
-                <p>何も選択されていません。</p>
+                承認する項目がありませんでした。
             <?php endif; ?>
-            <a class="button" href="admin_top.php">管理者TOPに戻る</a>
-        </div>
+        </h1>
+        <p>
+            <a href="admin_top.php">管理者TOPへ戻る</a>
+        </p>
     </div>
 </body>
-<link rel="stylesheet" href="style.css">
 </html>
