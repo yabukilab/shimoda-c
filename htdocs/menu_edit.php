@@ -167,7 +167,7 @@
         <?php endif; ?>
 
         <div class="section">
-            <h3>承認済みメニューの編集・削除申請 (Shounin_umu = 1)</h3>
+            <h3>承認済みメニューの編集・削除申請</h3>
             <?php if ($dishes_query->num_rows > 0): ?>
                 <div class="scrollable-table-container"> <table>
                         <thead>
