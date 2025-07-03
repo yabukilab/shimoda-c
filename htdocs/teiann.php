@@ -113,7 +113,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <div class="container">
-        <h1>メニューを提案します</h1>
+        <h1>メニュー提案</h1>
 
         <?php if ($error_message): ?>
             <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
