@@ -102,7 +102,7 @@ $conn->close();
             <?php endif; ?>
         </h1>
         <p>
-            <a href="admin_top.php">管理者TOPへ戻る</a>
+            <a href="admin_top.php">承認画面へ戻る</a>
         </p>
     </div>
 </body>
