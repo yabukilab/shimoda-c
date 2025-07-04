@@ -124,4 +124,5 @@ $ingredients_delete = $conn->query("
         <input type="submit" value="TOPに戻る">
     </form>
 </body>
+<link rel="stylesheet" href="style.css">
 </html>
