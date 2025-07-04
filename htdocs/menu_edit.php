@@ -259,13 +259,6 @@
                         <?php while ($row = $dish_ingredients_query_for_delete->fetch_assoc()): ?>
                                 <li class="dish-ingredient-item <?php echo ($row['himozukeshounin_umu'] == 6 ? 'status-6' : ''); ?>">
                                     <span><?php echo htmlspecialchars($row['dish_name']) . " - " . htmlspecialchars($row['ingredient_name']); ?></span>
-                                    <span style="margin-left: 10px; min-width: 120px;">
-                                        承認状態: <?php
-                                        if ($row['himozukeshounin_umu'] == 1) echo "承認済み (1)";
-                                        else if ($row['himozukeshounin_umu'] == 6) echo "変更申請中 (6)";
-                                        else echo "不明";
-                                        ?>
-                                    </span>
                                     <form method="post">
                                         <input type="hidden" name="dish_ingredient_id" value="<?php echo $row['dish_ingredient_id']; ?>">
                                         <button type="submit" name="remove_dish_ingredient" onclick="return confirm('この関連付けの削除を申請しますか？管理者の承認後に削除されます。');" class="reject-btn">削除申請</button>
