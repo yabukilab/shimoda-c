@@ -5,7 +5,7 @@ session_start(); // エラーメッセージに $_SESSION を使用するため�
 $dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
 $dbUser = isset($_SERVER['MYSQL_USER'])     ? $_SERVER['MYSQL_USER']     : 'testuser';
 $dbPass = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
-$dbName = isset($_SERVER['MYSQL_DB'])       ? $_SERVER['MYSQL_DB']       : 'mydb';
+$dbName = isset($_SERVER['MYSQL_DB'])       ? $_ENV['MYSQL_DB']       : 'mydb';
 
 $dsn = "mysql:host={$dbServer};dbname={$dbName};charset=utf8";
 $pdo = null; // $pdo を null で初期化
@@ -45,21 +45,18 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         // カテゴリと食材のプレースホルダーを生成
         $categoryPlaceholders = implode(',', array_fill(0, count($selectedCategories), '?'));
         $ingredientPlaceholders = implode(',', array_fill(0, count($selectedIngredients), '?'));
-        $numSelectedIngredients = count($selectedIngredients);
 
         // SQLクエリの構築
+        // 選択されたカロリー以下で、選択されたメニューの系統と
+        // 使用食材が1つでも一致するメニューの中からランダムで1つ提案する
         $sql = "SELECT d.dish_name, d.calories, d.dish_category, d.menu_url
                 FROM dishes d
+                JOIN dish_ingredients di ON d.dish_id = di.dish_id
                 WHERE d.Shounin_umu = 1
                   AND d.calories <= ?
                   AND d.dish_category IN ({$categoryPlaceholders})
-                  AND d.dish_id IN (
-                    SELECT di_sub.dish_id
-                    FROM dish_ingredients di_sub
-                    WHERE di_sub.ingredient_id IN ({$ingredientPlaceholders})
-                    GROUP BY di_sub.dish_id
-                    HAVING COUNT(DISTINCT di_sub.ingredient_id) = ?
-                  )
+                  AND di.ingredient_id IN ({$ingredientPlaceholders})
+                GROUP BY d.dish_id
                 ORDER BY RAND()
                 LIMIT 1;";
 
@@ -75,14 +72,10 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                 $stmt->bindValue($paramIndex++, $category, PDO::PARAM_STR);
             }
 
-            // 食材をバインド (サブクエリのIN句用)
+            // 食材をバインド
             foreach ($selectedIngredients as $ingredient_id) {
                 $stmt->bindValue($paramIndex++, $ingredient_id, PDO::PARAM_INT);
             }
-
-            // 食材の数をバインド (サブクエリのHAVING句用)
-            $stmt->bindValue($paramIndex++, $numSelectedIngredients, PDO::PARAM_INT);
-
 
             $stmt->execute();
             $suggested_dish = $stmt->fetch(PDO::FETCH_ASSOC); // 1つだけ取得するのでfetch()
@@ -107,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
 </head>
 <body>
     <div class="container">
-        <h1>メニュー提案</h1>
+        <h1>メニューを提案します</h1>
 
         <?php if ($error_message): ?>
             <p style="color: red;"><?php echo htmlspecialchars($error_message); ?></p>
