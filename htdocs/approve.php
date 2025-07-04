@@ -57,7 +57,7 @@ if (!empty($_POST['approve_ids_delete'])) {
 // 食材追加承認（dish_ingredients: himozukeshounin_umu = 5 → 1）
 if (!empty($_POST['approve_ingredients_add'])) {
     foreach ($_POST['approve_ingredients_add'] as $id) {
-        $stmt = $conn->prepare("UPDATE dish_ingredients SET himodukeshounin_umu = 1 WHERE dish_ingredient_id = ?");
+        $stmt = $conn->prepare("UPDATE dish_ingredients SET himozukeshounin_umu = 1 WHERE dish_ingredient_id = ?");
         $stmt->bind_param("i", $id);
         $stmt->execute();
         $stmt->close();
