@@ -10,7 +10,7 @@
     <div class="container">
         <h2>ログインに成功しました</h2>
         <div class="button-group">
-            <a href="admin_top.php">管理者TOP画面</a>
+            <a href="admin_top.php">承認画面</a>
         </div>
     </div>
 </body>
