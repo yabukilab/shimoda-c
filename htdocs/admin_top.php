@@ -6,22 +6,17 @@ $dbPass   = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pa
 $dbName   = isset($_SERVER['MYSQL_DB'])     ? $_SERVER['MYSQL_DB']       : 'mydb';
 
 $conn = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
-$conn->set_charset("utf8"); // または "utf8mb4" (データベースの文字コードによる)
+$conn->set_charset("utf8");
 
 if ($conn->connect_error) {
     die("接続失敗: " . $conn->connect_error);
 }
 
-// 編集申請 (Shounin_umu = 2)
+// 各承認待ちデータ取得
 $edit = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 2");
-
-// 追加申請 (Shounin_umu = 3)
 $add = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 3");
-
-// 削除申請 (Shounin_umu = 4)
 $delete = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 4");
 
-// 食材追加申請 (himozukeshounin_umu = 5)
 $ingredients_add = $conn->query("
     SELECT di.dish_ingredient_id, i.ingredient_name, d.dish_name 
     FROM dish_ingredients di
@@ -30,7 +25,6 @@ $ingredients_add = $conn->query("
     WHERE di.himozukeshounin_umu = 5
 ");
 
-// 食材削除申請 (himozukeshounin_umu = 6)
 $ingredients_delete = $conn->query("
     SELECT di.dish_ingredient_id, i.ingredient_name, d.dish_name 
     FROM dish_ingredients di
@@ -44,13 +38,16 @@ $ingredients_delete = $conn->query("
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>承認画面</title>
+    <title>管理者TOP</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>承認画面</h1>
+    <h1>管理者TOP画面</h1>
 
     <form method="post" action="approve.php">
-        <table border="1" style="float: left; margin-right: 20px;">
+
+        <!-- 編集申請 -->
+        <table border="1">
             <caption><strong>【編集】承認待ち</strong></caption>
             <tr><th>選択</th><th>名前</th><th>カロリー</th><th>カテゴリ</th><th>URL</th></tr>
             <?php while ($row = $edit->fetch_assoc()): ?>
@@ -64,7 +61,8 @@ $ingredients_delete = $conn->query("
             <?php endwhile; ?>
         </table>
 
-        <table border="1" style="float: left; margin-right: 20px;">
+        <!-- 追加申請 -->
+        <table border="1">
             <caption><strong>【追加】承認待ち</strong></caption>
             <tr><th>選択</th><th>名前</th><th>カロリー</th><th>カテゴリ</th><th>URL</th></tr>
             <?php while ($row = $add->fetch_assoc()): ?>
@@ -78,7 +76,8 @@ $ingredients_delete = $conn->query("
             <?php endwhile; ?>
         </table>
 
-        <table border="1" style="float: left;">
+        <!-- 削除申請 -->
+        <table border="1">
             <caption><strong>【削除】承認待ち</strong></caption>
             <tr><th>選択</th><th>名前</th><th>カロリー</th><th>カテゴリ</th><th>URL</th></tr>
             <?php while ($row = $delete->fetch_assoc()): ?>
@@ -92,16 +91,8 @@ $ingredients_delete = $conn->query("
             <?php endwhile; ?>
         </table>
 
-        <div style="clear: both; margin-top: 30px;">
-            <input type="submit" value="選択したメニューを承認">
-        </div>
-    </form>
-     <form action="TOP.php" method="get" style="margin-top: 20px;">
-        <input type="submit" value="TOPに戻る">
-    </form>
-
-    <br style="clear: both;"> <form method="post" action="approve.php">
-        <table border="1" style="float: left; margin-right: 20px;">
+        <!-- 食材追加申請 -->
+        <table border="1">
             <caption><strong>【食材追加】承認待ち</strong></caption>
             <tr><th>選択</th><th>料理名</th><th>食材名</th></tr>
             <?php while ($row = $ingredients_add->fetch_assoc()): ?>
@@ -113,7 +104,8 @@ $ingredients_delete = $conn->query("
             <?php endwhile; ?>
         </table>
 
-        <table border="1" style="float: left;">
+        <!-- 食材削除申請 -->
+        <table border="1">
             <caption><strong>【食材削除】承認待ち</strong></caption>
             <tr><th>選択</th><th>料理名</th><th>食材名</th></tr>
             <?php while ($row = $ingredients_delete->fetch_assoc()): ?>
@@ -127,6 +119,9 @@ $ingredients_delete = $conn->query("
 
         <input type="submit" value="選択した項目を承認">
     </form>
+
+    <form action="TOP.php" method="get">
+        <input type="submit" value="TOPに戻る">
+    </form>
 </body>
-<link rel="stylesheet" href="style.css">
 </html>
