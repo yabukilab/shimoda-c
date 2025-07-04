@@ -1,9 +1,9 @@
 <?php
-// データベース接続情報
-$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
-$dbUser   = isset($_SERVER['MYSQL_USER'])   ? $_SERVER['MYSQL_USER']     : 'testuser';
+// DB接続
+$dbServer = isset($_ENV['MYSQL_SERVER']) ? $_ENV['MYSQL_SERVER'] : '127.0.0.1';
+$dbUser   = isset($_SERVER['MYSQL_USER']) ? $_SERVER['MYSQL_USER'] : 'testuser';
 $dbPass   = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
-$dbName   = isset($_SERVER['MYSQL_DB'])     ? $_SERVER['MYSQL_DB']       : 'mydb';
+$dbName   = isset($_SERVER['MYSQL_DB']) ? $_SERVER['MYSQL_DB'] : 'mydb';
 
 $conn = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
 $conn->set_charset("utf8");
@@ -14,16 +14,14 @@ if ($conn->connect_error) {
 
 $approved = false;
 
-// 編集承認（dishes）
+// 編集承認
 if (!empty($_POST['approve_ids_edit'])) {
     foreach ($_POST['approve_ids_edit'] as $dish_id) {
-        // dishes の承認
         $stmt1 = $conn->prepare("UPDATE dishes SET Shounin_umu = 1 WHERE dish_id = ?");
         $stmt1->bind_param("i", $dish_id);
         $stmt1->execute();
         $stmt1->close();
 
-        // 関連する dish_ingredients も承認
         $stmt2 = $conn->prepare("UPDATE dish_ingredients SET himozukeshounin_umu = 1 WHERE dish_id = ?");
         $stmt2->bind_param("i", $dish_id);
         $stmt2->execute();
@@ -32,7 +30,7 @@ if (!empty($_POST['approve_ids_edit'])) {
     $approved = true;
 }
 
-// 追加承認（dishes）
+// 追加承認
 if (!empty($_POST['approve_ids_add'])) {
     foreach ($_POST['approve_ids_add'] as $dish_id) {
         $stmt = $conn->prepare("UPDATE dishes SET Shounin_umu = 1 WHERE dish_id = ?");
@@ -43,7 +41,7 @@ if (!empty($_POST['approve_ids_add'])) {
     $approved = true;
 }
 
-// 削除承認（dishes）
+// 削除承認
 if (!empty($_POST['approve_ids_delete'])) {
     foreach ($_POST['approve_ids_delete'] as $dish_id) {
         $stmt = $conn->prepare("DELETE FROM dishes WHERE dish_id = ?");
@@ -54,7 +52,7 @@ if (!empty($_POST['approve_ids_delete'])) {
     $approved = true;
 }
 
-// 食材追加承認（dish_ingredients: himozukeshounin_umu = 5 → 1）
+// 食材追加承認
 if (!empty($_POST['approve_ingredients_add'])) {
     foreach ($_POST['approve_ingredients_add'] as $id) {
         $stmt = $conn->prepare("UPDATE dish_ingredients SET himozukeshounin_umu = 1 WHERE dish_ingredient_id = ?");
@@ -65,7 +63,7 @@ if (!empty($_POST['approve_ingredients_add'])) {
     $approved = true;
 }
 
-// 食材削除承認（dish_ingredients: 削除）
+// 食材削除承認
 if (!empty($_POST['approve_ingredients_delete'])) {
     foreach ($_POST['approve_ingredients_delete'] as $id) {
         $stmt = $conn->prepare("DELETE FROM dish_ingredients WHERE dish_ingredient_id = ?");
@@ -88,22 +86,10 @@ $conn->close();
 </head>
 <body>
     <div class="container">
-        <h1 class="
-<?php if ($approved): ?>
-            success
-<?php else: ?>
-            error
-<?php endif; ?>
-">
-            <?php if ($approved): ?>
-                承認が完了しました。
-            <?php else: ?>
-                承認する項目がありませんでした。
-            <?php endif; ?>
+        <h1 class="<?php echo $approved ? 'success' : 'error'; ?>">
+            <?php echo $approved ? '承認が完了しました。' : '承認する項目がありませんでした。'; ?>
         </h1>
-        <p>
-            <a href="admin_top.php">承認画面へ戻る</a>
-        </p>
+        <p><a href="admin_top.php">管理者TOPへ戻る</a></p>
     </div>
 </body>
 </html>
