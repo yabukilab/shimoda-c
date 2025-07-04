@@ -44,10 +44,10 @@ $ingredients_delete = $conn->query("
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>管理者TOP</title>
+    <title>承認画面</title>
 </head>
 <body>
-    <h1>管理者TOP画面</h1>
+    <h1>承認画面</h1>
 
     <form method="post" action="approve.php">
         <table border="1" style="float: left; margin-right: 20px;">

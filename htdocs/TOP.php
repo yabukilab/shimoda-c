@@ -55,8 +55,8 @@
         <h2>メニュー管理システム</h2>
         <div class="button-group">
             <a href="add_menu.php">新しいメニューの追加</a>
-            <a href="menu_edit.php">メニュー・食材・関連付けの編集</a>
-            <a href="delete.php">メニューの削除申請</a>
+            <a href="menu_edit.php">メニューの編集</a>
+            <a href="delete.php">メニューの削除</a>
             <a href="teiann.php">メニュー提案</a>
             </div>
     </div>

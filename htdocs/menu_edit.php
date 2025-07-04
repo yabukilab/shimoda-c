@@ -38,7 +38,7 @@
             $error_message = "全ての項目を正しく入力してください。";
         } else {
             $stmt = $conn->prepare("UPDATE dishes SET dish_name = ?, calories = ?, dish_category = ?, menu_url = ?, Shounin_umu = 2 WHERE dish_id = ? AND Shounin_umu = 1");
-            $stmt->bind_param("sisssi", $dish_name, $calories, $dish_category, $menu_url, $dish_id);
+            $stmt->bind_param("sissi", $dish_name, $calories, $dish_category, $menu_url, $dish_id);
             if ($stmt->execute()) {
                 $message = "メニューの更新申請を送信しました。管理者の承認をお待ちください。";
             } else {
@@ -113,7 +113,7 @@
                 $error_message = "この料理と食材の組み合わせは既に登録されています。";
             } else {
                 // himozukeshounin_umu=2 で登録
-                $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, himozukeshounin_umu) VALUES (?, ?, 2)");
+                $stmt = $conn->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, himozukeshounin_umu) VALUES (?, ?, 5)");
                 $stmt->bind_param("ii", $dish_id, $ingredient_id);
                 if ($stmt->execute()) {
                     $message = "料理と食材の関連付けを追加しました。";
@@ -167,7 +167,7 @@
         <?php endif; ?>
 
         <div class="section">
-            <h3>承認済みメニューの編集・削除申請 (Shounin_umu = 1)</h3>
+            <h3>承認済みメニューの編集・削除申請</h3>
             <?php if ($dishes_query->num_rows > 0): ?>
                 <div class="scrollable-table-container"> <table>
                         <thead>
@@ -243,7 +243,7 @@
                 <button type="submit" name="add_dish_ingredient" class="add-btn">関連付けを追加</button>
             </form>
 
-            <h4>既存の関連付けの削除申請 (himozukeshounin_umu = 1 のみ対象)</h4>
+            <h4>既存の関連付けの削除申請</h4>
             <?php
             // 料理と食材の関連付け一覧を再取得して最新の状態を表示
             $dish_ingredients_query_for_delete = $conn->query("SELECT dish_ingredients.dish_ingredient_id, dishes.dish_name, ingredients.ingredient_name,  dish_ingredients.himozukeshounin_umu
@@ -259,13 +259,6 @@
                         <?php while ($row = $dish_ingredients_query_for_delete->fetch_assoc()): ?>
                                 <li class="dish-ingredient-item <?php echo ($row['himozukeshounin_umu'] == 6 ? 'status-6' : ''); ?>">
                                     <span><?php echo htmlspecialchars($row['dish_name']) . " - " . htmlspecialchars($row['ingredient_name']); ?></span>
-                                    <span style="margin-left: 10px; min-width: 120px;">
-                                        承認状態: <?php
-                                        if ($row['himozukeshounin_umu'] == 1) echo "承認済み (1)";
-                                        else if ($row['himozukeshounin_umu'] == 6) echo "変更申請中 (6)";
-                                        else echo "不明";
-                                        ?>
-                                    </span>
                                     <form method="post">
                                         <input type="hidden" name="dish_ingredient_id" value="<?php echo $row['dish_ingredient_id']; ?>">
                                         <button type="submit" name="remove_dish_ingredient" onclick="return confirm('この関連付けの削除を申請しますか？管理者の承認後に削除されます。');" class="reject-btn">削除申請</button>
