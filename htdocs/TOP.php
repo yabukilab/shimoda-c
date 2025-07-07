@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>メニュー管理システム ナビゲーション</title>
+    <title>メニュー提案システム ナビゲーション</title>
     <link rel="stylesheet" href="system.css">
     <style>
         body {
@@ -52,7 +52,7 @@
 </head>
 <body>
     <div class="container">
-        <h2>メニュー管理システム</h2>
+        <h2>メニュー提案システム</h2>
         <div class="button-group">
             <a href="add_menu.php">新しいメニューの追加</a>
             <a href="menu_edit.php">メニューの編集</a>
