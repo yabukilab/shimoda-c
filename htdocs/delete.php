@@ -59,7 +59,7 @@ $result = $mysqli->query("SELECT dish_id, dish_name, dish_category, calories FRO
 </head>
 <body>
   <main class="container">
-    <h1>削除申請ページ（Shounin_umu = 1 のみ表示）</h1>
+    <h1>削除申請ページ</h1>
 
     <?php if (!empty($message)): ?>
       <article class="message success"><strong><?php echo htmlspecialchars($message); ?></strong></article> <?php endif; ?>
@@ -95,7 +95,7 @@ $result = $mysqli->query("SELECT dish_id, dish_name, dish_category, calories FRO
         <button type="submit">選択したメニューを削除申請する</button>
       </form>
     <?php else: ?>
-      <p>現在、削除申請可能な（Shounin_umu = 1）メニューはありません。</p>
+      <p>現在、削除申請可能なメニューはありません。</p>
     <?php endif; ?>
   </main>
     <form action="TOP.php" method="get" style="margin-top: 20px;">

@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ログイン完了ページ</title>
+    <title>管理者TOP画面</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
         <h2>ログインに成功しました</h2>
         <div class="button-group">
-            <a href="admin_top.php">管理者TOP画面</a>
+            <a href="admin_top.php">承認画面</a>
         </div>
     </div>
 </body>
