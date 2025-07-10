@@ -59,7 +59,7 @@ try {
                 // dish_ingredients テーブルへの挿入
                 // 'himozukeshounin_umu' カラムに値も渡すように修正
                 $stmt_di = $pdo->prepare("INSERT INTO dish_ingredients (dish_id, ingredient_id, himozukeshounin_umu) VALUES (?, ?, ?)");
-                $himozukeshounin_umu_value = 6; // 新規関連付けは「変更申請中」として6を設定
+                $himozukeshounin_umu_value = 5; // 新規関連付けは「変更申請中」として6を設定
 
                 foreach ($ingredient_ids as $ingredient_id) {
                     $stmt_di->execute([$dish_id, $ingredient_id, $himozukeshounin_umu_value]);

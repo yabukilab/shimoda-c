@@ -1,21 +1,22 @@
 <?php
-$conn = new mysqli("localhost", "root", "", "mydb");
+// データベース接続情報
+$dbServer = isset($_ENV['MYSQL_SERVER'])    ? $_ENV['MYSQL_SERVER']      : '127.0.0.1';
+$dbUser   = isset($_SERVER['MYSQL_USER'])   ? $_SERVER['MYSQL_USER']     : 'testuser';
+$dbPass   = isset($_SERVER['MYSQL_PASSWORD']) ? $_SERVER['MYSQL_PASSWORD'] : 'pass';
+$dbName   = isset($_SERVER['MYSQL_DB'])     ? $_SERVER['MYSQL_DB']       : 'mydb';
+
+$conn = new mysqli($dbServer, $dbUser, $dbPass, $dbName);
 $conn->set_charset("utf8");
 
 if ($conn->connect_error) {
     die("接続失敗: " . $conn->connect_error);
 }
 
-// 編集申請 (Shounin_umu = 2)
-$edit = $conn->query("SELECT * FROM dishes WHERE Shounin_umu = 2");
+// 各承認待ちデータ取得
+$edit = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 2");
+$add = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 3");
+$delete = $conn->query("SELECT * FROM dishes WHERE `Shounin_umu` = 4");
 
-// 追加申請 (Shounin_umu = 3)
-$add = $conn->query("SELECT * FROM dishes WHERE Shounin_umu = 3");
-
-// 削除申請 (Shounin_umu = 4)
-$delete = $conn->query("SELECT * FROM dishes WHERE Shounin_umu = 4");
-
-// 食材追加申請 (himozukeshounin_umu = 5)
 $ingredients_add = $conn->query("
     SELECT di.dish_ingredient_id, i.ingredient_name, d.dish_name 
     FROM dish_ingredients di
@@ -24,7 +25,6 @@ $ingredients_add = $conn->query("
     WHERE di.himozukeshounin_umu = 5
 ");
 
-// 食材削除申請 (himozukeshounin_umu = 6)
 $ingredients_delete = $conn->query("
     SELECT di.dish_ingredient_id, i.ingredient_name, d.dish_name 
     FROM dish_ingredients di
@@ -39,7 +39,7 @@ $ingredients_delete = $conn->query("
 <head>
     <meta charset="UTF-8">
     <title>管理者TOP</title>
-    <link rel="stylesheet" href="system.css">
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <h1>管理者TOP画面</h1>
@@ -118,6 +118,10 @@ $ingredients_delete = $conn->query("
         </table>
 
         <input type="submit" value="選択した項目を承認">
+    </form>
+
+    <form action="TOP.php" method="get">
+        <input type="submit" value="TOPに戻る">
     </form>
 </body>
 <link rel="stylesheet" href="style.css">
