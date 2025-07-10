@@ -30,7 +30,7 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $stmt->bind_param($types, ...array_map('intval', $ids));
         
         if ($stmt->execute()) {
-            $message = "✅ 削除申請を送信しました（Shounin_umu = 4 に更新されました）。";
+            $message = "✅ 削除申請を送信しました";
         } else {
             $error_message = "❌ 削除申請の送信に失敗しました: " . $stmt->error;
         }
